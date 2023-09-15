@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     overflow:hidden;
     margin: 0;
-    background-color: #181738;
+    background-color: #7A6CCF;
   }
   input {
     border: 0;
