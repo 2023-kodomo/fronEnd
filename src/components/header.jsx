@@ -15,7 +15,9 @@ const Header = ({ page = 0, user }) => {
                     <SearchIcon src="./img/Searchicon.svg" alt="SearchIcon" />
                 </SearchBar>
                 <UserImg src="./img/Yuri.svg" alt="UserImg" />
-                <WelcomeText><span>{userName}</span> 님 안녕하세요</WelcomeText>
+                <WelcomeText>
+                    <span>{userName}</span> 님 안녕하세요
+                </WelcomeText>
             </FlexContainer>
         </Container>
     );
@@ -60,17 +62,21 @@ const InputBar = styled.input`
 const SearchIcon = styled.img`
     width: 32px;
     height: 32px;
-    cursor:pointer;
+    cursor: pointer;
 `;
 const UserImg = styled.img`
+    position: relative;
+    top: 8px;
     width: 32px;
     height: 32px;
     border-radius: 32px;
     border: 1px solid #7a6ccf;
-    cursor:pointer; 
+    cursor: pointer;
 `;
 const WelcomeText = styled.div`
-    color: white;
+    position: relative;
+    top: 8px;
+    color: #7a6ccf; // 임시방편 색깔
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -84,7 +90,7 @@ const WelcomeText = styled.div`
 const Container = styled.div`
     width: 100vw;
     height: 120px;
-    /* background-color: */
+    background-color: #181738;
 `;
 
 export default Header;
