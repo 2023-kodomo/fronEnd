@@ -72,7 +72,8 @@ const StylingLobby = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position-y: bottom;
-  position: relative;
+  position: sticky;
+  top: -386px;
   display: flex;
 `;
 
