@@ -26,9 +26,6 @@ const HeaderLogo = styled.div`
   font-size: 32px;
   font-style: normal;
   font-weight: 400;
-  position: absolute;
-  left: 40px;
-  top: 35px;
   cursor: pointer;
 `;
 
@@ -39,8 +36,6 @@ const FlexContainer = styled.div`
   align-items: center;
   gap: 16px;
   flex: 1 0 0;
-  position: relative;
-  right: 40px;
 `;
 
 const SearchBar = styled.div`
@@ -50,7 +45,6 @@ const SearchBar = styled.div`
   display: flex;
   justify-content: space-evenly;
   border-bottom: 1px solid white;
-  display: inline-block;
 `;
 
 const InputBar = styled.input`
@@ -58,6 +52,7 @@ const InputBar = styled.input`
   background-color: transparent;
   font-family: "Hakgyoansim Wooju";
   color: white;
+  font-size: 16px;
 `;
 const SearchIcon = styled.img`
   width: 32px;
@@ -65,8 +60,6 @@ const SearchIcon = styled.img`
   cursor: pointer;
 `;
 const UserImg = styled.img`
-  position: relative;
-  top: 8px;
   width: 32px;
   height: 32px;
   border-radius: 32px;
@@ -74,8 +67,6 @@ const UserImg = styled.img`
   cursor: pointer;
 `;
 const WelcomeText = styled.div`
-  position: relative;
-  top: 8px;
   color: #7a6ccf; // 임시방편 색깔
   font-family: "Hakgyoansim Wooju";
   font-size: 20px;
@@ -89,11 +80,17 @@ const WelcomeText = styled.div`
 `;
 
 const Container = styled.div`
+  display: flex;
+  padding: 40px;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
   position: absolute;
   width: 100vw;
   height: 120px;
   background-color: #181738;
   z-index: 1;
+  box-sizing: border-box;
 `;
 
 export default Header;
