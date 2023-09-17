@@ -12,7 +12,7 @@ const ProductPost = ({ Product }) => {
   }
   return (
     <Container>
-      <ProductImg src="./img/undefined.svg" />
+      <ProductImg src="productImg" />
       <ProductName>{name}</ProductName>
       <ProductPrice>{price}</ProductPrice>
     </Container>
