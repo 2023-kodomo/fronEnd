@@ -88,6 +88,10 @@ const SmallText = styled.span`
   top: 308px;
   left: 284px;
   font-family: Hakgyoansim Wooju;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `;
 
 const Logo = styled.span`
@@ -102,6 +106,10 @@ const Logo = styled.span`
   top: 276px;
   right: 330px;
   font-family: Hakgyoansim Wooju;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `;
 
 const GrowContainer = styled.div`
