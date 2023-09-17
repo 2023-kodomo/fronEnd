@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     width: 100vw;
     height: 100vh;
-    overflow:hidden;
+    overflow-x: hidden;
     margin: 0;
     background-color: #7A6CCF;
   }
