@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import "../fonts/Font.css";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -7,6 +8,11 @@ const GlobalStyle = createGlobalStyle`
       font-family: Pretendard;
       font-weight: 400;
       src: url(@assets/fonts/Pretendard-Regular.woff) format('font-woff');
+
+      @font-face {
+        font-family: "Hakgyoansim Wooju";
+        src: url("../fonts/HakgyoansimWoojuR.ttf") format('truetype');
+      } 
     }
   }
   body {
