@@ -88,7 +88,7 @@ const SmallText = styled.span`
   position: absolute;
   top: 308px;
   left: 284px;
-  font-family: Hakgyoansim Wooju;
+  font-family: "Hakgyoansim Wooju";
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -106,7 +106,7 @@ const Logo = styled.span`
   position: absolute;
   top: 276px;
   right: 330px;
-  font-family: Hakgyoansim Wooju;
+  font-family: "Hakgyoansim Wooju";
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
