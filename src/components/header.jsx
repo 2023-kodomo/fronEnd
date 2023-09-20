@@ -7,7 +7,7 @@ const Header = ({ page = 0, user }) => {
     let userImg;
     if (user /*!==undefined*/) { // 만약 undefiend가 아닐 경우 실행
         userName = /*user.name*/ "조유리"; //조유리는 임시파일
-        userImg = /*user.image*/ "./img/Yuri.svg"; // Yuri.svg도 임시 파일
+        userImg = /*user.image*/ "./img/Yuri.svg"; // Yuri.svg도 임시 사진
     }
     return (
         <Container>
