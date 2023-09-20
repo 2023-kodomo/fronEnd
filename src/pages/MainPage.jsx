@@ -2,6 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import ProductPost from "../components/product";
 import Header from "../components/header";
+import StylingLobby from "../components/stylingLobby";
 
 const MainPage = () => {
   return (
@@ -64,17 +65,6 @@ const fadeIn = keyframes`
 
 const Container = styled.main`
   width: 100vw;
-`;
-
-const StylingLobby = styled.div`
-  height: 830px;
-  background-image: url("./wave.svg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-y: bottom;
-  position: sticky;
-  top: -386px;
-  display: flex;
 `;
 
 const SmallText = styled.span`

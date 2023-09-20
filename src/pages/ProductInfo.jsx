@@ -1,8 +1,8 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Header from "../components/header";
 import StylingLobby from "../components/stylingLobby";
-import Comment from "../components/cmt";
+import Comment from "../components/comment";
 
 const ProductInfo = () => {
   return (
@@ -10,10 +10,14 @@ const ProductInfo = () => {
       <Header page={0} />
       <StylingLobby></StylingLobby>
       <ContentBox>
-        <BeforeButton></BeforeButton>
-        <Title>학교에서 빼돌린 노트북 팝니다.</Title>
-        <Date>2023.09.01</Date>
-        <Writing>박지민</Writing>
+        <BeforeButton>
+          <img src="./img/Arrow1.svg" />
+        </BeforeButton>
+        <TextGroup>
+          <Title>학교에서 빼돌린 노트북 팝니다.</Title>
+          <Date>2023.09.01</Date>
+          <Writing>박지민</Writing>
+        </TextGroup>
         <Line></Line>
         <ProductImg />
         <ProductInfoContainer>
@@ -32,11 +36,54 @@ const ProductInfo = () => {
   );
 };
 
-const Container = styled.div``;
+const rotate = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
 
-const ContentBox = styled.main``;
+const Container = styled.div`
+  width: 100vw;
+  position: relative;
+`;
 
-const BeforeButton = styled.button``;
+const ContentBox = styled.div`
+  box-sizing: border-box;
+  padding-top: 46px;
+  width: 1000px;
+  min-height: 720px;
+  position: fixed;
+  top: 150px;
+  margin: 0px 460px;
+  background: #181738;
+  box-shadow: 0px 0px 25px 16px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+`;
+
+const BeforeButton = styled.button`
+  background-color: #9a8cf2;
+  border-radius: 27px;
+  width: 38px;
+  height: 38px;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+  box-shadow: 0px 0px 6px;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  &:hover {
+    animation: ${rotate} 1s;
+  }
+`;
+
+const TextGroup = styled.div`
+  color: white;
+`;
 
 const Title = styled.span``;
 
