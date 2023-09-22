@@ -2,12 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 const Header = ({ page = 0, user }) => {
-    user = false; // test
+    user = true; // test
     let userName;
     let userImg;
-    if (user /*!==undefined*/) { // 만약 undefiend가 아닐 경우 실행
+    if (user /*!==undefined*/) {
+        // 만약 undefiend가 아닐 경우 실행
         userName = /*user.name*/ "조유리"; //조유리는 임시파일
-        userImg = /*user.image*/ "./img/Yuri.svg"; // Yuri.svg도 임시 사진
+        userImg = user && user.image ? user.image : "./img/BasicProfile.svg"; // user이랑 user.img가 없을 경우에 BasicProfile를 띄운다.
     }
     return (
         <Container>
@@ -15,7 +16,7 @@ const Header = ({ page = 0, user }) => {
             <FlexContainer>
                 <SearchBar>
                     <InputBar
-                        type="search"
+                        type="text"
                         placeholder="검색할 상품을 입력해 주세요."
                     />
                     <SearchIcon src="./img/Searchicon.svg" alt="SearchIcon" />
@@ -84,6 +85,12 @@ const InputBar = styled.input`
     font-family: "Hakgyoansim Wooju";
     color: white;
     font-size: 16px;
+    &::-ms-clear,
+    &::-ms-reveal {
+        opacity: 0;
+        position: absolute;
+        right: 0;
+    }
 `;
 const SearchIcon = styled.img`
     width: 32px;
@@ -114,18 +121,24 @@ const WelcomeText = styled.div`
     }
     & > span.LoginText {
         color: #7a6ccf;
+        font-family: "Hakgyoansim Wooju";
     }
-    & > .Username{ // 사용자 이름
-        color:#E2DDFF;
+    & > .Username {
+        // 사용자 이름
+        color: #e2ddff;
+        font-family: "Hakgyoansim Wooju";
     }
-    & > .username{ // "님 안녕하세요"부분
-        color:#7a6ccf;
+    & > .username {
+        // "님 안녕하세요"부분
+        color: #7a6ccf;
+        font-family: "Hakgyoansim Wooju";
     }
     & > line {
         text-decoration-line: none;
     }
     & > span.SignUpText {
         color: #e2ddff;
+        font-family: "Hakgyoansim Wooju";
     }
 `;
 

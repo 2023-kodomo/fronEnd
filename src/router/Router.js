@@ -3,6 +3,7 @@ import Header from "../components/header";
 import MainPage from "../pages/MainPage";
 import ProductInfo from "../pages/ProductInfo";
 import WritingPage from "../pages/WritingPage";
+import MyPage from "../pages/MyPage";
 
 const Router = () => {
   return (
@@ -12,6 +13,7 @@ const Router = () => {
         <Route path="/" element={<MainPage />} />
         <Route path="/MoreInfo" element={<ProductInfo />} />
         <Route path="/Posting" element={<WritingPage />} />
+        <Route path="/MyPage" element={<MyPage/>}/>
       </Routes>
     </BrowserRouter>
   );
