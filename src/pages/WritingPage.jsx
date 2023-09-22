@@ -6,7 +6,7 @@ import StylingLobby from "../components/stylingLobby";
 const PostingPage = () => {
   const [image, setImage] = useState(null);
   const [inputValue, setInputValue] = useState("");
-  const [priceFocus, setPriceFocus] = useState(false);
+  const [isPostingCancel, setIsPostingCancel] = useState(false);
   const maxLength = 13;
   const handleImageUpload = () => {
     const fileInput = document.getElementById("fileInput");
@@ -21,11 +21,14 @@ const PostingPage = () => {
       setImage(URL.createObjectURL(selectedImage));
     }
   };
+  const handlePstCancel = () => {
+    setIsPostingCancel(false);
+  };
+  const handlePstCancelCk = () => {
+    setIsPostingCancel(true);
+  };
   const handleCancel = () => {
-    const shouldCancel = window.confirm("글 작성을 취소하시겠습니까?");
-    if (shouldCancel) {
-      window.location.href = "./";
-    }
+    window.location.href = "./";
   };
   const handleChange = (e) => {
     const value = e.target.value;
@@ -69,7 +72,9 @@ const PostingPage = () => {
                   {image && (
                     <ImgDelete onClick={handleImageDelete}>삭제</ImgDelete>
                   )}
-                  <ImgInsert onClick={handleImageUpload}>삽입</ImgInsert>
+                  <ImgInsert type="button" onClick={handleImageUpload}>
+                    삽입
+                  </ImgInsert>
                 </ButtonCase>
               </ImgBox>
               <Ground>
@@ -114,7 +119,7 @@ const PostingPage = () => {
                   </PostingLi>
                 </AlignUl>
                 <ConfirmButtonCase>
-                  <PostingCancel type="button" onClick={handleCancel}>
+                  <PostingCancel type="button" onClick={handlePstCancelCk}>
                     취소
                   </PostingCancel>
                   <PostingConfirm>게시</PostingConfirm>
@@ -123,6 +128,17 @@ const PostingPage = () => {
             </PostingField>
           </PostingForm>
         </PostingFrame>
+        {isPostingCancel && (
+          <CancelBackground onClick={handlePstCancel}>
+            <CancelContent>
+              <CancelTitle>글 작성을 취소하시겠습니까?</CancelTitle>
+              <CancelCheckButton onClick={handleCancel}>확인</CancelCheckButton>
+              <CancelCancelButton onClick={handlePstCancel}>
+                닫기
+              </CancelCancelButton>
+            </CancelContent>
+          </CancelBackground>
+        )}
       </Container>
     </>
   );
@@ -477,6 +493,95 @@ const PostingConfirm = styled.button`
     border: 3px solid #3fca10;
     background-color: #3fca10;
     transform: scale(0.85);
+  }
+`;
+
+const CancelBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+const CancelContent = styled.div`
+  background-color: #eeeeee;
+  width: 330px;
+  height: 100px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  font-family: "Hakgyoansim Wooju";
+`;
+
+const CancelTitle = styled.h2`
+  margin: 5px 5px 20px;
+  color: black;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  font-family: inherit;
+`;
+
+const CancelCheckButton = styled.button`
+  width: 80px;
+  height: 40px;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: 2px solid black;
+  margin-left: 160px;
+  margin-right: 10px;
+  background-color: #f6f6f6;
+  border-radius: 3px;
+  color: black;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  font-family: inherit;
+  transition: border 0.2s ease, background-color 0.2s ease, transform 0.2s ease, color: 0.2s ease;
+  &:hover {
+    border: 3px solid #3fca10;
+    transform: scale(1.1);
+  }
+  &:active {
+    border: 3px solid #3fca10;
+    background-color: #3fca10;
+    transform: scale(0.85);
+    color: white;
+  }
+`;
+
+const CancelCancelButton = styled.button`
+  width: 80px;
+  height: 40px;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: 2px solid black;
+  background-color: #f6f6f6;
+  border-radius: 3px;
+  color: black;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  font-family: inherit;
+  transition: border 0.2s ease, background-color 0.2s ease, transform 0.2s ease, color: 0.2s ease;
+  &:hover {
+    border: 3px solid #ca2810;
+    transform: scale(1.1);
+  }
+  &:active {
+    border: 3px solid #ca2810;
+    background-color: #ca2810;
+    transform: scale(0.85);
+    color: white;
   }
 `;
 
