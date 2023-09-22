@@ -8,7 +8,7 @@ const Header = ({ page = 0, user }) => {
   let userImg;
   if (user /*!==undefined*/) {
     // 만약 undefiend가 아닐 경우 실행
-    userName = /*user.name*/ "조유리"; //조유리는 임시파일
+    userName = /*user.name*/ "남궁윤교"; //조유리는 임시파일
     userImg = user && user.image ? user.image : "./img/BasicProfile.svg"; // user이랑 user.img가 없을 경우에 BasicProfile를 띄운다.
   }
   return (
