@@ -24,6 +24,12 @@ const PostingPage = () => {
       window.location.href = "./";
     }
   };
+  const [inputValue, setInputValue] = useState("");
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const numericValue = value.replace(/[^0-9]/g, "");
+    setInputValue(numericValue);
+  };
   return (
     <>
       <Container>
@@ -62,7 +68,14 @@ const PostingPage = () => {
                 </PostingLi>
                 <PostingLi>
                   <ProductLabel>가격</ProductLabel>
-                  <ProductPrice type="text" required />
+                  <ProductPrice
+                    type="text"
+                    value={inputValue}
+                    onChange={handleChange}
+                    placeholder="',' 없이 숫자로 입력"
+                    required
+                  />
+                  <PrintWon>원</PrintWon>
                 </PostingLi>
                 <PostingLi>
                   <ProductLabel>시간</ProductLabel>
@@ -261,12 +274,13 @@ const ProductName = styled.input`
   font-weight: inherit;
   line-height: inherit;
   font-family: inherit;
-  transition: box-shadow 0.6s;
+  transition: box-shadow 0.6s, border-radius 0.3s ease;
   &:hover {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
   }
   &:focus {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
   }
   &:focus::placeholder {
     color: transparent;
@@ -284,7 +298,7 @@ const ProductExplain = styled.textarea`
   font-weight: inherit;
   line-height: inherit;
   font-family: inherit;
-  transition: box-shadow 0.6s;
+  transition: box-shadow 0.6s, border-radius 0.3s ease;
   resize: none;
   &:hover {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
@@ -292,6 +306,7 @@ const ProductExplain = styled.textarea`
   &:focus {
     outline: none;
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
   }
   &:focus::placeholder {
     color: transparent;
@@ -299,23 +314,38 @@ const ProductExplain = styled.textarea`
 `;
 
 const ProductPrice = styled.input`
-  width: 567px;
+  width: 507px;
   height: 50px;
   background-color: #e2ddff;
   border-style: none;
-  text-align: center;
+  padding-right: 16px;
+  text-align: right;
   font-size: inherit;
   font-style: inherit;
   font-weight: inherit;
   line-height: inherit;
   font-family: inherit;
-  transition: box-shadow 0.6s;
+  transition: box-shadow 0.6s, border-radius 0.3s ease;
   &:hover {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
   }
   &:focus {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
   }
+  &:focus::placeholder {
+    color: transparent;
+  }
+`;
+
+const PrintWon = styled.span`
+  margin-left: 12px;
+  color: #dddddd;
+  font-size: 32px;
+  font-style: inherit;
+  font-weight: 700;
+  line-height: inherit;
+  font-family: inherit;
 `;
 
 const TransactionAppointmentTime = styled.input`
@@ -329,12 +359,13 @@ const TransactionAppointmentTime = styled.input`
   font-weight: inherit;
   line-height: inherit;
   font-family: inherit;
-  transition: box-shadow 0.6s;
+  transition: box-shadow 0.6s, border-radius 0.3s ease;
   &:hover {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
   }
   &:focus {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
   }
 `;
 
@@ -349,12 +380,13 @@ const TradingPlace = styled.input`
   font-weight: inherit;
   line-height: inherit;
   font-family: inherit;
-  transition: box-shadow 0.6s;
+  transition: box-shadow 0.6s, border-radius 0.3s ease;
   &:hover {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
   }
   &:focus {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
   }
 `;
 
