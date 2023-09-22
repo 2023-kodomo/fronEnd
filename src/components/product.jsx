@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const ProductPost = ({ Product }) => {
@@ -11,13 +12,19 @@ const ProductPost = ({ Product }) => {
     price = Product.price;
   }
   return (
-    <Container>
-      <ProductImg src="productImg" />
-      <ProductName>{name}</ProductName>
-      <ProductPrice>{price}</ProductPrice>
-    </Container>
+    <Linker href={"/moreinfo"}>
+      <Container>
+        <ProductImg src="productImg" />
+        <ProductName>{name}</ProductName>
+        <ProductPrice>{price}</ProductPrice>
+      </Container>
+    </Linker>
   );
 };
+
+const Linker = styled.a`
+  text-decoration: none;
+`;
 
 const Container = styled.summary`
   background-color: #181738;
