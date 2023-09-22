@@ -7,6 +7,7 @@ const PostingPage = () => {
   const [image, setImage] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [priceFocus, setPriceFocus] = useState(false);
+  const maxLength = 13;
   const handleImageUpload = () => {
     const fileInput = document.getElementById("fileInput");
     fileInput.click();
@@ -29,6 +30,9 @@ const PostingPage = () => {
   const handleChange = (e) => {
     const value = e.target.value;
     const numericValue = value.replace(/[^0-9]/g, "");
+    if (numericValue.length > maxLength) {
+      numericValue = numericValue.slice(0, maxLength);
+    }
     setInputValue(numericValue);
   };
   const handleBlur = () => {
@@ -37,7 +41,7 @@ const PostingPage = () => {
     setInputValue(formattedValue);
   };
   const handleFocusPrice = () => {
-    if (inputValue == "0") setInputValue("");
+    if (inputValue == "0" || inputValue == "NaN") setInputValue("");
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,6 +63,7 @@ const PostingPage = () => {
                   style={{ display: "none" }}
                   id="fileInput"
                   onChange={handleFileInputChange}
+                  required
                 />
                 <ButtonCase>
                   {image && (
@@ -93,6 +98,7 @@ const PostingPage = () => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       onFocus={handleFocusPrice}
+                      maxLength={maxLength}
                       placeholder="',' 없이 숫자로 입력"
                       required
                     />
@@ -317,7 +323,7 @@ const ProductName = styled.input`
 `;
 
 const ProductExplain = styled.textarea`
-  width: 536px;
+  width: 539px;
   height: 96px;
   background-color: #e2ddff;
   border-style: none;
@@ -343,13 +349,13 @@ const ProductExplain = styled.textarea`
 `;
 
 const ProductPrice = styled.input`
-  width: 300px;
+  width: 270px;
   height: 50px;
   background-color: #e2ddff;
   border-style: none;
   padding-right: 16px;
-  text-align: right;
-  font-size: inherit;
+  text-align: center;
+  font-size: 30px;
   font-style: inherit;
   font-weight: inherit;
   line-height: inherit;
@@ -369,11 +375,11 @@ const ProductPrice = styled.input`
 
 const PrintWon = styled.span`
   display: inline-block;
-  width: 240px;
+  width: 270px;
   margin-left: 12px;
   color: #dddddd;
   text-align: right;
-  font-size: 32px;
+  font-size: 34px;
   font-style: inherit;
   font-weight: 700;
   line-height: inherit;
