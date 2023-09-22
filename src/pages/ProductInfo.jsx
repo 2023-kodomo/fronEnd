@@ -24,11 +24,11 @@ const ProductInfo = () => {
       <Header page={0} />
       <StylingLobby></StylingLobby>
       <ContentBox ref={content}>
-        <Link to={"/"}>
+        <a href={"/"}>
           <BeforeButton>
             <img src="./img/Arrow1.svg" alt="" />
           </BeforeButton>
-        </Link>
+        </a>
 
         <TextGroup>
           <Title>학교에서 빼돌린 노트북 팝니다.</Title>
