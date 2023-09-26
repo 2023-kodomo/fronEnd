@@ -5,6 +5,9 @@ import StylingLobby from "../components/stylingLobby";
 
 const PostingPage = () => {
   const [image, setImage] = useState(null);
+  const [inputValue, setInputValue] = useState("");
+  const [isPostingCancel, setIsPostingCancel] = useState(false);
+  const maxLength = 13;
   const handleImageUpload = () => {
     const fileInput = document.getElementById("fileInput");
     fileInput.click();
@@ -18,17 +21,33 @@ const PostingPage = () => {
       setImage(URL.createObjectURL(selectedImage));
     }
   };
-  const handleCancel = () => {
-    const shouldCancel = window.confirm("글 작성을 취소하시겠습니까?");
-    if (shouldCancel) {
-      window.location.href = "./";
-    }
+  const handlePstCancel = () => {
+    setIsPostingCancel(false);
   };
-  const [inputValue, setInputValue] = useState("");
+  const handlePstCancelCk = () => {
+    setIsPostingCancel(true);
+  };
+  const handleCancel = () => {
+    window.location.href = "./";
+  };
   const handleChange = (e) => {
     const value = e.target.value;
     const numericValue = value.replace(/[^0-9]/g, "");
+    if (numericValue.length > maxLength) {
+      numericValue = numericValue.slice(0, maxLength);
+    }
     setInputValue(numericValue);
+  };
+  const handleBlur = () => {
+    const formattedValue =
+      inputValue === "" ? "0" : Number(inputValue).toLocaleString();
+    setInputValue(formattedValue);
+  };
+  const handleFocusPrice = () => {
+    if (inputValue == "0" || inputValue == "NaN") setInputValue("");
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
   };
   return (
     <>
@@ -36,63 +55,90 @@ const PostingPage = () => {
         <Header />
         <StylingLobby></StylingLobby>
         <PostingFrame>
-          <ImgBox>
-            <ImgSpan>물품 사진 ※ 사진은 한 장만 넣을 수 있습니다</ImgSpan>
-            <PostingImg src={image} alt="" />
-            <input
-              type="file"
-              accept="image/*"
-              style={{ display: "none" }}
-              id="fileInput"
-              onChange={handleFileInputChange}
-            />
-            <ButtonCase>
-              {image && <ImgDelete onClick={handleImageDelete}>삭제</ImgDelete>}
-              <ImgInsert onClick={handleImageUpload}>삽입</ImgInsert>
-            </ButtonCase>
-          </ImgBox>
-          <PostingForm>
+          <PostingForm onSubmit={handleSubmit}>
             <PostingField>
-              <AlignUl>
-                <PostingLi>
-                  <ProductLabel>상품명</ProductLabel>
-                  <ProductName type="text" placeholder="상품명 입력" required />
-                </PostingLi>
-                <PostingLi>
-                  <ProductLabel>상품 설명</ProductLabel>
-                  <ProductExplain
-                    rows={4}
-                    placeholder="상품 설명 입력"
-                    required
-                  ></ProductExplain>
-                </PostingLi>
-                <PostingLi>
-                  <ProductLabel>가격</ProductLabel>
-                  <ProductPrice
-                    type="text"
-                    value={inputValue}
-                    onChange={handleChange}
-                    placeholder="',' 없이 숫자로 입력"
-                    required
-                  />
-                  <PrintWon>원</PrintWon>
-                </PostingLi>
-                <PostingLi>
-                  <ProductLabel>시간</ProductLabel>
-                  <TransactionAppointmentTime type="text" required />
-                </PostingLi>
-                <PostingLi>
-                  <ProductLabel>장소</ProductLabel>
-                  <TradingPlace type="text" required />
-                </PostingLi>
-              </AlignUl>
-              <ConfirmButtonCase>
-                <PostingCancel onClick={handleCancel}>취소</PostingCancel>
-                <PostingConfirm>게시</PostingConfirm>
-              </ConfirmButtonCase>
+              <ImgBox>
+                <ImgSpan>물품 사진 ※ 사진은 한 장만 넣을 수 있습니다</ImgSpan>
+                <PostingImg src={image} alt="" />
+                <input
+                  type="file"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  id="fileInput"
+                  onChange={handleFileInputChange}
+                  required
+                />
+                <ButtonCase>
+                  {image && (
+                    <ImgDelete onClick={handleImageDelete}>삭제</ImgDelete>
+                  )}
+                  <ImgInsert type="button" onClick={handleImageUpload}>
+                    삽입
+                  </ImgInsert>
+                </ButtonCase>
+              </ImgBox>
+              <Ground>
+                <AlignUl>
+                  <PostingLi>
+                    <ProductLabel>상품명</ProductLabel>
+                    <ProductName
+                      type="text"
+                      placeholder="상품명 입력"
+                      required
+                    />
+                  </PostingLi>
+                  <PostingLi>
+                    <ProductLabel>상품 설명</ProductLabel>
+                    <ProductExplain
+                      rows={4}
+                      placeholder="상품 설명 입력"
+                      required
+                    ></ProductExplain>
+                  </PostingLi>
+                  <PostingLi>
+                    <ProductLabel>가격</ProductLabel>
+                    <ProductPrice
+                      type="text"
+                      value={inputValue}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      onFocus={handleFocusPrice}
+                      maxLength={maxLength}
+                      placeholder="',' 없이 숫자로 입력"
+                      required
+                    />
+                    <PrintWon>{inputValue}원</PrintWon>
+                  </PostingLi>
+                  <PostingLi>
+                    <ProductLabel>시간</ProductLabel>
+                    <TransactionAppointmentTime type="text" required />
+                  </PostingLi>
+                  <PostingLi>
+                    <ProductLabel>장소</ProductLabel>
+                    <TradingPlace type="text" required />
+                  </PostingLi>
+                </AlignUl>
+                <ConfirmButtonCase>
+                  <PostingCancel type="button" onClick={handlePstCancelCk}>
+                    취소
+                  </PostingCancel>
+                  <PostingConfirm>게시</PostingConfirm>
+                </ConfirmButtonCase>
+              </Ground>
             </PostingField>
           </PostingForm>
         </PostingFrame>
+        {isPostingCancel && (
+          <CancelBackground onClick={handlePstCancel}>
+            <CancelContent>
+              <CancelTitle>글 작성을 취소하시겠습니까?</CancelTitle>
+              <CancelCheckButton onClick={handleCancel}>확인</CancelCheckButton>
+              <CancelCancelButton onClick={handlePstCancel}>
+                닫기
+              </CancelCancelButton>
+            </CancelContent>
+          </CancelBackground>
+        )}
       </Container>
     </>
   );
@@ -115,10 +161,9 @@ const Container = styled.main`
 
 const PostingFrame = styled.div`
   display: flex;
-  width: 1349px;
-  height: 451px;
+  width: 1501px;
+  height: 603px;
   background-color: rgba(6, 5, 39, 0.5);
-  padding: 76px;
   border-radius: 16px;
   position: fixed;
   top: 210px;
@@ -165,7 +210,7 @@ const ButtonCase = styled.div`
 const ConfirmButtonCase = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-right: 55px;
+  margin: 0px;
 `;
 
 const ImgInsert = styled.button`
@@ -210,15 +255,21 @@ const ImgDelete = styled.button`
 
 const PostingForm = styled.form`
   display: block;
-  width: 868px;
-  height: 451px;
+  width: 1501px;
+  height: 603px;
+  margin: 0px;
 `;
 
 const PostingField = styled.fieldset`
-  display: block;
-  width: 867px;
-  height: 450px;
+  display: flex;
+  width: 1349px;
+  height: 451px;
   border-style: none;
+  margin: 0px;
+  padding: 76px;
+`;
+
+const Ground = styled.div`
   margin: 0px;
   padding: 0px;
 `;
@@ -288,7 +339,7 @@ const ProductName = styled.input`
 `;
 
 const ProductExplain = styled.textarea`
-  width: 536px;
+  width: 539px;
   height: 96px;
   background-color: #e2ddff;
   border-style: none;
@@ -314,13 +365,13 @@ const ProductExplain = styled.textarea`
 `;
 
 const ProductPrice = styled.input`
-  width: 507px;
+  width: 270px;
   height: 50px;
   background-color: #e2ddff;
   border-style: none;
   padding-right: 16px;
-  text-align: right;
-  font-size: inherit;
+  text-align: center;
+  font-size: 30px;
   font-style: inherit;
   font-weight: inherit;
   line-height: inherit;
@@ -339,9 +390,12 @@ const ProductPrice = styled.input`
 `;
 
 const PrintWon = styled.span`
+  display: inline-block;
+  width: 270px;
   margin-left: 12px;
   color: #dddddd;
-  font-size: 32px;
+  text-align: right;
+  font-size: 34px;
   font-style: inherit;
   font-weight: 700;
   line-height: inherit;
@@ -442,8 +496,93 @@ const PostingConfirm = styled.button`
   }
 `;
 
-/* background-color: #ca2810;
-background-color: #3fca10;
-*/
+const CancelBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+const CancelContent = styled.div`
+  background-color: #eeeeee;
+  width: 330px;
+  height: 100px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  font-family: "Hakgyoansim Wooju";
+`;
+
+const CancelTitle = styled.h2`
+  margin: 5px 5px 20px;
+  color: black;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  font-family: inherit;
+`;
+
+const CancelCheckButton = styled.button`
+  width: 80px;
+  height: 40px;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: 2px solid black;
+  margin-left: 160px;
+  margin-right: 10px;
+  background-color: #f6f6f6;
+  border-radius: 3px;
+  color: black;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  font-family: inherit;
+  transition: border 0.2s ease, background-color 0.2s ease, transform 0.2s ease, color: 0.2s ease;
+  &:hover {
+    border: 3px solid #3fca10;
+    transform: scale(1.1);
+  }
+  &:active {
+    border: 3px solid #3fca10;
+    background-color: #3fca10;
+    transform: scale(0.85);
+    color: white;
+  }
+`;
+
+const CancelCancelButton = styled.button`
+  width: 80px;
+  height: 40px;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: 2px solid black;
+  background-color: #f6f6f6;
+  border-radius: 3px;
+  color: black;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  font-family: inherit;
+  transition: border 0.2s ease, background-color 0.2s ease, transform 0.2s ease, color: 0.2s ease;
+  &:hover {
+    border: 3px solid #ca2810;
+    transform: scale(1.1);
+  }
+  &:active {
+    border: 3px solid #ca2810;
+    background-color: #ca2810;
+    transform: scale(0.85);
+    color: white;
+  }
+`;
 
 export default PostingPage;
