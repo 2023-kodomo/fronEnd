@@ -7,6 +7,7 @@ const PostingPage = () => {
   const [image, setImage] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [isPostingCancel, setIsPostingCancel] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
   const maxLength = 13;
   const handleImageUpload = () => {
     const fileInput = document.getElementById("fileInput");
@@ -49,6 +50,17 @@ const PostingPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+  const handleDateChange = (e) => {
+    setSelectedDate(e.target.value);
+  };
+  const extractDateParts = (dateString) => {
+    const dateObject = new Date(dateString);
+    const year = dateObject.getFullYear();
+    const month = dateObject.getMonth() + 1;
+    const day = dateObject.getDate();
+    return { year, month, day };
+  };
+  const { year, month, day } = extractDateParts(selectedDate);
   return (
     <>
       <Container>
@@ -59,14 +71,17 @@ const PostingPage = () => {
             <PostingField>
               <ImgBox>
                 <ImgSpan>물품 사진 ※ 사진은 한 장만 넣을 수 있습니다</ImgSpan>
-                <PostingImg src={image} alt="" />
+                {image ? (
+                  <PostingImg src={image} alt="" />
+                ) : (
+                  <NoneImg src="./img/NoneImage.svg" alt="None Image" />
+                )}
                 <input
                   type="file"
                   accept="image/*"
                   style={{ display: "none" }}
                   id="fileInput"
                   onChange={handleFileInputChange}
-                  required
                 />
                 <ButtonCase>
                   {image && (
@@ -111,7 +126,50 @@ const PostingPage = () => {
                   </PostingLi>
                   <PostingLi>
                     <ProductLabel>시간</ProductLabel>
-                    <TransactionAppointmentTime type="text" required />
+                    <PromisedTimeContainer>
+                      <PromisedTimeYMDContainer>
+                        <TransactionPromisedTimeYMD
+                          type="date"
+                          onChange={handleDateChange}
+                          required
+                        />
+                        {selectedDate && (
+                          <NewDiv>
+                            <PrintPTYMD>{year}년</PrintPTYMD>
+                            <PrintPTYMD> {month}월</PrintPTYMD>
+                            <PrintPTYMD> {day}일</PrintPTYMD>
+                          </NewDiv>
+                        )}
+                      </PromisedTimeYMDContainer>
+                      <PromisedTimeAPHMWContainer>
+                        <TransactionPromisedTimeAP as="select">
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </TransactionPromisedTimeAP>
+                        <TransactionPromisedTimeH
+                          type="number"
+                          min="1"
+                          max="12"
+                        />
+                        <PrintHMW>시</PrintHMW>
+                        <TransactionPromisedTimeMi
+                          type="number"
+                          min="0"
+                          max="59"
+                        />
+                        <PrintHMW>분</PrintHMW>
+                        <TransactionPromisedTimeW as="select">
+                          <option value="SUN">(일)</option>
+                          <option value="MON">(월)</option>
+                          <option value="TUE">(화)</option>
+                          <option value="WEN">(수)</option>
+                          <option value="THU">(목)</option>
+                          <option value="FRI">(금)</option>
+                          <option value="SAT">(토)</option>
+                        </TransactionPromisedTimeW>
+                        <PrintHMW>요일</PrintHMW>
+                      </PromisedTimeAPHMWContainer>
+                    </PromisedTimeContainer>
                   </PostingLi>
                   <PostingLi>
                     <ProductLabel>장소</ProductLabel>
@@ -162,7 +220,7 @@ const Container = styled.main`
 const PostingFrame = styled.div`
   display: flex;
   width: 1501px;
-  height: 603px;
+  height: 653px;
   background-color: rgba(6, 5, 39, 0.5);
   border-radius: 16px;
   position: fixed;
@@ -175,6 +233,7 @@ const ImgBox = styled.div`
   display: block;
   width: 378px;
   height: 451px;
+  margin-top: 38px;
   margin-right: 38px;
 `;
 
@@ -199,6 +258,14 @@ const PostingImg = styled.img`
   height: 300px;
   object-fit: cover;
   margin: 10px 39px 0px 39px;
+`;
+
+const NoneImg = styled.img`
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  margin: 10px 39px 0px 39px;
+  opacity: 0.1;
 `;
 
 const ButtonCase = styled.div`
@@ -256,14 +323,14 @@ const ImgDelete = styled.button`
 const PostingForm = styled.form`
   display: block;
   width: 1501px;
-  height: 603px;
+  height: 653px;
   margin: 0px;
 `;
 
 const PostingField = styled.fieldset`
   display: flex;
   width: 1349px;
-  height: 451px;
+  height: 501px;
   border-style: none;
   margin: 0px;
   padding: 76px;
@@ -328,6 +395,7 @@ const ProductName = styled.input`
   transition: box-shadow 0.6s, border-radius 0.3s ease;
   &:hover {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
   }
   &:focus {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
@@ -353,6 +421,7 @@ const ProductExplain = styled.textarea`
   resize: none;
   &:hover {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
   }
   &:focus {
     outline: none;
@@ -379,6 +448,7 @@ const ProductPrice = styled.input`
   transition: box-shadow 0.6s, border-radius 0.3s ease;
   &:hover {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
   }
   &:focus {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
@@ -402,10 +472,12 @@ const PrintWon = styled.span`
   font-family: inherit;
 `;
 
-const TransactionAppointmentTime = styled.input`
-  width: 567px;
+const TransactionPromisedTimeYMD = styled.input`
+  width: 30px;
   height: 50px;
   background-color: #e2ddff;
+  display: block;
+  margin-bottom: 5px;
   border-style: none;
   text-align: center;
   font-size: inherit;
@@ -416,11 +488,137 @@ const TransactionAppointmentTime = styled.input`
   transition: box-shadow 0.6s, border-radius 0.3s ease;
   &:hover {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
   }
-  &:focus {
+`;
+
+const TransactionPromisedTimeAP = styled.input`
+  width: 100px;
+  height: 50px;
+  background-color: #e2ddff;
+  margin-right: 60px;
+  border-style: none;
+  text-align: center;
+  font-size: 36px;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  transition: box-shadow 0.6s, border-radius 0.3s ease;
+  &:hover {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
     border-radius: 5px;
   }
+`;
+
+const TransactionPromisedTimeH = styled.input`
+  width: 60px;
+  height: 50px;
+  background-color: #e2ddff;
+  border-style: none;
+  text-align: center;
+  font-size: 28px;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  transition: box-shadow 0.6s, border-radius 0.3s ease;
+  &:hover {
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+  }
+`;
+
+const TransactionPromisedTimeMi = styled.input`
+  width: 60px;
+  height: 50px;
+  background-color: #e2ddff;
+  border-style: none;
+  text-align: center;
+  font-size: 28px;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  transition: box-shadow 0.6s, border-radius 0.3s ease;
+  &:hover {
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+  }
+`;
+
+const TransactionPromisedTimeW = styled.input`
+  width: 75px;
+  height: 50px;
+  background-color: #e2ddff;
+  margin-left: 20px;
+  border-style: none;
+  text-align: center;
+  font-size: 32px;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  transition: box-shadow 0.6s, border-radius 0.3s ease;
+  &:hover {
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+  }
+`;
+
+const PromisedTimeContainer = styled.div`
+  width: 567px;
+  height: 110px;
+  margin: 0;
+`;
+
+const PromisedTimeYMDContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 567px;
+  margin: 0px 0px 5px 0px;
+`;
+
+const NewDiv = styled.div`
+  display: inline-block;
+  width: 537px;
+  color: white;
+  text-align: center;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  font-family: "Hakgyoansim Wooju";
+`;
+
+const PrintPTYMD = styled.span`
+  border-style: none;
+  text-align: center;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  font-family: inherit;
+`;
+
+const PromisedTimeAPHMWContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 567px;
+  margin: 0;
+`;
+
+const PrintHMW = styled.span`
+  display: inline-block;
+  margin-top: 10px;
+  width: auto;
+  color: #dddddd;
+  text-align: left;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  font-family: "Hakgyoansim Wooju";
 `;
 
 const TradingPlace = styled.input`
@@ -429,7 +627,7 @@ const TradingPlace = styled.input`
   background-color: #e2ddff;
   border-style: none;
   text-align: center;
-  font-size: inherit;
+  font-size: 28px;
   font-style: inherit;
   font-weight: inherit;
   line-height: inherit;
@@ -437,6 +635,7 @@ const TradingPlace = styled.input`
   transition: box-shadow 0.6s, border-radius 0.3s ease;
   &:hover {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
   }
   &:focus {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
