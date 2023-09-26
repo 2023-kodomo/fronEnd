@@ -1,18 +1,57 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
+import React, { useState, useRef } from "react";
+import styled from "styled-components";
 import Header from "../components/header";
 import StylingLobby from "../components/stylingLobby";
 import ProductPost from "../components/product";
 
 const MyPage = (user) => {
-    let userName = /*user.name*/ "남궁윤교"; //임시이름
-    let userImg = user && user.image ? user.image : "./img/BasicProfile.svg"; // user이랑 user.img가 없을 경우에 BasicProfile를 띄운다.
+    let userName = "WOW"; //임시 닉네임
+    const [showTooltip, setShowTooltip] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
+    const imgRef = useRef();
+
+    const saveImgFile = () => {
+        const file = imgRef.current.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                setSelectedImage(reader.result);
+            };
+        }
+    };
+
     return (
         <Container>
             <Header />
             <StylingLobby>
                 <User>
-                    <UserImg src={userImg} alt="UserImage" />
+                    <UserImgContainer
+                        onMouseEnter={() => setShowTooltip(true)}
+                        onMouseLeave={() => setShowTooltip(false)}
+                        onClick={() => {
+                            // 클릭 시 파일 선택 다이얼로그 열기
+                            imgRef.current.click();
+                        }}
+                    >
+                        <UserImgBlind></UserImgBlind>
+                        <UserImg
+                            src={
+                                selectedImage
+                                    ? selectedImage
+                                    : "./img/BasicProfile.svg"
+                            }
+                            alt="UserImage"
+                        />
+                        {showTooltip && <HoverShow>이미지 변경</HoverShow>}
+                    </UserImgContainer>
+                    <InputFile
+                        type="file"
+                        id="profile-image-input"
+                        accept="image/*"
+                        onChange={saveImgFile}
+                        ref={imgRef}
+                    />
                     <UserName>{userName}</UserName>
                 </User>
                 <UserItem>
@@ -43,14 +82,49 @@ const User = styled.div`
     top: 224px;
     left: 128px;
 `;
+
+const InputFile = styled.input`
+    display: none;
+`;
+
+const UserImgContainer = styled.div`
+    width: 200px;
+    position: absolute;
+    border-radius: 200px;
+`;
+
+const UserImgBlind = styled.div`
+    width:200px;
+    height:200px;
+    display:none;
+    &:hover{
+        cursor:pointer
+    }
+`
+
+const HoverShow = styled.div`
+    position: absolute;
+    bottom: 90px;
+    left: 57px;
+    &:hover {
+        pointer-events: none;
+    }
+`;
+
 const UserImg = styled.img`
     width: 200px;
+    height:200px;
     border-radius: 200px;
+    transition: filter 0.3s ease;
+    z-index: 10;
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
 const UserName = styled.div`
     display: inline-block;
-    min-width: 150px;
+    width: 1000px;
     height: 40px;
     color: #fff;
     font-family: Hakgyoansim Wooju;
@@ -81,8 +155,8 @@ const SellingItemTitle = styled.div`
 `;
 
 const SellingItem = styled.div`
-    display: flex; // 가로로 정렬하기 위한 설정
-    flex-direction: row; // 자식 요소들을 가로로 정렬
+    display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     gap: 83px;
     position: relative;
