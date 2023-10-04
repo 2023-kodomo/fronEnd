@@ -4,6 +4,570 @@ import ProductPost from "../product";
 import Header from "../header";
 
 const MainPageComponent = () => {
+  const products = [
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "코로나를 팝니다",
+      content: "내용",
+      price: 19690,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "리액트 가져가세요",
+      content: "내용",
+      price: 0,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "일렉트론 처리합니다",
+      content: "내용",
+      price: 1000,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "박지민 처리시 사례금",
+      content: "내용",
+      price: 0,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "숲속에 박지민 공주",
+      content: "내용",
+      price: 1000000000,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "귀여운 티모 팝니다",
+      content: "내용",
+      price: 999999999999,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "카카오 주식 살거면 사셈",
+      content: "내용",
+      price: 48950,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "슈렉 팝니다",
+      content: "내용",
+      price: 99000,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "피에로 팝니다",
+      content: "내용",
+      price: 999900,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "회전목마 팝니다",
+      content: "내용",
+      price: 2800000,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "NEXt.js 팝니다",
+      content: "내용",
+      price: 100,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "헤드셋 + 토끼 세트",
+      content: "내용",
+      price: 1956800400,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "2000원 팝니다",
+      content: "내용",
+      price: 2000,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "바이러스 팝니다",
+      content: "내용",
+      price: 200,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "키클롭스",
+      content: "내용",
+      price: 34567800,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "LG 주식 어떤데",
+      content: "내용",
+      price: 33000,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "아이폰",
+      content: "내용",
+      price: 2013000,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "빌 게이츠와 식사권",
+      content: "내용",
+      price: 23456789678900,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "뜨끈한 김치찌개",
+      content: "내용",
+      price: 8000,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "비염약",
+      content: "내용",
+      price: 5000,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "대마고 노트북",
+      content: "내용",
+      price: 500,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "파리채",
+      content: "내용",
+      price: 2300,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "양말",
+      content: "내용",
+      price: 1000,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+    {
+      seller: {
+        id: "65050fd6f44ec167c78c572e",
+        email: "test@gmail.com",
+        name: "테스트",
+      },
+      title: "시간을 팝니다",
+      content: "내용",
+      price: 56500,
+      image: "",
+      uploadDate: "2023-09-16T02:18:09.038+00:00",
+      comment: [
+        {
+          writer: {
+            id: "65050fd6f44ec167c78c572e",
+            email: "test@gmail.com",
+            name: "테스트",
+          },
+          content: "댓글",
+          createdDate: "2023-09-16T02:24:44.241+00:00",
+        },
+      ],
+    },
+  ];
+
+  const productSet = (products) => {
+    const datas = products.map((e, i) => {
+      return (
+        <ProductPost title={e.title} price={e.price} image={e.image} key={i} />
+      );
+    });
+    return datas;
+  };
+
   return (
     <Container>
       <Header page={0} />
@@ -11,42 +575,7 @@ const MainPageComponent = () => {
         <SmallText>대마고 전용 중고거래 사이트</SmallText>
         <Logo>대팔이</Logo>
       </StylingLobby>
-      <GrowContainer>
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-        <ProductPost />
-      </GrowContainer>
+      <GrowContainer>{productSet(products)}</GrowContainer>
     </Container>
   );
 };

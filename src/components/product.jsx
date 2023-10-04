@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const ProductPost = ({ Product }) => {
-  let name = "코로나 팔아요";
-  let productImg;
-  let price = "₩ 19,000";
-  if (Product !== undefined) {
-    name = Product.title;
-    productImg = Product.image;
-    price = Product.price;
+const ProductPost = ({ title, price, image }) => {
+  const [productPrice, setProductPrice] = useState();
+  if (productPrice !== undefined) {
+    console.log(typeof productPrice);
+    if (productPrice === 0) {
+      setProductPrice("무료나눔");
+    } else {
+      price.toLocaleString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
   }
   return (
     <Linker href={"/moreinfo"}>
       <Container>
-        <ProductImg src="productImg" />
-        <ProductName>{name}</ProductName>
-        <ProductPrice>{price}</ProductPrice>
+        <ProductImg src="image" />
+        <ProductName>{title}</ProductName>
+        <ProductPrice>{productPrice}</ProductPrice>
       </Container>
     </Linker>
   );
