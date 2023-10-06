@@ -1,27 +1,15 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import Header from "../header";
 import StylingLobby from "../stylingLobby";
 import Comment from "./comment";
 
 const ProductInfoComponent = () => {
-  let content = useRef();
-  let container = useRef();
-  useEffect(() => {
-    console.log(container.current.offsetHeight);
-    console.log(content.current.scrollHeight);
-    container.current.style.setProperty(
-      "height",
-      `${content.current.scrollHeight + 46}px`
-    );
-    console.log(container.current.scrollHeight);
-    return () => {};
-  }, [content, container]);
-
+  const container = useRef();
+  const content = useRef();
   return (
     <Container ref={container}>
       <Header page={0} />
-      <StylingLobby></StylingLobby>
       <ContentBox ref={content}>
         <a href={"/"}>
           <BeforeButton>
@@ -30,7 +18,7 @@ const ProductInfoComponent = () => {
         </a>
 
         <TextGroup>
-          <Title>학교에서 빼돌린 노트북 팝니다.</Title>
+          <Title>일이삼사오육칠팔구십일이삼사오육칠팔구십</Title>
           <Date>2023.09.01</Date>
           <Writing>박지민</Writing>
         </TextGroup>
@@ -38,23 +26,7 @@ const ProductInfoComponent = () => {
         <ProductImg src="./img/img.png" alt="상품 사진" />
         <ProductInfoContainer>
           <ProductExplan>
-            노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.노트북 오백원에 팝니다.노트북 오백원에
-            팝니다.노트북 오백원에 팝니다.
+            노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백
           </ProductExplan>
           <ProductCategory>카테고리 : 전자기기</ProductCategory>
           <TradingPlace>거래 장소 : 코도모 동아리실</TradingPlace>
@@ -68,6 +40,7 @@ const ProductInfoComponent = () => {
         </AddCommentContainer>
         <Comment />
       </ContentBox>
+      <StylingLobby></StylingLobby>
     </Container>
   );
 };
@@ -87,13 +60,14 @@ const Container = styled.div`
 `;
 
 const ContentBox = styled.div`
+  z-index: 9;
   box-sizing: border-box;
   padding-top: 46px;
-  width: 1000px;
+  width: 52%;
   padding-bottom: 46px;
   position: absolute;
   top: 150px;
-  margin: 0px 460px;
+  margin: 0px calc((100vw - 52%) / 2);
   background: #181738;
   box-shadow: 0px 0px 25px 16px rgba(0, 0, 0, 0.25);
   display: flex;
@@ -122,36 +96,39 @@ const TextGroup = styled.div`
   display: flex;
   color: white;
   align-items: center;
+  width: 86.6%;
 `;
 
 const Title = styled.span`
   font-family: "Hakgyoansim Wooju";
-  font-size: 32px;
+  font-size: 2em;
+  flex-basis: 80%;
 `;
 
 const Date = styled.span`
   font-family: "Hakgyoansim Wooju";
-  font-size: 20px;
+  font-size: 1.25em;
   color: #909090;
-  padding-left: 357px;
+  flex-grow: 1;
+  text-align: end;
 `;
 
 const Writing = styled.span`
   font-family: "Hakgyoansim Wooju";
-  font-size: 20px;
+  font-size: 1.25em;
   color: #909090;
   padding-left: 12px;
+  width: 50px;
 `;
 
 const Line = styled.div`
-  width: 864px;
+  width: 86.6%;
   border: 1px solid white;
   margin-top: 5px;
 `;
 
 const ProductImg = styled.img`
-  width: 870px;
-  height: 450px;
+  width: 86.6%;
   margin-top: 25px;
 `;
 
@@ -161,12 +138,12 @@ const ProductInfoContainer = styled.div`
   flex-direction: column;
   color: white;
   font-family: "Hakgyoansim Wooju";
-  width: 870px;
+  width: 86.6%;
   gap: 10px;
 `;
 
 const ProductExplan = styled.span`
-  font-size: 20px;
+  font-size: 1.25em;
 `;
 
 const ProductCategory = styled.span`
@@ -180,26 +157,27 @@ const TradingPlace = styled.span`
 
 const AddCommentContainer = styled.div`
   margin-top: 36px;
-  width: 870px;
+  width: 86.6%;
   height: 149px;
   border-radius: 15px;
   border: 1px solid var(--blacktowhitegrey-3, #d0d0d0);
   & > div {
     height: 45px;
-    width: inherit;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 677px;
   }
   & span {
+    margin-left: 18px;
     color: #fff;
     font-family: Hakgyoansim Wooju;
-    font-size: 20px;
+    font-size: 1.25em;
+    flex-grow: 1;
   }
 `;
 
 const WriteButton = styled.button`
+  margin-right: 18px;
   border-radius: 7px;
   border: 1px solid #d9d9d9;
   background: var(--mainbluelightblue-1, #726eff);

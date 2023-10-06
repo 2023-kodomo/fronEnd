@@ -1,23 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const ProductPost = ({ title, price, image }) => {
-  const [productPrice, setProductPrice] = useState();
-  if (productPrice !== undefined) {
-    console.log(typeof productPrice);
+  const [productPrice, setProductPrice] = useState(price);
+  useEffect(() => {
     if (productPrice === 0) {
       setProductPrice("무료나눔");
     } else {
-      price.toLocaleString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      setProductPrice(
+        productPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      );
     }
-  }
+  }, []);
+
   return (
     <Linker href={"/moreinfo"}>
       <Container>
         <ProductImg src="image" />
         <ProductName>{title}</ProductName>
-        <ProductPrice>{productPrice}</ProductPrice>
+        <ProductPrice>￦ {productPrice}</ProductPrice>
       </Container>
     </Linker>
   );

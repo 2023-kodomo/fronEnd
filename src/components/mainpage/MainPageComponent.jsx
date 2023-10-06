@@ -404,7 +404,7 @@ const MainPageComponent = () => {
       },
       title: "빌 게이츠와 식사권",
       content: "내용",
-      price: 23456789678900,
+      price: 23789678900,
       image: "",
       uploadDate: "2023-09-16T02:18:09.038+00:00",
       comment: [

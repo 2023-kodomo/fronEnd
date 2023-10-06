@@ -6,7 +6,8 @@ const StylingLobby = (props) => {
 };
 
 const Container = styled.div`
-  height: 830px;
+  width: 100vw;
+  height: 77vh;
   background-image: url("./wave.svg");
   background-size: cover;
   background-repeat: no-repeat;
