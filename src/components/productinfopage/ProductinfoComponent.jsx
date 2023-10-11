@@ -85,6 +85,7 @@ const BeforeButton = styled.button`
   left: 8px;
   &:hover {
     animation: ${rotate} 1s;
+    cursor: pointer;
   }
 `;
 

@@ -113,7 +113,7 @@ const PostingPageComponent = () => {
                       value={explain}
                       rows={6}
                       onChange={handleExplainChange}
-                      placeholder="상품 설명 입력(공백 포함 500자)"
+                      placeholder="상품 설명 입력(공백 포함 최대 500자)"
                       required
                     ></ProductExplain>
                   </PostingLi>
