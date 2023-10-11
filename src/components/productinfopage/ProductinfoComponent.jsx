@@ -1,16 +1,14 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
-import Header from "../header";
+import Header from "../HeaderComponent";
 import StylingLobby from "../stylingLobby";
 import Comment from "./comment";
 
 const ProductInfoComponent = () => {
-  const container = useRef();
-  const content = useRef();
   return (
-    <Container ref={container}>
+    <Container>
       <Header page={0} />
-      <ContentBox ref={content}>
+      <ContentBox>
         <a href={"/"}>
           <BeforeButton>
             <img src="./img/Arrow1.svg" alt="" />
@@ -28,8 +26,6 @@ const ProductInfoComponent = () => {
           <ProductExplan>
             노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백
           </ProductExplan>
-          <ProductCategory>카테고리 : 전자기기</ProductCategory>
-          <TradingPlace>거래 장소 : 코도모 동아리실</TradingPlace>
         </ProductInfoContainer>
         <AddCommentContainer>
           <div>
@@ -144,15 +140,6 @@ const ProductInfoContainer = styled.div`
 
 const ProductExplan = styled.span`
   font-size: 1.25em;
-`;
-
-const ProductCategory = styled.span`
-  margin-top: 30px;
-  font-size: 20px;
-`;
-
-const TradingPlace = styled.span`
-  font-size: 20px;
 `;
 
 const AddCommentContainer = styled.div`

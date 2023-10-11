@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import ProductPost from "../product";
-import Header from "../header";
+import Header from "../HeaderComponent";
 
 const MainPageComponent = () => {
   const products = [

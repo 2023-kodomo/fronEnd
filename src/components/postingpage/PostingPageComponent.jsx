@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import Header from "../header";
+import Header from "../HeaderComponent";
 import StylingLobby from "../stylingLobby";
 
 const PostingPageComponent = () => {
@@ -535,7 +535,8 @@ const CancelCheckButton = styled.button`
   font-weight: 800;
   line-height: normal;
   font-family: inherit;
-  transition: border 0.2s ease, background-color 0.2s ease, transform 0.2s ease, color: 0.2s ease;
+  transition: border 0.2s ease, background-color 0.2s ease, transform 0.2s ease,
+    color 0.2s ease;
   &:hover {
     border: 3px solid #3fca10;
     transform: scale(1.1);
@@ -562,7 +563,8 @@ const CancelCancelButton = styled.button`
   font-weight: 800;
   line-height: normal;
   font-family: inherit;
-  transition: border 0.2s ease, background-color 0.2s ease, transform 0.2s ease, color: 0.2s ease;
+  transition: border 0.2s ease, background-color 0.2s ease, transform 0.2s ease,
+    color 0.2s ease;
   &:hover {
     border: 3px solid #ca2810;
     transform: scale(1.1);
