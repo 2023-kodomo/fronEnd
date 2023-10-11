@@ -385,7 +385,7 @@ const ProductExplain = styled.textarea`
   line-height: inherit;
   font-family: inherit;
   border-radius: 5px;
-  transition: box-shadow 0.6s, border-radius 0.3s, -webkit-scrollbar 0.5s ease;
+  transition: box-shadow 0.6s, border-radius 0.3s ease;
   overflow: auto;
   resize: none;
   &:hover {
