@@ -7,8 +7,8 @@ const PostingPageComponent = () => {
   const [image, setImage] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [isPostingCancel, setIsPostingCancel] = useState(false);
-  const [selectedDate, setSelectedDate] = useState("");
   const [text, setText] = useState("");
+  const [explain, setExplain] = useState("");
   const maxLength = 11;
   const handleImageUpload = () => {
     const fileInput = document.getElementById("fileInput");
@@ -57,6 +57,12 @@ const PostingPageComponent = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+  const handleExplainChange = (event) => {
+    const explainText = event.target.value;
+    if (explainText.length <= 500) {
+      setExplain(explainText);
+    }
+  };
   return (
     <>
       <Container>
@@ -104,8 +110,10 @@ const PostingPageComponent = () => {
                   <PostingLi>
                     <ProductLabel>상품 설명</ProductLabel>
                     <ProductExplain
+                      value={explain}
                       rows={6}
-                      placeholder="상품 설명 입력"
+                      onChange={handleExplainChange}
+                      placeholder="상품 설명 입력(공백 포함 500자)"
                       required
                     ></ProductExplain>
                   </PostingLi>
@@ -307,7 +315,7 @@ const PostingLi = styled.li`
   display: flex;
   align-items: center;
   margin: 0px 0px 40px;
-  padding: 0px;
+  padding: 0;
   color: white;
   text-align: left;
   font-size: 24px;
@@ -377,11 +385,22 @@ const ProductExplain = styled.textarea`
   line-height: inherit;
   font-family: inherit;
   border-radius: 5px;
-  transition: box-shadow 0.6s, border-radius 0.3s ease;
+  transition: box-shadow 0.6s, border-radius 0.3s, -webkit-scrollbar 0.5s ease;
+  overflow: auto;
   resize: none;
   &:hover {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
     border-radius: 16px;
+    &::-webkit-scrollbar-thumb {
+      background-color: #888;
+      border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: #555;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: none;
+    }
   }
   &:focus {
     outline: none;
@@ -390,6 +409,18 @@ const ProductExplain = styled.textarea`
   }
   &:focus::placeholder {
     color: transparent;
+  }
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    opacity: 1;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    opacity: 1;
+  }
+  &::-webkit-scrollbar-track {
+    opacity: 1;
   }
 `;
 
@@ -452,6 +483,7 @@ const PostingCancel = styled.button`
   &:hover {
     border: 3px solid #ca2810;
     transform: scale(1.1);
+    cursor: pointer;
   }
   &:active {
     border: 3px solid #ca2810;
@@ -478,6 +510,7 @@ const PostingConfirm = styled.button`
   &:hover {
     border: 3px solid #3fca10;
     transform: scale(1.1);
+    cursor: pointer;
   }
   &:active {
     border: 3px solid #3fca10;
@@ -539,6 +572,7 @@ const CancelCheckButton = styled.button`
   &:hover {
     border: 3px solid #3fca10;
     transform: scale(1.1);
+    cursor: pointer;
   }
   &:active {
     border: 3px solid #3fca10;
@@ -566,6 +600,7 @@ const CancelCancelButton = styled.button`
   &:hover {
     border: 3px solid #ca2810;
     transform: scale(1.1);
+    cursor: pointer;
   }
   &:active {
     border: 3px solid #ca2810;
