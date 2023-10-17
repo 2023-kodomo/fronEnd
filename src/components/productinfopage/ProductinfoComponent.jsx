@@ -138,6 +138,7 @@ const ProductInfoComponent = () => {
           <CommentTextArea
             placeholder="댓글 내용을 입력해주세요"
             ref={commentInput}
+            maxLength={150}
           ></CommentTextArea>
         </AddCommentContainer>
         {comments && makeCommentComponent(comments)}
