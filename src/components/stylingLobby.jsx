@@ -13,7 +13,7 @@ const Container = styled.div`
   background-repeat: no-repeat;
   background-position-y: bottom;
   position: sticky;
-  top: -386px;
+  top: -40.5vh;
   display: flex;
 `;
 

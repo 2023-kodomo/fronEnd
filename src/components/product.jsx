@@ -38,7 +38,7 @@ const Container = styled.summary`
   flex-direction: column;
   width: 200px;
   height: 300px;
-  padding-top: 60px;
+  padding-top: 30%;
   align-items: center;
   gap: 15px;
   flex-shrink: 0;

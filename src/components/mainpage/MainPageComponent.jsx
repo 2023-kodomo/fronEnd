@@ -2,6 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import ProductPost from "../product";
 import Header from "../HeaderComponent";
+import StylingLobby from "../stylingLobby";
 
 const MainPageComponent = () => {
   const products = [
@@ -595,16 +596,16 @@ const Container = styled.main`
   width: 100vw;
 `;
 
-const StylingLobby = styled.div`
-  height: 830px;
-  background-image: url("./wave.svg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-y: bottom;
-  position: sticky;
-  top: -386px;
-  display: flex;
-`;
+// const StylingLobby = styled.div`
+//   height: 830px;
+//   background-image: url("./wave.svg");
+//   background-size: cover;
+//   background-repeat: no-repeat;
+//   background-position-y: bottom;
+//   position: sticky;
+//   top: -386px;
+//   display: flex;
+// `;
 
 const SmallText = styled.span`
   color: white;
@@ -616,12 +617,28 @@ const SmallText = styled.span`
   animation: ${fadeIn} 2s;
   position: absolute;
   top: 308px;
-  left: 300px;
+  left: 15.6vw;
   font-family: "Hakgyoansim Wooju";
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  @media screen and (max-width: 1000px) {
+    display: none;
+  }
+
+  @media screen and (max-width: 1700px) {
+    font-size: 57.6px;
+  }
+
+  @media screen and (max-width: 1500px) {
+    font-size: 51.2px;
+  }
+
+  @media screen and (max-width: 1350px) {
+    font-size: 38.4px;
+  }
 `;
 
 const Logo = styled.span`
@@ -634,12 +651,29 @@ const Logo = styled.span`
   animation: ${fadeIn} 2s;
   position: absolute;
   top: 276px;
-  right: 450px;
+  right: 23.4vw;
   font-family: "Hakgyoansim Wooju";
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  display: inline;
+
+  @media screen and (max-width: 1000px) {
+    display: none;
+  }
+
+  @media screen and (max-width: 1700px) {
+    font-size: 115.2px;
+  }
+
+  @media screen and (max-width: 1500px) {
+    font-size: 102.4px;
+  }
+
+  @media screen and (max-width: 1350px) {
+    font-size: 76.8px;
+  }
 `;
 
 const GrowContainer = styled.div`
@@ -652,6 +686,32 @@ const GrowContainer = styled.div`
   justify-items: center;
   position: relative;
   top: -230px;
+
+  @media screen and (max-width: 1700px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  @media screen and (max-width: 1500px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media screen and (max-width: 1300px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 1100px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 800px) {
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: 64px;
+    margin-right: 64px;
+  }
+
+  @media screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export default MainPageComponent;
