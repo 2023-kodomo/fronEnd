@@ -31,7 +31,7 @@ const Container = styled.div`
 
 const FlexContainer = styled.div`
   display: flex;
-  padding: 1% 2%;
+  padding: 8px 16px;
   justify-content: space-between;
   flex-wrap: wrap;
 `;

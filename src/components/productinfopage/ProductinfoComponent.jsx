@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useMemo } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Header from "../HeaderComponent";
 import StylingLobby from "../stylingLobby";
@@ -8,6 +8,7 @@ const ProductInfoComponent = () => {
   const commentInput = useRef();
   const contentBox = useRef();
   const [comments, setComments] = useState();
+  const [datas, setDatas] = useState();
 
   useEffect(() => {
     const datas = {
@@ -15,7 +16,7 @@ const ProductInfoComponent = () => {
       seller: {
         id: "650bbb50c65a705c09394da6",
         email: "test@email.com",
-        name: "테스ㅈㅈ트",
+        name: "테스트",
         profileImage: null,
         role: "GUEST",
       },
@@ -29,7 +30,7 @@ const ProductInfoComponent = () => {
           writer: {
             id: "650bbb50c65a705c09394da6",
             email: "test@email.com",
-            name: "테스ㅈㅈ트",
+            name: "테스트",
             profileImage: null,
             role: "GUEST",
           },
@@ -39,9 +40,20 @@ const ProductInfoComponent = () => {
       ],
       place: "미정",
     };
+    setDatas(datas);
 
     setComments(() => {
       const { comment } = datas;
+      console.log(comment);
+      if (comment) {
+        comment.map((e) => {
+          console.log(e.createdDate);
+          e.createdDate = e.createdDate
+            .substr(0, 19)
+            .replaceAll("-", ".")
+            .replaceAll("T", " / ");
+        });
+      }
       return comment;
     });
   }, []);
@@ -71,20 +83,8 @@ const ProductInfoComponent = () => {
     const hours = String(currentDate.getHours()).padStart(2, "0");
     const minutes = String(currentDate.getMinutes()).padStart(2, "0");
     const seconds = String(currentDate.getSeconds()).padStart(2, "0");
-    const milliseconds = String(currentDate.getMilliseconds()).padStart(3, "0");
-    const timezoneOffset = currentDate.getTimezoneOffset();
 
-    const timezoneSign = timezoneOffset > 0 ? "-" : "+";
-
-    const timezoneHours = String(
-      Math.abs(Math.floor(timezoneOffset / 60))
-    ).padStart(2, "0");
-    const timezoneMinutes = String(Math.abs(timezoneOffset % 60)).padStart(
-      2,
-      "0"
-    );
-
-    const formattedTime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}${timezoneSign}${timezoneHours}:${timezoneMinutes}`;
+    const formattedTime = `${year}.${month}.${day} / ${hours}:${minutes}:${seconds}`;
 
     return formattedTime;
   };
@@ -119,16 +119,16 @@ const ProductInfoComponent = () => {
           </BeforeButton>
         </a>
         <TextGroup>
-          <Title>일이삼사오육칠팔구십일이삼사오육칠팔구십</Title>
-          <Date>2023.09.01</Date>
-          <Writing>박지민</Writing>
+          <Title>{datas && datas.title}</Title>
+          <Date>
+            {datas && datas.uploadDate.substr(0, 10).replaceAll("-", ".")}
+          </Date>
+          <Writing>{datas && datas.seller.name}</Writing>
         </TextGroup>
         <Line></Line>
         <ProductImg src="./img/img.png" alt="상품 사진" />
         <ProductInfoContainer>
-          <ProductExplan>
-            노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백원에팝니다.노트북오백
-          </ProductExplan>
+          <ProductExplan>{datas && datas.content}</ProductExplan>
         </ProductInfoContainer>
         <AddCommentContainer>
           <div>
@@ -168,7 +168,7 @@ const ContentBox = styled.div`
   min-width: 280px;
   overflow-y: scroll;
   box-sizing: border-box;
-  padding-top: 46px;
+  padding-top: 54px;
   width: 52%;
   padding-bottom: 46px;
   position: absolute;
@@ -179,15 +179,9 @@ const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 29px;
   &::-webkit-scrollbar {
-    width: 5px;
-    border-radius: 50%;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #7a6ccf; /*스크롤바의 색상*/
-  }
-  &::-webkit-scrollbar-track {
-    background-color: transparent; /*스크롤바 트랙 색상*/
+    display: none;
   }
 `;
 
@@ -198,7 +192,6 @@ const BeforeButton = styled.button`
   height: 38px;
   border: none;
   box-shadow: none;
-  overflow: visible;
   box-shadow: 0px 0px 6px;
   position: absolute;
   top: 8px;
@@ -214,12 +207,13 @@ const TextGroup = styled.div`
   color: white;
   align-items: center;
   width: 86.6%;
+  flex-wrap: wrap;
 `;
 
 const Title = styled.span`
   font-family: "Hakgyoansim Wooju";
   font-size: 2em;
-  flex-basis: 80%;
+  flex-basis: 75%;
 `;
 
 const Date = styled.span`
@@ -235,7 +229,7 @@ const Writing = styled.span`
   font-size: 1.25em;
   color: #909090;
   padding-left: 12px;
-  width: 50px;
+  text-align: end;
 `;
 
 const Line = styled.div`
