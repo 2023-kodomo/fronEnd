@@ -2,14 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+// 헤더를 반응형으로 만들기!!!
+// viewport width 100px이하면 WlecomeText 안보이게 만들기
+
 const Header = ({ page = 0, user }) => {
   user = true; // test
   let userName;
   let userImg;
   if (user /*!==undefined*/) {
-    // 만약 undefiend가 아닐 경우 실행
-    userName = /*user.name*/ "테스트입니다."; //임시 닉네임
-    userImg = user && user.image ? user.image : "./img/BasicProfile.svg"; // user이랑 user.img가 없을 경우에 BasicProfile를 띄운다.
+    userName = /*user.name*/ "테스트입니다.";
+    userImg = user && user.image ? user.image : "./img/BasicProfile.svg";
   }
   return (
     <Container>
@@ -22,7 +24,6 @@ const Header = ({ page = 0, user }) => {
           <SearchIcon src="./img/Searchicon.svg" alt="SearchIcon" />
         </SearchBar>
         <UserImg src={user ? userImg : null} alt={user ? "UserImg" : ""} />
-        {/*user가 있을 경우에 alt랑 userImg가 나오게 하고, 없을 경우에는 그냥 없다.*/}
         <WelcomeText>
           <Linker href="/mypage">
             <span className="Username">{userName}</span>
@@ -43,7 +44,6 @@ const Header = ({ page = 0, user }) => {
               </span>
             </>
           )}
-          {/*user가 있을 경우에 "님 안녕하세요"를 출력, 없을 경우에는 <><span>로그인</span> <span>회원가입</span></>를 출력*/}
         </WelcomeText>
       </FlexContainer>
     </Container>
@@ -79,6 +79,29 @@ const SearchBar = styled.div`
   display: flex;
   justify-content: space-evenly;
   border-bottom: 1px solid white;
+  @media screen and (max-width: 1700px) {
+    width:450px;
+  }
+
+  @media screen and (max-width: 1500px) {
+    width:400px;
+  }
+
+  @media screen and (max-width: 1300px) {
+    width:320px;
+  }
+
+  @media screen and (max-width: 1100px) {
+    width:274px;
+  }
+
+  @media screen and (max-width: 800px) {
+    width:225px;
+  }
+
+  @media screen and (max-width: 600px) {
+    width:190px;
+  }
 `;
 
 const InputBar = styled.input`
@@ -108,7 +131,7 @@ const UserImg = styled.img`
   display: ${(props) =>
     props.src
       ? "inline-block"
-      : "none"}; // user가 있는 경우에만 표시 (여기는 잘 작동을 안하는 것같아서 모르겠음)
+      : "none"};
 `;
 const WelcomeText = styled.div`
   font-family: "Hakgyoansim Wooju";
@@ -126,12 +149,36 @@ const WelcomeText = styled.div`
     font-family: "Hakgyoansim Wooju";
   }
   & .Username {
-    // 사용자 이름
+    @media screen and (max-width: 1700px) {
+    font-size:15.7px;
+  }
+
+  @media screen and (max-width: 1500px) {
+    font-size:14.5px;
+  }
+
+  @media screen and (max-width: 1300px) {
+    font-size:12.3px;
+  }
+
+  @media screen and (max-width: 1100px) {
+   font-size:11px;
+  }
+
+  @media screen and (max-width: 800px) {
+    font-size:10px;
+  }
+
+  @media screen and (max-width: 600px) {
+    display:none;
+  }
     color: #e2ddff;
     font-family: "Hakgyoansim Wooju";
   }
   & .username {
-    // "님 안녕하세요"부분
+    @media screen and (max-width: 993px) {
+      display:none;
+    }
     color: #7a6ccf;
     font-family: "Hakgyoansim Wooju";
   }
