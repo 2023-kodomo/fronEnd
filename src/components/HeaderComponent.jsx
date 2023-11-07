@@ -79,29 +79,6 @@ const SearchBar = styled.div`
   display: flex;
   justify-content: space-evenly;
   border-bottom: 1px solid white;
-  @media screen and (max-width: 1700px) {
-    width:450px;
-  }
-
-  @media screen and (max-width: 1500px) {
-    width:400px;
-  }
-
-  @media screen and (max-width: 1300px) {
-    width:320px;
-  }
-
-  @media screen and (max-width: 1100px) {
-    width:274px;
-  }
-
-  @media screen and (max-width: 800px) {
-    width:225px;
-  }
-
-  @media screen and (max-width: 600px) {
-    width:190px;
-  }
 `;
 
 const InputBar = styled.input`
@@ -149,29 +126,6 @@ const WelcomeText = styled.div`
     font-family: "Hakgyoansim Wooju";
   }
   & .Username {
-    @media screen and (max-width: 1700px) {
-    font-size:15.7px;
-  }
-
-  @media screen and (max-width: 1500px) {
-    font-size:14.5px;
-  }
-
-  @media screen and (max-width: 1300px) {
-    font-size:12.3px;
-  }
-
-  @media screen and (max-width: 1100px) {
-   font-size:11px;
-  }
-
-  @media screen and (max-width: 800px) {
-    font-size:10px;
-  }
-
-  @media screen and (max-width: 600px) {
-    display:none;
-  }
     color: #e2ddff;
     font-family: "Hakgyoansim Wooju";
   }
