@@ -79,6 +79,24 @@ const SearchBar = styled.div`
   display: flex;
   justify-content: space-evenly;
   border-bottom: 1px solid white;
+  @media screen and (max-width: 1700px) {
+    width: 450px;
+  }
+  @media screen and (max-width: 1500px) {
+    width: 400px;
+  }
+  @media screen and (max-width: 1300px) {
+    width: 320px;
+  }
+  @media screen and (max-width: 1100px) {
+    width: 274px;
+  }
+  @media screen and (max-width: 800px) {
+    width: 225px;
+  }
+  @media screen and (max-width: 600px) {
+    width: 190px;
+  }
 `;
 
 const InputBar = styled.input`
@@ -105,10 +123,7 @@ const UserImg = styled.img`
   border-radius: 32px;
   border: 1px solid #7a6ccf;
   cursor: pointer;
-  display: ${(props) =>
-    props.src
-      ? "inline-block"
-      : "none"};
+  display: ${(props) => (props.src ? "inline-block" : "none")};
 `;
 const WelcomeText = styled.div`
   font-family: "Hakgyoansim Wooju";
@@ -131,7 +146,7 @@ const WelcomeText = styled.div`
   }
   & .username {
     @media screen and (max-width: 993px) {
-      display:none;
+      display: none;
     }
     color: #7a6ccf;
     font-family: "Hakgyoansim Wooju";
