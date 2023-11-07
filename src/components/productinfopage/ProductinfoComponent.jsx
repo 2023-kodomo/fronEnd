@@ -72,6 +72,7 @@ const ProductInfoComponent = () => {
         createdDate: getCurrentTimeFormatted(),
       },
     ]);
+    commentInput.current.value = "";
   };
 
   const getCurrentTimeFormatted = () => {
