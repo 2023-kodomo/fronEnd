@@ -9,6 +9,7 @@ const PostingPageComponent = () => {
   const [isPostingCancel, setIsPostingCancel] = useState(false);
   const [text, setText] = useState("");
   const [explain, setExplain] = useState("");
+  const [frees, setFrees] = useState(false);
   const maxLength = 11;
   const handleImageUpload = () => {
     const fileInput = document.getElementById("fileInput");
@@ -63,96 +64,127 @@ const PostingPageComponent = () => {
       setExplain(explainText);
     }
   };
+  const handleFreeCheck = () => {
+    if (inputValue == "0" || inputValue == "NaN") {
+      setFrees(true);
+    } else setFrees(false);
+  };
+  const handleFreeCancel = () => {
+    setFrees(false);
+  };
   return (
     <>
       <Container>
-        <Header />
+        <Container2>
+          <Header />
+          <Container3>
+            <PostingFrame>
+              <PostingForm onSubmit={handleSubmit}>
+                <PostingField>
+                  <ImgBox>
+                    <ImgSpan>
+                      물품 사진 ※ 사진은 한 장만 넣을 수 있습니다
+                    </ImgSpan>
+                    {image ? (
+                      <PostingImg src={image} alt="" />
+                    ) : (
+                      <NoneImg src="./img/NoneImage.svg" alt="None Image" />
+                    )}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      id="fileInput"
+                      onChange={handleFileInputChange}
+                    />
+                    <ButtonCase>
+                      {image && (
+                        <ImgDelete onClick={handleImageDelete}>삭제</ImgDelete>
+                      )}
+                      <ImgInsert type="button" onClick={handleImageUpload}>
+                        삽입
+                      </ImgInsert>
+                    </ButtonCase>
+                  </ImgBox>
+                  <Ground>
+                    <AlignUl>
+                      <PostingLi>
+                        <ProductLabel>상품명</ProductLabel>
+                        <ProductName
+                          type="text"
+                          value={text}
+                          onChange={handleTitleChange}
+                          maxLength={20}
+                          placeholder="상품명 입력(공백 포함 최대 20글자)"
+                          required
+                        />
+                      </PostingLi>
+                      <PostingLi>
+                        <ProductLabel>상품 설명</ProductLabel>
+                        <ProductExplain
+                          value={explain}
+                          rows={6}
+                          onChange={handleExplainChange}
+                          placeholder="상품 설명 입력(공백 포함 최대 500자)"
+                          required
+                        ></ProductExplain>
+                      </PostingLi>
+                      <PostingLi>
+                        <ProductLabel>가격</ProductLabel>
+                        <ProductPrice
+                          type="text"
+                          value={inputValue}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          onFocus={handleFocusPrice}
+                          maxLength={maxLength}
+                          placeholder="',' 없이, 0원 = 무료"
+                          required
+                        />
+                        <PrintWon>{inputValue}원</PrintWon>
+                      </PostingLi>
+                    </AlignUl>
+                    <ConfirmButtonCase>
+                      <PostingCancel type="button" onClick={handlePstCancelCk}>
+                        취소
+                      </PostingCancel>
+                      <PostingConfirm onClick={handleFreeCheck}>
+                        게시
+                      </PostingConfirm>
+                    </ConfirmButtonCase>
+                  </Ground>
+                </PostingField>
+              </PostingForm>
+            </PostingFrame>
+          </Container3>
+          {isPostingCancel && (
+            <CancelBackground onClick={handlePstCancel}>
+              <CancelContent>
+                <CancelTitle>글 작성을 취소하시겠습니까?</CancelTitle>
+                <CancelCheckButton onClick={handleCancel}>
+                  확인
+                </CancelCheckButton>
+                <CancelCancelButton onClick={handlePstCancel}>
+                  닫기
+                </CancelCancelButton>
+              </CancelContent>
+            </CancelBackground>
+          )}
+          {frees && (
+            <CancelBackground onClick={handleFreeCancel}>
+              <CancelContent>
+                <CancelTitle>무료나눔으로 하시겠습니까?</CancelTitle>
+                <CancelCheckButton onClick={handleCancel}>
+                  확인
+                </CancelCheckButton>
+                <CancelCancelButton onClick={handleFreeCancel}>
+                  닫기
+                </CancelCancelButton>
+              </CancelContent>
+            </CancelBackground>
+          )}
+        </Container2>
         <StylingLobby></StylingLobby>
-        <PostingFrame>
-          <PostingForm onSubmit={handleSubmit}>
-            <PostingField>
-              <ImgBox>
-                <ImgSpan>물품 사진 ※ 사진은 한 장만 넣을 수 있습니다</ImgSpan>
-                {image ? (
-                  <PostingImg src={image} alt="" />
-                ) : (
-                  <NoneImg src="./img/NoneImage.svg" alt="None Image" />
-                )}
-                <input
-                  type="file"
-                  accept="image/*"
-                  style={{ display: "none" }}
-                  id="fileInput"
-                  onChange={handleFileInputChange}
-                />
-                <ButtonCase>
-                  {image && (
-                    <ImgDelete onClick={handleImageDelete}>삭제</ImgDelete>
-                  )}
-                  <ImgInsert type="button" onClick={handleImageUpload}>
-                    삽입
-                  </ImgInsert>
-                </ButtonCase>
-              </ImgBox>
-              <Ground>
-                <AlignUl>
-                  <PostingLi>
-                    <ProductLabel>상품명</ProductLabel>
-                    <ProductName
-                      type="text"
-                      value={text}
-                      onChange={handleTitleChange}
-                      maxLength={20}
-                      placeholder="상품명 입력(공백 포함 최대 20글자)"
-                      required
-                    />
-                  </PostingLi>
-                  <PostingLi>
-                    <ProductLabel>상품 설명</ProductLabel>
-                    <ProductExplain
-                      value={explain}
-                      rows={6}
-                      onChange={handleExplainChange}
-                      placeholder="상품 설명 입력(공백 포함 최대 500자)"
-                      required
-                    ></ProductExplain>
-                  </PostingLi>
-                  <PostingLi>
-                    <ProductLabel>가격</ProductLabel>
-                    <ProductPrice
-                      type="text"
-                      value={inputValue}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      onFocus={handleFocusPrice}
-                      maxLength={maxLength}
-                      placeholder="',' 없이 숫자로 입력"
-                      required
-                    />
-                    <PrintWon>{inputValue}원</PrintWon>
-                  </PostingLi>
-                </AlignUl>
-                <ConfirmButtonCase>
-                  <PostingCancel type="button" onClick={handlePstCancelCk}>
-                    취소
-                  </PostingCancel>
-                  <PostingConfirm>게시</PostingConfirm>
-                </ConfirmButtonCase>
-              </Ground>
-            </PostingField>
-          </PostingForm>
-        </PostingFrame>
-        {isPostingCancel && (
-          <CancelBackground onClick={handlePstCancel}>
-            <CancelContent>
-              <CancelTitle>글 작성을 취소하시겠습니까?</CancelTitle>
-              <CancelCheckButton onClick={handleCancel}>확인</CancelCheckButton>
-              <CancelCancelButton onClick={handlePstCancel}>
-                닫기
-              </CancelCancelButton>
-            </CancelContent>
-          </CancelBackground>
-        )}
       </Container>
     </>
   );
@@ -173,17 +205,44 @@ const Container = styled.main`
   width: 100vw;
 `;
 
+const Container2 = styled.div`
+  display: flex;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  align-content: flex-end;
+  flex-wrap: wrap;
+  @media screen and (max-width: 1600px), screen and (max-height: 600px) {
+    height: 200vh;
+  }
+`;
+
+const Container3 = styled.div`
+  position: relative;
+  display: flex;
+  width: 100vw;
+  height: calc(100vh - 120px);
+  justify-content: center;
+  align-items: center;
+  @media screen and (max-width: 1600px), screen and (max-height: 600px) {
+    height: 200vh;
+  }
+`;
+
 const PostingFrame = styled.div`
   display: flex;
   width: 1501px;
   height: 649px;
   background-color: #181738;
   border-radius: 16px;
-  position: fixed;
-  top: 210px;
-  right: 190.5px;
   box-shadow: 0 0 25px 16px rgba(0, 0, 0, 0.25);
   animation: ${fadeIn} 1s;
+
+  @media screen and (max-width: 1600px), screen and (max-height: 600px) {
+    width: 1000px;
+    height: 1500px;
+  }
 `;
 
 const ImgBox = styled.div`
