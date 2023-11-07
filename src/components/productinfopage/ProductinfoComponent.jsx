@@ -47,7 +47,6 @@ const ProductInfoComponent = () => {
       console.log(comment);
       if (comment) {
         comment.map((e) => {
-          console.log(e.createdDate);
           e.createdDate = e.createdDate
             .substr(0, 19)
             .replaceAll("-", ".")
@@ -183,6 +182,7 @@ const ContentBox = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+  bottom: 30px;
 `;
 
 const BeforeButton = styled.button`
