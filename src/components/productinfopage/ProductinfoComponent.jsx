@@ -16,12 +16,12 @@ const ProductInfoComponent = () => {
       seller: {
         id: "650bbb50c65a705c09394da6",
         email: "test@email.com",
-        name: "테스트",
+        name: "박지민",
         profileImage: null,
         role: "GUEST",
       },
-      title: "테스트 상품",
-      content: "테스트",
+      title: "노트북",
+      content: "왠지 약간 사양 안 좋아 보이는 노트북",
       price: 0,
       image: "테스트",
       uploadDate: "2023-09-22T05:52:54.581+00:00",
@@ -34,11 +34,11 @@ const ProductInfoComponent = () => {
             profileImage: null,
             role: "GUEST",
           },
-          content: "하하!",
+          content: "저거 저 가격이 맞음?",
           createdDate: "2023-09-22T06:15:47.878+00:00",
         },
       ],
-      place: "미정",
+      place: "100",
     };
     setDatas(datas);
 
