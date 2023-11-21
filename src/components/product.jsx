@@ -17,7 +17,7 @@ const ProductPost = ({ title, price, image }) => {
   return (
     <Linker href={"/moreinfo"}>
       <Container>
-        <ProductImg src="image" />
+        <ProductImg src={image} />
         <ProductName>{title}</ProductName>
         <ProductPrice>￦ {productPrice}</ProductPrice>
       </Container>
