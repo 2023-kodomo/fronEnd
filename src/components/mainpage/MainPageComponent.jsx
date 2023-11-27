@@ -186,6 +186,7 @@ const MainPageComponent = () => {
     } catch (e) {
       console.log(e);
     }
+    console.log(products);
   };
 
   useEffect(() => {
