@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-const Comment = (props) => {
-  console.log(props);
+const Comment = ({ id, content, user, createdDate }) => {
+  console.log(id, content, user, createdDate);
   return (
     <Container>
       <FlexContainer>
-        <UserName>{props.user.name}</UserName>
-        <CreateDate>{props.createdDate}</CreateDate>
+        <UserName>{user.name}</UserName>
+        <CreateDate>{createdDate}</CreateDate>
       </FlexContainer>
       <hr />
-      <Content>{props.content}</Content>
+      <Content>{content}</Content>
     </Container>
   );
 };
