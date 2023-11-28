@@ -3,90 +3,57 @@ import styled, { keyframes } from "styled-components";
 import Header from "../HeaderComponent";
 import StylingLobby from "../stylingLobby";
 import Comment from "./comment";
+import getProduct from "../../utils/api/product";
+import { useLocation } from "react-router-dom";
+import postComment from "../../utils/api/postComment";
+import { useNavigate } from "react-router-dom";
 
 const ProductInfoComponent = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const productId = searchParams.get("productId");
   const commentInput = useRef();
   const contentBox = useRef();
-  const [comments, setComments] = useState();
+  const [comments, setComments] = useState([]);
   const [datas, setDatas] = useState();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const datas = {
-      id: null,
-      seller: {
-        id: "650bbb50c65a705c09394da6",
-        email: "test@email.com",
-        name: "박지민",
-        profileImage: null,
-        role: "GUEST",
-      },
-      title: "노트북",
-      content: "왠지 약간 사양 안 좋아 보이는 노트북",
-      price: 0,
-      image: "테스트",
-      uploadDate: "2023-09-22T05:52:54.581+00:00",
-      comment: [
-        {
-          writer: {
-            id: "650bbb50c65a705c09394da6",
-            email: "test@email.com",
-            name: "테스트",
-            profileImage: null,
-            role: "GUEST",
-          },
-          content: "저거 저 가격이 맞음?",
-          createdDate: "2023-09-22T06:15:47.878+00:00",
-        },
-      ],
-      place: "100",
-    };
-    setDatas(datas);
-
-    setComments(() => {
-      const { comment } = datas;
-      console.log(comment);
-      if (comment) {
-        comment.map((e) => {
-          e.createdDate = e.createdDate
-            .substr(0, 19)
-            .replaceAll("-", ".")
-            .replaceAll("T", " / ");
-        });
-      }
-      return comment;
-    });
-  }, []);
-
-  const addComment = () => {
-    setComments([
-      ...comments,
-      {
-        writer: {
-          id: "650bbb50c65a705c09394da6",
-          email: "test@email.com",
-          name: "테스트입니다",
-          profileImage: null,
-          role: "GUEST",
-        },
-        content: `${commentInput.current.value}`,
-        createdDate: getCurrentTimeFormatted(),
-      },
-    ]);
-    commentInput.current.value = "";
+  const fetchData = async () => {
+    try {
+      const productData = await getProduct(`${productId}`, navigate);
+      console.log(productData);
+      setDatas(productData);
+      setComments(() => {
+        const { comment } = productData;
+        if (comment) {
+          comment.map((e) => {
+            e.createdDate = e.createdDate
+              .substr(0, 19)
+              .replaceAll("-", ".")
+              .replaceAll("T", " / ");
+          });
+        }
+        return comment;
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const getCurrentTimeFormatted = () => {
-    const currentDate = new window.Date();
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-    const day = String(currentDate.getDate()).padStart(2, "0");
-    const hours = String(currentDate.getHours()).padStart(2, "0");
-    const minutes = String(currentDate.getMinutes()).padStart(2, "0");
-    const seconds = String(currentDate.getSeconds()).padStart(2, "0");
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-    const formattedTime = `${year}.${month}.${day} / ${hours}:${minutes}:${seconds}`;
-
-    return formattedTime;
+  const addComment = async () => {
+    if (commentInput.current.value === "") {
+      alert("댓글을 입력해주세요!");
+      return;
+    }
+    const tmp = commentInput.current.value;
+    commentInput.current.value = "";
+    await postComment(productId, tmp);
+    fetchData();
+    makeCommentComponent(comments);
   };
 
   const makeCommentComponent = (data) => {
@@ -94,6 +61,7 @@ const ProductInfoComponent = () => {
       return data.map((e, i) => {
         return (
           <Comment
+            id={e.id}
             content={e.content}
             user={e.writer}
             createdDate={e.createdDate}
@@ -103,10 +71,6 @@ const ProductInfoComponent = () => {
       });
     }
   };
-
-  useEffect(() => {
-    console.log(comments);
-  }, [comments]);
 
   return (
     <Container>
@@ -126,7 +90,7 @@ const ProductInfoComponent = () => {
           <Writing>{datas && datas.seller.name}</Writing>
         </TextGroup>
         <Line></Line>
-        <ProductImg src="./img/img.png" alt="상품 사진" />
+        <ProductImg src={datas && datas.image} alt="상품 사진 로딩 실패" />
         <ProductInfoContainer>
           <ProductExplan>{datas && datas.content}</ProductExplan>
         </ProductInfoContainer>
@@ -242,6 +206,7 @@ const Line = styled.div`
 const ProductImg = styled.img`
   width: 86.6%;
   margin-top: 25px;
+  color: white;
 `;
 
 const ProductInfoContainer = styled.div`

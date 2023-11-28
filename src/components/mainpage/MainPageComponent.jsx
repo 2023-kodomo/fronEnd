@@ -199,7 +199,13 @@ const MainPageComponent = () => {
     return products.map((e, i) => {
       console.log(e.image);
       return (
-        <ProductPost title={e.title} price={e.price} image={e.image} key={i} />
+        <ProductPost
+          title={e.title}
+          price={e.price}
+          image={e.image}
+          key={i}
+          id={e.id}
+        />
       );
     });
   };

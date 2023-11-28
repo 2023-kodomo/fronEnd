@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const ProductPost = ({ title, price, image }) => {
+const ProductPost = ({ title, price, image, id }) => {
   const [productPrice, setProductPrice] = useState(price);
   useEffect(() => {
     if (productPrice === 0) {
@@ -15,7 +15,7 @@ const ProductPost = ({ title, price, image }) => {
   }, []);
 
   return (
-    <Linker href={"/moreinfo"}>
+    <Linker href={`/moreinfo?productId=${id}`}>
       <Container>
         <ProductImg src={image} />
         <ProductName>{title}</ProductName>
