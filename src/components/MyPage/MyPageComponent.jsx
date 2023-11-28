@@ -62,7 +62,7 @@ const MypageComponent = () => {
       {
         title: "김희찬 팝니다.",
         content: "상품 설명",
-        price: "-999,999,999,999",
+        price: "999,999,999,999",
         image: "",
         uploadDate: "2023-00-00T00:00:00.000+00:00",
       },
@@ -71,6 +71,13 @@ const MypageComponent = () => {
         content: "상품 설명",
         price: "-100000",
         image: "",
+        uploadDate: "2023-00-00T00:00:00.000+00:00",
+      },
+      {
+        title: "조유리 급처해요",
+        content: "도저히 갖고 못있겠어요",
+        price: "-999,999,999,999",
+        image: "./img/Yuri.svg",
         uploadDate: "2023-00-00T00:00:00.000+00:00",
       },
     ],
