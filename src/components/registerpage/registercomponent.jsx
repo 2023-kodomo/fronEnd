@@ -3,8 +3,24 @@ import StylingLobby from "../stylingLobby";
 import { styled } from "styled-components";
 import { useState, useRef } from "react";
 
+const ProjectName = styled.header`
+  color: var(--blacktowhitewhite, #fff);
+  text-align: center;
+
+  font-family: Hakgyoansim Wooju;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  position: absolute;
+  top: 40px;
+  left: 40px;
+
+  user-select: none;
+`;
+
 const SignUpPage = styled.div`
-  //기본 감싸는 레이아웃
   width: 850px;
   height: 587px;
   flex-shrink: 0;
@@ -25,10 +41,8 @@ const SignUpPage = styled.div`
 `;
 
 const SignUpHeader = styled.div`
-  //창 이름
   color: #fff;
 
-  /* 32pt 학교안심 우주 */
   font-family: Hakgyoansim Wooju;
   font-size: 32px;
   font-style: normal;
@@ -40,7 +54,6 @@ const SignUpHeader = styled.div`
 `;
 
 const Line = styled.div`
-  //구분선
   width: 300.5px;
   height: 0px;
 
@@ -50,10 +63,8 @@ const Line = styled.div`
 `;
 
 const Description = styled.p`
-  //입력창 위에 있는 설명란
   color: #fff;
 
-  /* 12pt 학교안심 우주 */
   font-family: Hakgyoansim Wooju;
   font-size: 12px;
   font-style: normal;
@@ -64,7 +75,6 @@ const Description = styled.p`
 `;
 
 const InputInformation = styled.input`
-  //정보 입력창
   width: 300px;
   height: 45px;
   flex-shrink: 0;
@@ -75,7 +85,6 @@ const InputInformation = styled.input`
   background: var(--blacktowhitegrey-1, #f6f6f6);
 
   color: black;
-  /* 16pt 학교안심 우주 */
   font-family: Hakgyoansim Wooju;
   font-size: 16px;
   font-style: normal;
@@ -92,7 +101,6 @@ const InputInformation = styled.input`
 `;
 
 const CompleteButton = styled.button`
-  //회원가입 버튼
   width: 300px;
   height: 45px;
   flex-shrink: 0;
@@ -105,7 +113,6 @@ const CompleteButton = styled.button`
   color: #fff;
   text-align: center;
 
-  /* 16pt 학교안심 우주 */
   font-family: Hakgyoansim Wooju;
   font-size: 16px;
   font-style: normal;
@@ -119,7 +126,6 @@ const CompleteButton = styled.button`
 `;
 
 const CheckPassword = styled.button`
-  //눈깔 이미지 "비밀번호 확인하기"
   background: url("./img/mdi_hide.svg") no-repeat;
   width: 20px;
   height: 20px;
@@ -129,14 +135,28 @@ const CheckPassword = styled.button`
   position: absolute;
   top: 13.5px;
   left: 259px;
+
+  cursor: pointer;
+  
 `;
 
 const PasswordBox = styled.div`
   position: relative;
 `;
 
+const ErrorMessage = styled.p`//비밀번호를 입력했을 때 비밀번호가 불일치 할 경우에만 보일 것
+  color: var(--RED, #ca2810);
+  text-align: center;
+  font-family: Hakgyoansim Wooju;
+  font-size: 7px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  position: absolute;
+  left: 10px;
+`;
+
 const RegisterPageComponent = () => {
-  const [insert, setInsert] = useState(false);
   const [inputType, setInputType] = useState("password");
   const [reInputType, reSetInputType] = useState("password");
   const inputId = useRef();
@@ -145,24 +165,33 @@ const RegisterPageComponent = () => {
   const inputRePassword = useRef();
 
   const seePassword = () => {
-    //마우스를 누르고 있을 때 비밀번호 표시
     setInputType("input");
   };
 
   function removeInput() {
-    //마우스를 땠을 때 비밀번호 감추기
     setInputType("password");
   }
 
   const reSeePassword = () => {
-    //마우스를 누르고 있을 때 비밀번호 표시
     reSetInputType("input");
   };
 
   function reRemoveInput() {
-    //마우스를 땠을 때 비밀번호 감추기
     reSetInputType("password");
   }
+
+  const isSamePassword = () => {
+    if (
+      inputPassword.current.value == "" ||
+      inputRePassword.current.value == ""
+    )
+      return false;
+    else {
+      return inputPassword.current.value === inputRePassword.current.value
+        ? true
+        : false;
+    }
+  };
 
   // function inputMaxLength(refe) {//  InputInformation에 maxLength프로퍼티에 들어갈 함수(한글이면 return 8 영어면 return 20을 반환한다)
   //   const string = refe.current.value;
@@ -170,17 +199,9 @@ const RegisterPageComponent = () => {
   // }
   // inputMaxLength(inputId);
 
-  function isSamePassword() {
-    if (inputPassword.current.value == "" || inputRePassword.current.value == "") return false;
-    else {
-      return inputPassword.current.value === inputRePassword.current.value
-        ? true
-        : false;
-    }
-  }
-
   return (
     <StylingLobby>
+      <ProjectName>대팔이</ProjectName>
       <SignUpPage>
         <SignUpHeader>회원가입</SignUpHeader>
         <Line />
@@ -218,6 +239,7 @@ const RegisterPageComponent = () => {
             onMouseDown={reSeePassword}
             onMouseUp={reRemoveInput}
           />
+          <ErrorMessage>비밀번호를 잘못 입력하셨습니다</ErrorMessage>
         </PasswordBox>
         <CompleteButton
           onClick={() => {
