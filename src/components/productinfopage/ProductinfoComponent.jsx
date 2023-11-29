@@ -17,6 +17,7 @@ const ProductInfoComponent = () => {
   const [comments, setComments] = useState([]);
   const [datas, setDatas] = useState();
   const navigate = useNavigate();
+  const [updateComment, setUpdateComment] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -42,7 +43,8 @@ const ProductInfoComponent = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+    setUpdateComment(false);
+  }, [updateComment]);
 
   const addComment = async () => {
     if (commentInput.current.value === "") {
@@ -66,6 +68,7 @@ const ProductInfoComponent = () => {
             user={e.writer}
             createdDate={e.createdDate}
             key={i}
+            update={setUpdateComment}
           />
         );
       });
