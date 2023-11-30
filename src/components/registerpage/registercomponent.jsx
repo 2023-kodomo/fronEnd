@@ -127,7 +127,7 @@ const CompleteButton = styled.button`
 `;
 
 const CheckPassword = styled.button`
-  background: url("./img/mdi_hide.svg") no-repeat;
+  background: url(${(props) => props.url}) no-repeat;
   width: 20px;
   height: 20px;
   border: none;
@@ -158,8 +158,14 @@ const ErrorMessage = styled.p`
 `;
 
 const RegisterPageComponent = () => {
-  const [inputType, setInputType] = useState("password");
-  const [reInputType, reSetInputType] = useState("password");
+  const [inputType, setInputType] = useState({
+    type: "password",
+    url: "./img/mdi_hide.svg",
+  });
+  const [reInputType, reSetInputType] = useState({
+    type: "password",
+    url: "./img/mdi_hide.svg",
+  });
   const [errorMessage, setErrorMessage] = useState("");
   const [maxLength, setMaxLength] = useState(20);
   const inputId = useRef();
@@ -169,19 +175,31 @@ const RegisterPageComponent = () => {
   const passwordMessage = useRef();
 
   const seePassword = () => {
-    setInputType("input");
+    setInputType({
+      type: "input",
+      url: "./img/icon-visible-eye.svg",
+    });
   };
 
   function removeInput() {
-    setInputType("password");
+    setInputType({
+      type: "password",
+      url: "./img/mdi_hide.svg",
+    });
   }
 
   const reSeePassword = () => {
-    reSetInputType("input");
+    reSetInputType({
+      type: "input",
+      url: "./img/icon-visible-eye.svg",
+    });
   };
 
   function reRemoveInput() {
-    reSetInputType("password");
+    reSetInputType({
+      type: "password",
+      url: "./img/mdi_hide.svg",
+    });
   }
 
   const isSamePassword = () => {
@@ -240,18 +258,22 @@ const RegisterPageComponent = () => {
         <PasswordBox>
           <InputInformation
             placeholder="enter your password"
-            type={inputType}
+            type={inputType.type}
             maxLength={20}
             ref={inputPassword}
             onChange={changeErrorMessage}
           />
-          <CheckPassword onMouseDown={seePassword} onMouseUp={removeInput} />
+          <CheckPassword
+            onMouseDown={seePassword}
+            onMouseUp={removeInput}
+            url={inputType.url}
+          />
         </PasswordBox>
         <Description>Reenter Password</Description>
         <PasswordBox>
           <InputInformation
             placeholder="reenter your password"
-            type={reInputType}
+            type={reInputType.type}
             maxLength={20}
             ref={inputRePassword}
             onChange={changeErrorMessage}
@@ -259,6 +281,7 @@ const RegisterPageComponent = () => {
           <CheckPassword
             onMouseDown={reSeePassword}
             onMouseUp={reRemoveInput}
+            url={reInputType.url}
           />
           <ErrorMessage ref={passwordMessage}>{errorMessage}</ErrorMessage>
         </PasswordBox>
