@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import styled, { keyframes } from "styled-components";
 import Header from "../HeaderComponent";
 import StylingLobby from "../stylingLobby";
@@ -17,34 +17,36 @@ const ProductInfoComponent = () => {
   const [comments, setComments] = useState([]);
   const [datas, setDatas] = useState();
   const navigate = useNavigate();
-  const [updateComment, setUpdateComment] = useState(false);
+  const [commentUpdate, setCommentUpdate] = useState(false);
 
-  const fetchData = async () => {
-    try {
-      const productData = await getProduct(`${productId}`, navigate);
-      console.log(productData);
-      setDatas(productData);
-      setComments(() => {
-        const { comment } = productData;
-        if (comment) {
-          comment.map((e) => {
-            e.createdDate = e.createdDate
-              .substr(0, 19)
-              .replaceAll("-", ".")
-              .replaceAll("T", " / ");
-          });
-        }
-        return comment;
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const memorizeFetch = useCallback(() => {
+    const fetchData = async () => {
+      try {
+        const productData = await getProduct(`${productId}`, navigate);
+        console.log(productData);
+        setDatas(productData);
+        setComments(() => {
+          const { comment } = productData;
+          if (comment) {
+            comment.map((e) => {
+              e.createdDate = e.createdDate
+                .substr(0, 19)
+                .replaceAll("-", ".")
+                .replaceAll("T", " / ");
+            });
+          }
+          return comment;
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchData(commentUpdate);
+  }, [commentUpdate]);
 
   useEffect(() => {
-    fetchData();
-    setUpdateComment(false);
-  }, [updateComment]);
+    memorizeFetch();
+  }, [memorizeFetch]);
 
   const addComment = async () => {
     if (commentInput.current.value === "") {
@@ -54,7 +56,7 @@ const ProductInfoComponent = () => {
     const tmp = commentInput.current.value;
     commentInput.current.value = "";
     await postComment(productId, tmp);
-    fetchData();
+    await memorizeFetch();
     makeCommentComponent(comments);
   };
 
@@ -68,7 +70,8 @@ const ProductInfoComponent = () => {
             user={e.writer}
             createdDate={e.createdDate}
             key={i}
-            update={setUpdateComment}
+            commentUpdate={commentUpdate}
+            setCommentUpdate={setCommentUpdate}
           />
         );
       });

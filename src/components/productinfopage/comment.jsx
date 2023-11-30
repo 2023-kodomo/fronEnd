@@ -2,10 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import delComment from "../../utils/api/delComment";
 
-const Comment = ({ id, content, user, createdDate, update }) => {
+const Comment = ({
+  id,
+  content,
+  user,
+  createdDate,
+  commentUpdate,
+  setCommentUpdate,
+}) => {
   const delButtonClickHandler = async () => {
     await delComment(id);
-    update(true);
+    setCommentUpdate(!commentUpdate);
   };
 
   return (
