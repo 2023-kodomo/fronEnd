@@ -137,14 +137,14 @@ const CheckPassword = styled.button`
   left: 259px;
 
   cursor: pointer;
-  
 `;
 
 const PasswordBox = styled.div`
   position: relative;
 `;
 
-const ErrorMessage = styled.p`//비밀번호를 입력했을 때 비밀번호가 불일치 할 경우에만 보일 것
+const ErrorMessage = styled.p`
+  //비밀번호를 입력했을 때 비밀번호가 불일치 할 경우에만 보일 것
   color: var(--RED, #ca2810);
   text-align: center;
   font-family: Hakgyoansim Wooju;
@@ -159,10 +159,13 @@ const ErrorMessage = styled.p`//비밀번호를 입력했을 때 비밀번호가
 const RegisterPageComponent = () => {
   const [inputType, setInputType] = useState("password");
   const [reInputType, reSetInputType] = useState("password");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [maxLength, setMaxLength] = useState(20);
   const inputId = useRef();
   const inputEmail = useRef();
   const inputPassword = useRef();
   const inputRePassword = useRef();
+  const passwordMessage = useRef();
 
   const seePassword = () => {
     setInputType("input");
@@ -193,11 +196,25 @@ const RegisterPageComponent = () => {
     }
   };
 
-  // function inputMaxLength(refe) {//  InputInformation에 maxLength프로퍼티에 들어갈 함수(한글이면 return 8 영어면 return 20을 반환한다)
-  //   const string = refe.current.value;
-  //   console.log(string);
-  // }
-  // inputMaxLength(inputId);
+  const changeErrorMessage = () => {
+    if (inputRePassword.current.value === "") return setErrorMessage("");
+    if (inputPassword.current.value === "") return setErrorMessage("");
+    return inputPassword.current.value === inputRePassword.current.value
+      ? setErrorMessage("")
+      : setErrorMessage("비밀번호를 잘못 입력하셨습니다");
+  };
+
+  function inputMaxLength() {
+    const id = inputId.current.value;
+    const check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+    if (check.test(id)) {
+      setMaxLength(8);
+      // if (id.length >= 8)
+    } else {
+      setMaxLength(20);
+      // if(id.length>=20)
+    }
+  }
 
   return (
     <StylingLobby>
@@ -208,8 +225,9 @@ const RegisterPageComponent = () => {
         <Description>User Id</Description>
         <InputInformation
           placeholder="enter your id"
-          maxLength={20}
+          maxLength={maxLength}
           ref={inputId}
+          onChange={inputMaxLength}
         />
         <Description>Email</Description>
         <InputInformation
@@ -234,12 +252,13 @@ const RegisterPageComponent = () => {
             type={reInputType}
             maxLength={20}
             ref={inputRePassword}
+            onChange={changeErrorMessage}
           />
           <CheckPassword
             onMouseDown={reSeePassword}
             onMouseUp={reRemoveInput}
           />
-          <ErrorMessage>비밀번호를 잘못 입력하셨습니다</ErrorMessage>
+          <ErrorMessage ref={passwordMessage}>{errorMessage}</ErrorMessage>
         </PasswordBox>
         <CompleteButton
           onClick={() => {
