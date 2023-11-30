@@ -228,10 +228,8 @@ const RegisterPageComponent = () => {
     const check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
     if (check.test(id)) {
       setMaxLength(8);
-      // if (id.length >= 8)
     } else {
       setMaxLength(20);
-      // if(id.length>=20)
     }
   }
 

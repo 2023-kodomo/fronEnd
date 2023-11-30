@@ -105,7 +105,7 @@ const InputInformation = styled.input`
 `;
 
 const CheckPassword = styled.button`
-  background: url("./img/mdi_hide.svg") no-repeat;
+  background: url(${(props) => props.url}) no-repeat;
   width: 20px;
   height: 20px;
   border: none;
@@ -188,16 +188,23 @@ const RegisterButton = styled.a`
 `;
 
 const LoginPageComponent = () => {
-  const [inputType, setInputType] = useState("password");
+  const [inputType, setInputType] = useState({
+    type: "password",
+    url: "./img/mdi_hide.svg",
+  });
 
   const seePassword = () => {
-    //마우스를 누르고 있을 때 비밀번호 표시
-    setInputType("input");
+    setInputType({
+      type: "input",
+      url: "./img/icon-visible-eye.svg",
+    });
   };
 
   function removeInput() {
-    //마우스를 땠을 때 비밀번호 감추기
-    setInputType("password");
+    setInputType({
+      type: "password",
+      url: "./img/mdi_hide.svg",
+    });
   }
   return (
     <StylingLobby>
@@ -211,18 +218,20 @@ const LoginPageComponent = () => {
         <PasswordBox>
           <InputInformation
             placeholder="enter your password"
-            type={inputType}
+            type={inputType.type}
             maxLength={20}
           />
-          <CheckPassword onMouseDown={seePassword} onMouseUp={removeInput} />
+          <CheckPassword
+            onMouseDown={seePassword}
+            onMouseUp={removeInput}
+            url={inputType.url}
+          />
         </PasswordBox>
         <LoginButton>로그인</LoginButton>
         <QuestionBox>
           <FoundAccount>아이디 비밀번호 찾기</FoundAccount>
           <FoundAccount>계정이 없으신가요?</FoundAccount>
-          <RegisterButton href="/Register">
-            회원가입
-          </RegisterButton>
+          <RegisterButton href="/Register">회원가입</RegisterButton>
         </QuestionBox>
       </LoginPage>
     </StylingLobby>
