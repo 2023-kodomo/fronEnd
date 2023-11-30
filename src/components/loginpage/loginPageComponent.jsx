@@ -3,7 +3,8 @@ import styled from "styled-components";
 import StylingLobby from "../stylingLobby";
 import { useState } from "react";
 
-const ProjectName = styled.header`
+const ProjectName = styled.a`
+  text-decoration: none;
   color: var(--blacktowhitewhite, #fff);
   text-align: center;
 
@@ -200,7 +201,7 @@ const LoginPageComponent = () => {
   }
   return (
     <StylingLobby>
-      <ProjectName>대팔이</ProjectName>
+      <ProjectName href="/">대팔이</ProjectName>
       <LoginPage>
         <LoginHeader>로그인</LoginHeader>
         <Line />
@@ -219,7 +220,7 @@ const LoginPageComponent = () => {
         <QuestionBox>
           <FoundAccount>아이디 비밀번호 찾기</FoundAccount>
           <FoundAccount>계정이 없으신가요?</FoundAccount>
-          <RegisterButton href="http://localhost:3000/Register">
+          <RegisterButton href="/Register">
             회원가입
           </RegisterButton>
         </QuestionBox>

@@ -3,7 +3,8 @@ import StylingLobby from "../stylingLobby";
 import { styled } from "styled-components";
 import { useState, useRef } from "react";
 
-const ProjectName = styled.header`
+const ProjectName = styled.a`
+  text-decoration: none;
   color: var(--blacktowhitewhite, #fff);
   text-align: center;
 
@@ -218,7 +219,7 @@ const RegisterPageComponent = () => {
 
   return (
     <StylingLobby>
-      <ProjectName>대팔이</ProjectName>
+      <ProjectName href="/">대팔이</ProjectName>
       <SignUpPage>
         <SignUpHeader>회원가입</SignUpHeader>
         <Line />
@@ -242,6 +243,7 @@ const RegisterPageComponent = () => {
             type={inputType}
             maxLength={20}
             ref={inputPassword}
+            onChange={changeErrorMessage}
           />
           <CheckPassword onMouseDown={seePassword} onMouseUp={removeInput} />
         </PasswordBox>
