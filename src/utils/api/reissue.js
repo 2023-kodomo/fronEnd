@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 
-const reissue = async (navigate, setIsLoading) => {
+const reissue = async (navigate) => {
   return await axios
     .post(`${baseURL}/auth/reissue`, {
       refreshToken: localStorage.getItem("refreshToken"),
@@ -10,7 +10,6 @@ const reissue = async (navigate, setIsLoading) => {
     .then((res) => {
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
-      setIsLoading(false);
       window.location.reload();
     })
     .catch((rej) => {
