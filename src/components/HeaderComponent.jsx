@@ -18,34 +18,36 @@ const Header = ({ page = 0, user }) => {
       <Linker href="/">
         <HeaderLogo>대팔이</HeaderLogo>
       </Linker>
-      <FlexContainer>
-        <SearchBar>
-          <InputBar type="text" placeholder="검색할 상품을 입력해 주세요." />
-          <SearchIcon src="./img/Searchicon.svg" alt="SearchIcon" />
-        </SearchBar>
-        <UserImg src={user ? userImg : null} alt={user ? "UserImg" : ""} />
-        <WelcomeText>
-          <Linker href="/mypage">
-            <span className="Username">{userName}</span>
-          </Linker>
-          {user ? (
+      {page === 0 && (
+        <FlexContainer>
+          <SearchBar>
+            <InputBar type="text" placeholder="검색할 상품을 입력해 주세요." />
+            <SearchIcon src="./img/Searchicon.svg" alt="SearchIcon" />
+          </SearchBar>
+          <UserImg src={user ? userImg : null} alt={user ? "UserImg" : ""} />
+          <WelcomeText>
             <Linker href="/mypage">
-              <span className="username"> 님 안녕하세요</span>
+              <span className="Username">{userName}</span>
             </Linker>
-          ) : (
-            <>
-              <span className="LoginText">
-                로그인
-                <link href="#" />
-              </span>
-              <span className="SignUpText">
-                회원가입
-                <link href="#" />
-              </span>
-            </>
-          )}
-        </WelcomeText>
-      </FlexContainer>
+            {user ? (
+              <Linker href="/mypage">
+                <span className="username"> 님 안녕하세요</span>
+              </Linker>
+            ) : (
+              <>
+                <span className="LoginText">
+                  로그인
+                  <link href="#" />
+                </span>
+                <span className="SignUpText">
+                  회원가입
+                  <link href="#" />
+                </span>
+              </>
+            )}
+          </WelcomeText>
+        </FlexContainer>
+      )}
     </Container>
   );
 };
