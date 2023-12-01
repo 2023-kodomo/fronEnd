@@ -106,7 +106,7 @@ const CompleteButton = styled.button`
   height: 45px;
   flex-shrink: 0;
   border-radius: 10px;
-  background: var(--mainbluelightblue-1, #726eff);
+  background: ${(props) => props.background};
 
   display: flex;
   justify-content: center;
@@ -168,11 +168,24 @@ const RegisterPageComponent = () => {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [maxLength, setMaxLength] = useState(20);
+  const [completeColor, setCompleteColor] = useState("#606060");
   const inputId = useRef();
   const inputEmail = useRef();
   const inputPassword = useRef();
   const inputRePassword = useRef();
   const passwordMessage = useRef();
+
+  const isPossible = () => {
+    if (
+      inputId.current.value !== "" &&
+      inputEmail.current.value !== "" &&
+      inputPassword.current.value !== "" &&
+      inputRePassword.current.value !== "" &&
+      inputRePassword.current.value === inputPassword.current.value
+    ) {
+      setCompleteColor("#726eff");
+    } else setCompleteColor("#606060");
+  };
 
   const seePassword = () => {
     setInputType({
@@ -201,19 +214,6 @@ const RegisterPageComponent = () => {
       url: "./img/mdi_hide.svg",
     });
   }
-
-  const isSamePassword = () => {
-    if (
-      inputPassword.current.value == "" ||
-      inputRePassword.current.value == ""
-    )
-      return false;
-    else {
-      return inputPassword.current.value === inputRePassword.current.value
-        ? true
-        : false;
-    }
-  };
 
   const changeErrorMessage = () => {
     if (inputRePassword.current.value === "") return setErrorMessage("");
@@ -244,13 +244,17 @@ const RegisterPageComponent = () => {
           placeholder="enter your id"
           maxLength={maxLength}
           ref={inputId}
-          onChange={inputMaxLength}
+          onChange={() => {
+            inputMaxLength();
+            isPossible();
+          }}
         />
         <Description>Email</Description>
         <InputInformation
           placeholder="enter your email"
           type="email"
           ref={inputEmail}
+          onChange={isPossible}
         />
         <Description>Password</Description>
         <PasswordBox>
@@ -259,7 +263,10 @@ const RegisterPageComponent = () => {
             type={inputType.type}
             maxLength={20}
             ref={inputPassword}
-            onChange={changeErrorMessage}
+            onChange={() => {
+              changeErrorMessage();
+              isPossible();
+            }}
           />
           <CheckPassword
             onMouseDown={seePassword}
@@ -274,7 +281,10 @@ const RegisterPageComponent = () => {
             type={reInputType.type}
             maxLength={20}
             ref={inputRePassword}
-            onChange={changeErrorMessage}
+            onChange={() => {
+              changeErrorMessage();
+              isPossible();
+            }}
           />
           <CheckPassword
             onMouseDown={reSeePassword}
@@ -283,12 +293,7 @@ const RegisterPageComponent = () => {
           />
           <ErrorMessage ref={passwordMessage}>{errorMessage}</ErrorMessage>
         </PasswordBox>
-        <CompleteButton
-          onClick={() => {
-            isSamePassword();
-            console.log(isSamePassword());
-          }}
-        >
+        <CompleteButton background={completeColor} onClick={isPossible}>
           회원가입
         </CompleteButton>
       </SignUpPage>
