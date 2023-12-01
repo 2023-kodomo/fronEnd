@@ -3,7 +3,8 @@ import StylingLobby from "../stylingLobby";
 import styled from "styled-components";
 import Header from "../HeaderComponent";
 
-const EmailPageComponent = ({ email }) => {
+const EmailPageComponent = () => {
+  const email = "jiminelp@dsm.hs.kr";
   return (
     <Container>
       <Header page={1} />
