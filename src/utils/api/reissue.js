@@ -1,9 +1,8 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 
-const reissue = async (navigate) => {
+const reissue = async (navigate, setIsLoading) => {
   return await axios
     .post(`${baseURL}/auth/reissue`, {
       refreshToken: localStorage.getItem("refreshToken"),
@@ -11,6 +10,7 @@ const reissue = async (navigate) => {
     .then((res) => {
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
+      setIsLoading(false);
       window.location.reload();
     })
     .catch((rej) => {
