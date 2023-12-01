@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import StylingLobby from "../stylingLobby";
 import { useState } from "react";
+import { useRef } from "react";
 
 const ProjectName = styled.a`
   text-decoration: none;
@@ -127,7 +128,7 @@ const LoginButton = styled.button`
   height: 45px;
   flex-shrink: 0;
   border-radius: 10px;
-  background: var(--mainbluelightblue-1, #726eff);
+  background: ${(props) => props.background};
   color: #fff;
   text-align: center;
 
@@ -192,6 +193,9 @@ const LoginPageComponent = () => {
     type: "password",
     url: "./img/mdi_hide.svg",
   });
+  const [loginColor, setLoginColor] = useState("#606060");
+  const inputPassword = useRef();
+  const inputEmail = useRef();
 
   const seePassword = () => {
     setInputType({
@@ -206,6 +210,13 @@ const LoginPageComponent = () => {
       url: "./img/mdi_hide.svg",
     });
   }
+
+  const isPossible = () => {
+    if (inputPassword.current.value !== "" && inputEmail.current.value !== "") {
+      setLoginColor("#726eff");
+    } else setLoginColor("#606060");
+  };
+
   return (
     <StylingLobby>
       <ProjectName href="/">대팔이</ProjectName>
@@ -213,13 +224,20 @@ const LoginPageComponent = () => {
         <LoginHeader>로그인</LoginHeader>
         <Line />
         <Description>Email</Description>
-        <InputInformation placeholder="enter your email" type="email" />
+        <InputInformation
+          placeholder="enter your email"
+          type="email"
+          ref={inputEmail}
+          onChange={isPossible}
+        />
         <Description>Password</Description>
         <PasswordBox>
           <InputInformation
             placeholder="enter your password"
             type={inputType.type}
             maxLength={20}
+            ref={inputPassword}
+            onChange={isPossible}
           />
           <CheckPassword
             onMouseDown={seePassword}
@@ -227,7 +245,7 @@ const LoginPageComponent = () => {
             url={inputType.url}
           />
         </PasswordBox>
-        <LoginButton>로그인</LoginButton>
+        <LoginButton background={loginColor}>로그인</LoginButton>
         <QuestionBox>
           <FoundAccount>아이디 비밀번호 찾기</FoundAccount>
           <FoundAccount>계정이 없으신가요?</FoundAccount>
