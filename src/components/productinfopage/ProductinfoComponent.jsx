@@ -18,17 +18,11 @@ const ProductInfoComponent = () => {
   const [datas, setDatas] = useState();
   const navigate = useNavigate();
   const [commentUpdate, setCommentUpdate] = useState(false);
-  const [isLoding, setIsLoding] = useState(false);
 
   const memorizeFetch = useCallback(() => {
     const fetchData = async () => {
       try {
-        setIsLoding(true);
-        const productData = await getProduct(
-          `${productId}`,
-          navigate,
-          setIsLoding
-        ).then(() => {
+        await getProduct(`${productId}`, navigate).then((productData) => {
           console.log(productData);
           setDatas(productData);
           setComments(() => {
@@ -48,12 +42,12 @@ const ProductInfoComponent = () => {
         console.log(e);
       }
     };
-    fetchData(commentUpdate);
-  }, [commentUpdate, productId, navigate]);
+    fetchData();
+  }, [productId, navigate]);
 
   useEffect(() => {
     memorizeFetch();
-  }, [memorizeFetch]);
+  }, [memorizeFetch, commentUpdate]);
 
   const addComment = async () => {
     if (commentInput.current.value === "") {
@@ -89,41 +83,38 @@ const ProductInfoComponent = () => {
     <Container>
       <Header page={0} />
       <StylingLobby></StylingLobby>
-      {isLoding ? (
-        ""
-      ) : (
-        <ContentBox ref={contentBox}>
-          <a href={"/"}>
-            <BeforeButton>
-              <img src="./img/Arrow1.svg" alt="" />
-            </BeforeButton>
-          </a>
-          <TextGroup>
-            <Title>{datas && datas.title}</Title>
-            <Date>
-              {datas && datas.uploadDate.substr(0, 10).replaceAll("-", ".")}
-            </Date>
-            <Writing>{datas && datas.seller.name}</Writing>
-          </TextGroup>
-          <Line></Line>
-          <ProductImg src={datas && datas.image} alt="상품 사진 로딩 실패" />
-          <ProductInfoContainer>
-            <ProductExplan>{datas && datas.content}</ProductExplan>
-          </ProductInfoContainer>
-          <AddCommentContainer>
-            <div>
-              <span>댓글 작성</span>
-              <WriteButton onClick={addComment}>작성</WriteButton>
-            </div>
-            <CommentTextArea
-              placeholder="댓글 내용을 입력해주세요"
-              ref={commentInput}
-              maxLength={150}
-            ></CommentTextArea>
-          </AddCommentContainer>
-          {comments && makeCommentComponent(comments)}
-        </ContentBox>
-      )}
+
+      <ContentBox ref={contentBox}>
+        <a href={"/"}>
+          <BeforeButton>
+            <img src="./img/Arrow1.svg" alt="" />
+          </BeforeButton>
+        </a>
+        <TextGroup>
+          <Title>{datas && datas.title}</Title>
+          <Date>
+            {datas && datas.uploadDate.substr(0, 10).replaceAll("-", ".")}
+          </Date>
+          <Writing>{datas && datas.seller.name}</Writing>
+        </TextGroup>
+        <Line></Line>
+        <ProductImg src={datas && datas.image} alt="상품 사진 로딩 실패" />
+        <ProductInfoContainer>
+          <ProductExplan>{datas && datas.content}</ProductExplan>
+        </ProductInfoContainer>
+        <AddCommentContainer>
+          <div>
+            <span>댓글 작성</span>
+            <WriteButton onClick={addComment}>작성</WriteButton>
+          </div>
+          <CommentTextArea
+            placeholder="댓글 내용을 입력해주세요"
+            ref={commentInput}
+            maxLength={150}
+          ></CommentTextArea>
+        </AddCommentContainer>
+        {comments && makeCommentComponent(comments)}
+      </ContentBox>
     </Container>
   );
 };

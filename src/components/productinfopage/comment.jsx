@@ -48,7 +48,6 @@ const FlexContainer = styled.div`
   display: flex;
   padding: 8px 16px;
   justify-content: space-between;
-  flex-wrap: wrap;
   align-items: center;
 `;
 
@@ -79,6 +78,10 @@ const CreateDate = styled.span`
   font-family: Hakgyoansim Wooju;
   font-size: 16px;
   text-align: center;
+
+  @media screen and (max-width: 830px) {
+    display: none;
+  }
 `;
 
 const Content = styled.p`

@@ -71,8 +71,6 @@ const Description = styled.p`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-
-  display: flex;
 `;
 
 const InputInformation = styled.input`
@@ -80,7 +78,7 @@ const InputInformation = styled.input`
   height: 45px;
   flex-shrink: 0;
 
-  display: block;
+  display: flex;
 
   border-radius: 10px;
   background: var(--blacktowhitegrey-1, #f6f6f6);
@@ -239,6 +237,7 @@ const RegisterPageComponent = () => {
       <SignUpPage>
         <SignUpHeader>회원가입</SignUpHeader>
         <Line />
+
         <Description>User Id</Description>
         <InputInformation
           placeholder="enter your id"
@@ -256,6 +255,7 @@ const RegisterPageComponent = () => {
           ref={inputEmail}
           onChange={isPossible}
         />
+
         <Description>Password</Description>
         <PasswordBox>
           <InputInformation
@@ -274,6 +274,7 @@ const RegisterPageComponent = () => {
             url={inputType.url}
           />
         </PasswordBox>
+
         <Description>Reenter Password</Description>
         <PasswordBox>
           <InputInformation
@@ -293,6 +294,7 @@ const RegisterPageComponent = () => {
           />
           <ErrorMessage ref={passwordMessage}>{errorMessage}</ErrorMessage>
         </PasswordBox>
+
         <CompleteButton background={completeColor} onClick={isPossible}>
           회원가입
         </CompleteButton>
