@@ -6,6 +6,7 @@ import WritingPage from "../pages/WritingPage";
 import MyPage from "../pages/MyPage";
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
+import { MyQRCode } from "../components/MyPage/MyQRCode/MyQRCode";
 
 const Router = () => {
   return (
@@ -18,6 +19,7 @@ const Router = () => {
         <Route path="/MyPage" element={<MyPage />} />
         <Route path="/Register" element={<RegisterPage />} />
         <Route path="/Login" element={<LoginPage />} />
+        <Route path="/MyQrcode" element={<MyQRCode/>} />
       </Routes>
     </BrowserRouter>
   );

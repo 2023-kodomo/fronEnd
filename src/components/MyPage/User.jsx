@@ -1,51 +1,73 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
+import { MyQRCode } from "./MyQRCode/MyQRCode";
 
-const UserInfo = (props) => {
-  let userName = /*"user.name"*/ "테스트입니다."; //임시 닉네임
+const User = (props) => {
   const [showTooltip, setShowTooltip] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selImg, setselIng] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const username = "테스트입니다.";
+
   const imgRef = useRef();
+
+  const closeModal = () => {
+    setShowModal(false);
+    setShowTooltip(false);
+  };
+
   const saveImgFile = () => {
     const file = imgRef.current.files[0];
     if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        setSelectedImage(reader.result);
+        setselIng(reader.result);
       };
     }
   };
   return (
-    <User>
-      <UserImgContainer
-        onMouseEnter={() => setShowTooltip(true)}
-        onMouseLeave={() => setShowTooltip(false)}
-        onClick={() => {
-          // 클릭 시 파일 선택 다이얼로그 열기
-          imgRef.current.click();
-        }}
-      >
-        <UserImgBlind></UserImgBlind>
+    <UserInfo
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
+      <UserImgContainer>
         <UserImg
-          src={selectedImage ? selectedImage : "./img/BasicProfile.svg"}
-          alt="UserImage"
+          src={selImg ? selImg : "./img/BasicProfile.svg"}
+          alt="UserImg"
         />
-        {showTooltip && <HoverShow>이미지 변경</HoverShow>}
+        {showTooltip && (
+          <>
+            <HoverShow
+              onClick={() => {
+                imgRef.current.click();
+              }}
+            >
+              이미지 변경
+              <InputFile
+                type="file"
+                accept="image/*"
+                onChange={saveImgFile}
+                ref={imgRef}
+              />
+            </HoverShow>
+            <HoverQRCode
+              onClick={() => {
+                setShowModal(!showModal);
+              }}
+            >
+              내 QR코드
+            </HoverQRCode>
+            <HoverLine />
+          </>
+        )}
+        {showModal && <MyQRCode closeModal={closeModal} />}
       </UserImgContainer>
-      <InputFile
-        type="file"
-        id="profile-image-input"
-        accept="image/*"
-        onChange={saveImgFile}
-        ref={imgRef}
-      />
-      <UserName>{userName}</UserName>
-    </User>
+      <UserName>{username}</UserName>
+    </UserInfo>
   );
 };
 
-const User = styled.div`
+const UserInfo = styled.div`
   width: 353px;
   height: 200px;
   position: relative;
@@ -55,52 +77,61 @@ const User = styled.div`
 
 const UserImgContainer = styled.div`
   width: 200px;
-  position: absolute;
-  border-radius: 200px;
-`;
-
-const UserImgBlind = styled.div`
-  width: 200px;
   height: 200px;
-  border-radius: 100%;
-  background-color: black;
-  display: none;
   &:hover {
     cursor: pointer;
-    opacity: 0.2;
   }
 `;
 
 const HoverShow = styled.div`
+  width: 200px;
+  height: 102px;
+  display: grid;
+  align-items: center;
+  text-align: center;
+  border-radius: 100px 100px 0px 0px;
   position: absolute;
-  bottom: 90px;
-  left: 57px;
-  &:hover {
-    pointer-events: none;
+  bottom: 97px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  ${UserImgContainer}:hover & {
+    opacity: 1;
   }
 `;
 
-const UserImg = styled.img`
-  // 사진이 올라오는 효과를 넣을 것
+const HoverLine = styled.hr`
+  position: relative;
+  bottom: 110px;
+  border: none;
+  border-top: 1px solid black;
+`;
+
+const HoverQRCode = styled.div`
   width: 200px;
-  height: 200px;
-  border-radius: 200px;
-  transition: filter 0.3s ease;
-  z-index: 50;
-  &:hover {
-    cursor: pointer;
-  }
+  height: 97px;
+  border-radius: 0px 0px 100px 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 103px;
 `;
 
 const InputFile = styled.input`
   display: none;
 `;
 
+const UserImg = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 200px;
+  box-shadow: 0px 0px 25px 16px rgba(0, 0, 0, 0.25);
+`;
+
 const UserName = styled.div`
-  // 닉네임이 올라오는 효과를 넣을 것
-  display: inline-block;
-  width: 1000px; // 임시
+  min-width: 120px;
   height: 40px;
+  white-space: nowrap;
   color: #fff;
   font-family: Hakgyoansim Wooju;
   font-size: 40px;
@@ -108,8 +139,8 @@ const UserName = styled.div`
   font-weight: 400;
   line-height: normal;
   position: absolute;
-  left: 280px;
-  bottom: 80px;
+  left: 252px;
+  bottom: 81px;
 `;
 
-export default UserInfo;
+export default User;
