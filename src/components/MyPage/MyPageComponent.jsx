@@ -5,12 +5,6 @@ import StylingLobby from "../stylingLobby";
 import ProductPost from "../product";
 import UserInfo from "./User";
 
-// 할 일
-
-// MyPage QR코드
-// UserImg
-// 이거는 나중에 할 것
-
 const MypageComponent = () => {
   const product = {
     id: "사용자 아이디",
@@ -84,7 +78,6 @@ const MypageComponent = () => {
   };
 
   const productBundle = (products) => {
-    console.log(products);
     const Product = products.map((product, i) => (
       <ProductPost
         title={product.title}
@@ -116,7 +109,7 @@ const MypageComponent = () => {
 
 const Container = styled.div`
   width: 100vw;
-  min-height: 100vw;
+  min-height: auto;
 `;
 
 const UserItem = styled.div`
@@ -125,6 +118,7 @@ const UserItem = styled.div`
   flex-shrink: 0;
   position: relative;
   top: 496px;
+  right: 200px;
 `;
 
 const SellingItemTitle = styled.div`

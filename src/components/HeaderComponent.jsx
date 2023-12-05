@@ -2,9 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-// 헤더를 반응형으로 만들기!!!
-// viewport width 100px이하면 WlecomeText 안보이게 만들기
-
 const Header = ({ page = 0, user }) => {
   user = true; // test
   let userName;
@@ -135,6 +132,18 @@ const WelcomeText = styled.div`
   line-height: normal;
   display: ${(props) => (props.user ? "none" : "flex")};
   gap: ${(props) => (props.user ? "0" : "16px")};
+  @media screen and (max-width: 579px) {
+    font-size: 15px;
+  }
+  @media screen and (max-width:567px) {
+    font-size: 13px;
+  }
+  @media screen and (max-width:540px) {
+    font-size: 10px;
+  }
+  @media screen and (max-width:520px) {
+    font-size: 9.8px;
+  }
   & > span {
     cursor: pointer;
   }
