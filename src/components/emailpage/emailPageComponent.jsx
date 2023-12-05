@@ -1,10 +1,48 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import StylingLobby from "../stylingLobby";
 import styled from "styled-components";
 import Header from "../HeaderComponent";
+import sendEmail from "../../utils/api/sendEmail";
+import emailAuth from "../../utils/api/emailAuth";
+import EmailModal from "./modal";
+import resendEmail from "../../utils/api/resendEmail";
 
 const EmailPageComponent = () => {
-  const email = "jiminelp@dsm.hs.kr";
+  const email = localStorage.getItem("email");
+  const inputRef = useRef();
+  const [modalText, setModalText] = useState("");
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("isAuth") === "true") {
+      setModalText("인증된 사용자 입니다");
+    }
+  }, [modalText]);
+
+  useEffect(() => {
+    sendEmail(email);
+  }, [email]);
+
+  useEffect(() => {
+    if (isAuth) {
+      localStorage.setItem("isAuth", true);
+    }
+  }, [isAuth]);
+
+  const authCodeFetch = async () => {
+    if (inputRef && inputRef.current.value) {
+      const { data } = await emailAuth(inputRef.current.value);
+      console.log(data);
+      inputRef.current.value = "";
+      setIsAuth(data.isSuccess);
+      setModalText(data.message);
+    }
+  };
+
+  const resendHandler = () => {
+    resendEmail();
+  };
+
   return (
     <Container>
       <Header page={1} />
@@ -14,17 +52,20 @@ const EmailPageComponent = () => {
           <Head>이메일 인증</Head>
           <hr />
           <span>
-            회원가입된 이메일 {`${email}`}로 <br />
+            회원가입된 이메일 {`${email}`} 로 <br />
             인증 메일을 보냈습니다.
           </span>
         </EmailTitle>
         <EmailInputContainer>
           <span>인증코드</span>
-          <AuthCodeInput placeholder="인증코드를 입력해주세요" />
-          <SubmitButton>인증 완료</SubmitButton>
+          <AuthCodeInput placeholder="인증코드를 입력해주세요" ref={inputRef} />
+          <SubmitButton onClick={authCodeFetch}>인증 완료</SubmitButton>
         </EmailInputContainer>
-        <ReSend>재전송</ReSend>
+        <ReSend onClick={resendHandler}>재전송</ReSend>
       </EmailCitationContainer>
+      {modalText !== "" && (
+        <EmailModal modalText={modalText} setModalOpen={setModalText} />
+      )}
     </Container>
   );
 };
