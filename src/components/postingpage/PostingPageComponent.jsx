@@ -213,21 +213,14 @@ const Container2 = styled.div`
   height: 100vh;
   align-content: flex-end;
   flex-wrap: wrap;
-  @media screen and (max-width: 1600px), screen and (max-height: 600px) {
-    height: 200vh;
-  }
 `;
 
 const Container3 = styled.div`
   position: relative;
   display: flex;
   width: 100vw;
-  height: calc(100vh - 120px);
+  height: 80vh;
   justify-content: center;
-  align-items: center;
-  @media screen and (max-width: 1600px), screen and (max-height: 600px) {
-    height: 200vh;
-  }
 `;
 
 const PostingFrame = styled.div`
@@ -238,10 +231,9 @@ const PostingFrame = styled.div`
   border-radius: 16px;
   box-shadow: 0 0 25px 16px rgba(0, 0, 0, 0.25);
   animation: ${fadeIn} 1s;
-
-  @media screen and (max-width: 1600px), screen and (max-height: 600px) {
-    width: 1000px;
-    height: 1500px;
+  @media screen and (max-width: 1400px) {
+    width: 1024px;
+    height: 1128px;
   }
 `;
 
@@ -252,6 +244,10 @@ const ImgBox = styled.div`
   position: relative;
   margin-right: 38px;
   left: 65px;
+  @media screen and (max-width: 1400px) {
+    scale: 1.4;
+    margin-left: 190px;
+  }
 `;
 
 const ImgSpan = styled.span`
@@ -348,11 +344,15 @@ const PostingForm = styled.form`
 const PostingField = styled.fieldset`
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
   width: 1349px;
   height: 497px;
   border-style: none;
   margin: 0px;
   padding: 76px;
+  @media screen and (max-width: 1400px) {
+    flex-direction: column;
+  }
 `;
 
 const Ground = styled.div`
