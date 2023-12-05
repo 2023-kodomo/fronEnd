@@ -63,9 +63,8 @@ const DelButton = styled.button`
   border-radius: 7px;
   border: 1px solid #d9d9d9;
   background: var(--mainbluelightblue-1, #726eff);
-  width: 92px;
-  height: 28px;
-  flex-shrink: 0;
+  width: 50px;
+  font-size: 10px;
   color: #d9d9d9;
   cursor: pointer;
   &:hover {
