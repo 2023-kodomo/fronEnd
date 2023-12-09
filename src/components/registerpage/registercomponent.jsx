@@ -3,6 +3,16 @@ import StylingLobby from "../stylingLobby";
 import { styled } from "styled-components";
 import { useState, useRef } from "react";
 
+const ContainerBox = styled.div`
+  position: absolute;
+  top: 150px;
+  width: 100vw;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const ProjectName = styled.a`
   text-decoration: none;
   color: var(--blacktowhitewhite, #fff);
@@ -29,9 +39,6 @@ const SignUpPage = styled.div`
   border-radius: 45px;
   background: var(--mainbluedarkblue-2, #181737); //#181738
   box-shadow: 10px 20px 50px 0.3px rgba(0, 0, 0, 0.25);
-
-  margin-top: 200.5px;
-  margin-left: 535px;
 
   display: flex;
   flex-wrap: wrap;
@@ -232,74 +239,77 @@ const RegisterPageComponent = () => {
   }
 
   return (
-    <StylingLobby>
+    <>
+      <StylingLobby></StylingLobby>
       <ProjectName href="/">대팔이</ProjectName>
-      <SignUpPage>
-        <SignUpHeader>회원가입</SignUpHeader>
-        <Line />
+      <ContainerBox>
+        <SignUpPage>
+          <SignUpHeader>회원가입</SignUpHeader>
+          <Line />
 
-        <Description>User Id</Description>
-        <InputInformation
-          placeholder="enter your id"
-          maxLength={maxLength}
-          ref={inputId}
-          onChange={() => {
-            inputMaxLength();
-            isPossible();
-          }}
-        />
-        <Description>Email</Description>
-        <InputInformation
-          placeholder="enter your email"
-          type="email"
-          ref={inputEmail}
-          onChange={isPossible}
-        />
-
-        <Description>Password</Description>
-        <PasswordBox>
+          <Description>User Id</Description>
           <InputInformation
-            placeholder="enter your password"
-            type={inputType.type}
-            maxLength={20}
-            ref={inputPassword}
+            placeholder="enter your id"
+            maxLength={maxLength}
+            ref={inputId}
             onChange={() => {
-              changeErrorMessage();
+              inputMaxLength();
               isPossible();
             }}
           />
-          <CheckPassword
-            onMouseDown={seePassword}
-            onMouseUp={removeInput}
-            url={inputType.url}
-          />
-        </PasswordBox>
-
-        <Description>Reenter Password</Description>
-        <PasswordBox>
+          <Description>Email</Description>
           <InputInformation
-            placeholder="reenter your password"
-            type={reInputType.type}
-            maxLength={20}
-            ref={inputRePassword}
-            onChange={() => {
-              changeErrorMessage();
-              isPossible();
-            }}
+            placeholder="enter your email"
+            type="email"
+            ref={inputEmail}
+            onChange={isPossible}
           />
-          <CheckPassword
-            onMouseDown={reSeePassword}
-            onMouseUp={reRemoveInput}
-            url={reInputType.url}
-          />
-          <ErrorMessage ref={passwordMessage}>{errorMessage}</ErrorMessage>
-        </PasswordBox>
 
-        <CompleteButton background={completeColor} onClick={isPossible}>
-          회원가입
-        </CompleteButton>
-      </SignUpPage>
-    </StylingLobby>
+          <Description>Password</Description>
+          <PasswordBox>
+            <InputInformation
+              placeholder="enter your password"
+              type={inputType.type}
+              maxLength={20}
+              ref={inputPassword}
+              onChange={() => {
+                changeErrorMessage();
+                isPossible();
+              }}
+            />
+            <CheckPassword
+              onMouseDown={seePassword}
+              onMouseUp={removeInput}
+              url={inputType.url}
+            />
+          </PasswordBox>
+
+          <Description>Reenter Password</Description>
+          <PasswordBox>
+            <InputInformation
+              placeholder="reenter your password"
+              type={reInputType.type}
+              maxLength={20}
+              ref={inputRePassword}
+              onChange={() => {
+                changeErrorMessage();
+                isPossible();
+              }}
+            />
+            <CheckPassword
+              onMouseDown={reSeePassword}
+              onMouseUp={reRemoveInput}
+              url={reInputType.url}
+            />
+            <ErrorMessage ref={passwordMessage}>{errorMessage}</ErrorMessage>
+          </PasswordBox>
+
+          <CompleteButton background={completeColor} onClick={isPossible}>
+            회원가입
+          </CompleteButton>
+        </SignUpPage>
+      </ContainerBox>
+    </>
   );
 };
 
