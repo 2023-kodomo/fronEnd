@@ -4,6 +4,16 @@ import StylingLobby from "../stylingLobby";
 import { useState } from "react";
 import { useRef } from "react";
 
+const ContainerBox = styled.div`
+  position: absolute;
+  top: 150px;
+  width: 100vw;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const ProjectName = styled.a`
   text-decoration: none;
   color: var(--blacktowhitewhite, #fff);
@@ -23,16 +33,13 @@ const ProjectName = styled.a`
 `;
 
 const LoginPage = styled.div`
-  width: 850px;
-  height: 587px;
+  width: 44vw;
+  height: 58vh;
   flex-shrink: 0;
 
   border-radius: 45px;
   background: var(--mainbluedarkblue-2, #181737); //#181738
   box-shadow: 10px 20px 50px 0.3px rgba(0, 0, 0, 0.25);
-
-  margin-top: 200.5px;
-  margin-left: 535px;
 
   display: flex;
   flex-wrap: wrap;
@@ -218,41 +225,44 @@ const LoginPageComponent = () => {
   };
 
   return (
-    <StylingLobby>
-      <ProjectName href="/">대팔이</ProjectName>
-      <LoginPage>
-        <LoginHeader>로그인</LoginHeader>
-        <Line />
-        <Description>Email</Description>
-        <InputInformation
-          placeholder="enter your email"
-          type="email"
-          ref={inputEmail}
-          onChange={isPossible}
-        />
-        <Description>Password</Description>
-        <PasswordBox>
+    <>
+      <StylingLobby></StylingLobby>
+        <ProjectName href="/">대팔이</ProjectName>
+      <ContainerBox>
+        <LoginPage>
+          <LoginHeader>로그인</LoginHeader>
+          <Line />
+          <Description>Email</Description>
           <InputInformation
-            placeholder="enter your password"
-            type={inputType.type}
-            maxLength={20}
-            ref={inputPassword}
+            placeholder="enter your email"
+            type="email"
+            ref={inputEmail}
             onChange={isPossible}
           />
-          <CheckPassword
-            onMouseDown={seePassword}
-            onMouseUp={removeInput}
-            url={inputType.url}
-          />
-        </PasswordBox>
-        <LoginButton background={loginColor}>로그인</LoginButton>
-        <QuestionBox>
-          <FoundAccount>아이디 비밀번호 찾기</FoundAccount>
-          <FoundAccount>계정이 없으신가요?</FoundAccount>
-          <RegisterButton href="/Register">회원가입</RegisterButton>
-        </QuestionBox>
-      </LoginPage>
-    </StylingLobby>
+          <Description>Password</Description>
+          <PasswordBox>
+            <InputInformation
+              placeholder="enter your password"
+              type={inputType.type}
+              maxLength={20}
+              ref={inputPassword}
+              onChange={isPossible}
+            />
+            <CheckPassword
+              onMouseDown={seePassword}
+              onMouseUp={removeInput}
+              url={inputType.url}
+            />
+          </PasswordBox>
+          <LoginButton background={loginColor}>로그인</LoginButton>
+          <QuestionBox>
+            <FoundAccount>아이디 비밀번호 찾기</FoundAccount>
+            <FoundAccount>계정이 없으신가요?</FoundAccount>
+            <RegisterButton href="/Register">회원가입</RegisterButton>
+          </QuestionBox>
+        </LoginPage>
+      </ContainerBox>
+    </>
   );
 };
 

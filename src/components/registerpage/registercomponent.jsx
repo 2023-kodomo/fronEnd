@@ -32,8 +32,8 @@ const ProjectName = styled.a`
 `;
 
 const SignUpPage = styled.div`
-  width: 850px;
-  height: 587px;
+  width: 44vw;
+  height: 58vh;
   flex-shrink: 0;
 
   border-radius: 45px;
