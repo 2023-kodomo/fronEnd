@@ -12,6 +12,10 @@ const ContainerBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-device-height: 640px) {
+    margin-top: 100px;
+  }
 `;
 
 const ProjectName = styled.a`
@@ -35,6 +39,7 @@ const ProjectName = styled.a`
 const LoginPage = styled.div`
   width: 44vw;
   height: 58vh;
+  min-height: 587px;
   flex-shrink: 0;
 
   border-radius: 45px;
@@ -42,7 +47,6 @@ const LoginPage = styled.div`
   box-shadow: 10px 20px 50px 0.3px rgba(0, 0, 0, 0.25);
 
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
 
@@ -227,7 +231,7 @@ const LoginPageComponent = () => {
   return (
     <>
       <StylingLobby></StylingLobby>
-        <ProjectName href="/">대팔이</ProjectName>
+      <ProjectName href="/">대팔이</ProjectName>
       <ContainerBox>
         <LoginPage>
           <LoginHeader>로그인</LoginHeader>
