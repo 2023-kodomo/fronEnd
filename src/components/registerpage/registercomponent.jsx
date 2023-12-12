@@ -72,6 +72,11 @@ const Line = styled.div`
   border: 1px solid #726eff;
 
   margin-top: 5.75px;
+  
+  @media (max-device-width: 820px) {
+    max-width: 300px;
+    width: 90%;
+  }
 `;
 
 const Description = styled.p`
@@ -108,6 +113,10 @@ const InputInformation = styled.input`
     background-color: #7a6ccf;
     color: #181738;
   }
+  @media (max-device-width: 820px) {
+    max-width: 300px;
+    width: 90%;
+  }
 `;
 
 const CompleteButton = styled.button`
@@ -133,6 +142,11 @@ const CompleteButton = styled.button`
   margin-top: 49px;
 
   cursor: pointer;
+
+  @media (max-device-width: 820px) {
+    max-width: 300px;
+    width: 90%;
+  }
 `;
 
 const CheckPassword = styled.button`
@@ -144,13 +158,20 @@ const CheckPassword = styled.button`
 
   position: absolute;
   top: 13.5px;
-  left: 259px;
+  left: 50%; //542px
 
   cursor: pointer;
+
+  @media (max-device-width: 820px) {
+    left: 65%;
+  }
 `;
 
 const PasswordBox = styled.div`
   position: relative;
+  justify-content: center;
+  display: flex;
+  width: 100%;
 `;
 
 const ErrorMessage = styled.p`
