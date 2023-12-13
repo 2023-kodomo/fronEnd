@@ -61,12 +61,13 @@ const LoginHeader = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  white-space: nowrap;
 
   margin-top: 140px;
   margin-right: 220.5px;
-  @media screen and (max-width: 700px) {
-    font-size: 170%;
-    margin-top: 20%;
+
+  @media screen and (max-width: 900px) {
+    visibility: hidden;
   }
 `;
 
