@@ -63,6 +63,11 @@ const SignUpHeader = styled.div`
 
   margin-top: 83px;
   margin-right: 201.5px;
+
+  @media (max-device-width: 700px) {
+    font-size: 170%;
+    margin-top: 20%;
+  }
 `;
 
 const Line = styled.div`
@@ -72,7 +77,7 @@ const Line = styled.div`
   border: 1px solid #726eff;
 
   margin-top: 5.75px;
-  
+
   @media (max-device-width: 820px) {
     max-width: 300px;
     width: 90%;
@@ -90,7 +95,7 @@ const Description = styled.p`
 `;
 
 const InputInformation = styled.input`
-  width: 300px;
+  width: 100%;
   height: 45px;
   flex-shrink: 0;
 
@@ -112,10 +117,6 @@ const InputInformation = styled.input`
   &::selection {
     background-color: #7a6ccf;
     color: #181738;
-  }
-  @media (max-device-width: 820px) {
-    max-width: 300px;
-    width: 90%;
   }
 `;
 
@@ -158,20 +159,24 @@ const CheckPassword = styled.button`
 
   position: absolute;
   top: 13.5px;
-  left: 50%; //542px
+  left: 259px;
 
   cursor: pointer;
 
   @media (max-device-width: 820px) {
-    left: 65%;
+    left: 85%;
   }
 `;
 
-const PasswordBox = styled.div`
+const InputBox = styled.div`
   position: relative;
   justify-content: center;
   display: flex;
-  width: 100%;
+  width: 300px;
+  @media (max-device-width: 820px) {
+    max-width: 300px;
+    width: 90%;
+  }
 `;
 
 const ErrorMessage = styled.p`
@@ -273,25 +278,29 @@ const RegisterPageComponent = () => {
           <Line />
 
           <Description>User Id</Description>
-          <InputInformation
-            placeholder="enter your id"
-            maxLength={maxLength}
-            ref={inputId}
-            onChange={() => {
-              inputMaxLength();
-              isPossible();
-            }}
-          />
+          <InputBox>
+            <InputInformation
+              placeholder="enter your id"
+              maxLength={maxLength}
+              ref={inputId}
+              onChange={() => {
+                inputMaxLength();
+                isPossible();
+              }}
+            />
+          </InputBox>
           <Description>Email</Description>
-          <InputInformation
-            placeholder="enter your email"
-            type="email"
-            ref={inputEmail}
-            onChange={isPossible}
-          />
+          <InputBox>
+            <InputInformation
+              placeholder="enter your email"
+              type="email"
+              ref={inputEmail}
+              onChange={isPossible}
+            />
+          </InputBox>
 
           <Description>Password</Description>
-          <PasswordBox>
+          <InputBox>
             <InputInformation
               placeholder="enter your password"
               type={inputType.type}
@@ -307,10 +316,10 @@ const RegisterPageComponent = () => {
               onMouseUp={removeInput}
               url={inputType.url}
             />
-          </PasswordBox>
+          </InputBox>
 
           <Description>Reenter Password</Description>
-          <PasswordBox>
+          <InputBox>
             <InputInformation
               placeholder="reenter your password"
               type={reInputType.type}
@@ -327,7 +336,7 @@ const RegisterPageComponent = () => {
               url={reInputType.url}
             />
             <ErrorMessage ref={passwordMessage}>{errorMessage}</ErrorMessage>
-          </PasswordBox>
+          </InputBox>
 
           <CompleteButton background={completeColor} onClick={isPossible}>
             회원가입
