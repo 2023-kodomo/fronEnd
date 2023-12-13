@@ -13,7 +13,7 @@ const ContainerBox = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media (max-device-height: 640px) {
+  @media screen and (max-device-height: 640px) {
     margin-top: 100px;
   }
 `;
@@ -64,6 +64,10 @@ const LoginHeader = styled.div`
 
   margin-top: 140px;
   margin-right: 220.5px;
+  @media screen and (max-device-width: 700px) {
+    font-size: 170%;
+    margin-top: 20%;
+  }
 `;
 
 const Line = styled.div`
@@ -74,6 +78,10 @@ const Line = styled.div`
 
   margin-top: 5.75px;
   margin-bottom: 25px;
+  @media screen and (max-device-width: 820px) {
+    max-width: 300px;
+    width: 90%;
+  }
 `;
 
 const Description = styled.p`
@@ -91,7 +99,7 @@ const Description = styled.p`
 `;
 
 const InputInformation = styled.input`
-  width: 300px;
+  width: 100%;
   height: 45px;
   flex-shrink: 0;
 
@@ -128,10 +136,20 @@ const CheckPassword = styled.button`
   left: 259px;
 
   cursor: pointer;
+  @media screen and (max-device-width: 820px) {
+    left: 85%;
+  }
 `;
 
-const PasswordBox = styled.div`
+const InputBox = styled.div`
   position: relative;
+  justify-content: center;
+  display: flex;
+  width: 300px;
+  @media screen and (max-device-width: 820px) {
+    max-width: 300px;
+    width: 90%;
+  }
 `;
 
 const LoginButton = styled.button`
@@ -152,6 +170,11 @@ const LoginButton = styled.button`
   line-height: normal;
 
   margin-top: 35px;
+
+  @media screen and (max-device-width: 820px) {
+    max-width: 300px;
+    width: 90%;
+  }
 `;
 
 const QuestionBox = styled.div`
@@ -237,14 +260,16 @@ const LoginPageComponent = () => {
           <LoginHeader>로그인</LoginHeader>
           <Line />
           <Description>Email</Description>
-          <InputInformation
-            placeholder="enter your email"
-            type="email"
-            ref={inputEmail}
-            onChange={isPossible}
-          />
+          <InputBox>
+            <InputInformation
+              placeholder="enter your email"
+              type="email"
+              ref={inputEmail}
+              onChange={isPossible}
+            />
+          </InputBox>
           <Description>Password</Description>
-          <PasswordBox>
+          <InputBox>
             <InputInformation
               placeholder="enter your password"
               type={inputType.type}
@@ -257,7 +282,7 @@ const LoginPageComponent = () => {
               onMouseUp={removeInput}
               url={inputType.url}
             />
-          </PasswordBox>
+          </InputBox>
           <LoginButton background={loginColor}>로그인</LoginButton>
           <QuestionBox>
             <FoundAccount>아이디 비밀번호 찾기</FoundAccount>

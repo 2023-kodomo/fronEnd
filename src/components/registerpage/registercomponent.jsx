@@ -12,7 +12,7 @@ const ContainerBox = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media (max-device-height: 640px) {
+  @media screen and (max-device-height: 640px) {
     margin-top: 100px;
   }
 `;
@@ -64,7 +64,7 @@ const SignUpHeader = styled.div`
   margin-top: 83px;
   margin-right: 201.5px;
 
-  @media (max-device-width: 700px) {
+  @media screen and (max-device-width: 700px) {
     font-size: 170%;
     margin-top: 20%;
   }
@@ -78,7 +78,7 @@ const Line = styled.div`
 
   margin-top: 5.75px;
 
-  @media (max-device-width: 820px) {
+  @media screen and (max-device-width: 820px) {
     max-width: 300px;
     width: 90%;
   }
@@ -144,7 +144,7 @@ const CompleteButton = styled.button`
 
   cursor: pointer;
 
-  @media (max-device-width: 820px) {
+  @media screen and (max-device-width: 820px) {
     max-width: 300px;
     width: 90%;
   }
@@ -163,7 +163,7 @@ const CheckPassword = styled.button`
 
   cursor: pointer;
 
-  @media (max-device-width: 820px) {
+  @media screen and (max-device-width: 820px) {
     left: 85%;
   }
 `;
@@ -173,7 +173,7 @@ const InputBox = styled.div`
   justify-content: center;
   display: flex;
   width: 300px;
-  @media (max-device-width: 820px) {
+  @media screen and (max-device-width: 820px) {
     max-width: 300px;
     width: 90%;
   }
