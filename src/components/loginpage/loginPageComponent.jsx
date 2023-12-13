@@ -13,7 +13,7 @@ const ContainerBox = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media screen and (max-device-height: 640px) {
+  @media screen and (max-height: 640px) {
     margin-top: 100px;
   }
 `;
@@ -64,7 +64,7 @@ const LoginHeader = styled.div`
 
   margin-top: 140px;
   margin-right: 220.5px;
-  @media screen and (max-device-width: 700px) {
+  @media screen and (max-width: 700px) {
     font-size: 170%;
     margin-top: 20%;
   }
@@ -78,7 +78,7 @@ const Line = styled.div`
 
   margin-top: 5.75px;
   margin-bottom: 25px;
-  @media screen and (max-device-width: 820px) {
+  @media screen and (max-width: 820px) {
     max-width: 300px;
     width: 90%;
   }
@@ -136,7 +136,7 @@ const CheckPassword = styled.button`
   left: 259px;
 
   cursor: pointer;
-  @media screen and (max-device-width: 820px) {
+  @media screen and (max-width: 820px) {
     left: 85%;
   }
 `;
@@ -146,7 +146,7 @@ const InputBox = styled.div`
   justify-content: center;
   display: flex;
   width: 300px;
-  @media screen and (max-device-width: 820px) {
+  @media screen and (max-width: 820px) {
     max-width: 300px;
     width: 90%;
   }
@@ -171,7 +171,7 @@ const LoginButton = styled.button`
 
   margin-top: 35px;
 
-  @media screen and (max-device-width: 820px) {
+  @media screen and (max-width: 820px) {
     max-width: 300px;
     width: 90%;
   }
