@@ -190,16 +190,17 @@ const FoundAccount = styled.a`
   color: #fff;
   text-align: center;
   font-family: Hakgyoansim Wooju;
-  font-size: 7px;
+  font-size: 9px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   display: inline-flex;
-  width: 55px;
-  height: 10px;
+
   flex-direction: column;
   justify-content: center;
   cursor: pointer;
+
+  white-space: nowrap;
 
   margin: 5px;
 `;
@@ -215,12 +216,14 @@ const RegisterButton = styled.a`
   color: #fff;
   text-align: center;
   font-family: Hakgyoansim Wooju;
-  font-size: 7px;
+  font-size: 9px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 
   text-decoration: none;
+
+  white-space: nowrap;
 `;
 
 const LoginPageComponent = () => {
@@ -239,12 +242,12 @@ const LoginPageComponent = () => {
     });
   };
 
-  function removeInput() {
+  const removeInput = () => {
     setInputType({
       type: "password",
       url: "./img/mdi_hide.svg",
     });
-  }
+  };
 
   const isPossible = () => {
     if (inputPassword.current.value !== "" && inputEmail.current.value !== "") {
@@ -286,8 +289,8 @@ const LoginPageComponent = () => {
           </InputBox>
           <LoginButton background={loginColor}>로그인</LoginButton>
           <QuestionBox>
-            <FoundAccount>아이디 비밀번호 찾기</FoundAccount>
-            <FoundAccount>계정이 없으신가요?</FoundAccount>
+            <FoundAccount href="">아이디 비밀번호 찾기</FoundAccount>
+            <FoundAccount href="">계정이 없으신가요?</FoundAccount>
             <RegisterButton href="/Register">회원가입</RegisterButton>
           </QuestionBox>
         </LoginPage>
