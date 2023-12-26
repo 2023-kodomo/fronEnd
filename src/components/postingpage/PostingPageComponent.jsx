@@ -88,6 +88,15 @@ const PostingPageComponent = () => {
   const handlePostCancel = () => {
     setIsPosting(false);
   };
+  const handlePostConfirm = () => {
+    if (
+      text.trim() !== "" &&
+      explain.trim() !== "" &&
+      inputValue.trim() !== ""
+    ) {
+      handleFreeCheck();
+    }
+  };
   return (
     <>
       <Container>
@@ -165,7 +174,7 @@ const PostingPageComponent = () => {
                       <PostingCancel type="button" onClick={handlePstCancelCk}>
                         취소
                       </PostingCancel>
-                      <PostingConfirm onClick={handleFreeCheck}>
+                      <PostingConfirm onClick={handlePostConfirm}>
                         게시
                       </PostingConfirm>
                     </ConfirmButtonCase>
