@@ -10,6 +10,7 @@ const PostingPageComponent = () => {
   const [text, setText] = useState("");
   const [explain, setExplain] = useState("");
   const [frees, setFrees] = useState(false);
+  const [isPosting, setIsPosting] = useState(false);
   const maxLength = 11;
   const handleImageUpload = () => {
     const fileInput = document.getElementById("fileInput");
@@ -24,6 +25,11 @@ const PostingPageComponent = () => {
       setImage(URL.createObjectURL(selectedImage));
     }
   };
+  const handleViewCaution = () => {
+    alert(
+      "삭제했던 같은 이미지를 재삽입하려면 다른 이미지를 임시 삽입한 후\n삭제했던 이미지를 재삽입해야 합니다."
+    );
+  };
   const handlePstCancel = () => {
     setIsPostingCancel(false);
   };
@@ -31,6 +37,9 @@ const PostingPageComponent = () => {
     setIsPostingCancel(true);
   };
   const handleCancel = () => {
+    window.location.href = "./";
+  };
+  const handlePostUp = () => {
     window.location.href = "./";
   };
   const handleTitleChange = (e) => {
@@ -67,10 +76,17 @@ const PostingPageComponent = () => {
   const handleFreeCheck = () => {
     if (inputValue == "0" || inputValue == "NaN") {
       setFrees(true);
-    } else setFrees(false);
+      setIsPosting(false);
+    } else {
+      setFrees(false);
+      setIsPosting(true);
+    }
   };
   const handleFreeCancel = () => {
     setFrees(false);
+  };
+  const handlePostCancel = () => {
+    setIsPosting(false);
   };
   return (
     <>
@@ -83,7 +99,8 @@ const PostingPageComponent = () => {
                 <PostingField>
                   <ImgBox>
                     <ImgSpan>
-                      물품 사진 ※ 사진은 한 장만 넣을 수 있습니다
+                      물품 사진 ※ 사진은 한 장만 넣을 수 있습니다.
+                      <Caution onClick={handleViewCaution}>!</Caution>
                     </ImgSpan>
                     {image ? (
                       <PostingImg src={image} alt="" />
@@ -174,10 +191,23 @@ const PostingPageComponent = () => {
             <CancelBackground onClick={handleFreeCancel}>
               <CancelContent>
                 <CancelTitle>무료나눔으로 하시겠습니까?</CancelTitle>
-                <CancelCheckButton onClick={handleCancel}>
+                <CancelCheckButton onClick={handlePostUp}>
                   확인
                 </CancelCheckButton>
                 <CancelCancelButton onClick={handleFreeCancel}>
+                  닫기
+                </CancelCancelButton>
+              </CancelContent>
+            </CancelBackground>
+          )}
+          {isPosting && (
+            <CancelBackground onClick={handlePostCancel}>
+              <CancelContent>
+                <CancelTitle>상품을 등록하시겠습니까?</CancelTitle>
+                <CancelCheckButton onClick={handlePostUp}>
+                  확인
+                </CancelCheckButton>
+                <CancelCancelButton onClick={handlePostCancel}>
                   닫기
                 </CancelCancelButton>
               </CancelContent>
@@ -668,6 +698,23 @@ const CancelCancelButton = styled.button`
     background-color: #ca2810;
     transform: scale(0.85);
     color: white;
+  }
+`;
+
+const Caution = styled.button`
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #ffffff;
+  background-color: ##f6f6f6;
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
   }
 `;
 
