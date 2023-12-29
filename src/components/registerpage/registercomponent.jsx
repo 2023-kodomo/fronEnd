@@ -2,6 +2,7 @@ import React from "react";
 import StylingLobby from "../stylingLobby";
 import { styled } from "styled-components";
 import { useState, useRef } from "react";
+import register from "../../utils/api/register";
 
 const ContainerBox = styled.div`
   position: absolute;
@@ -209,6 +210,11 @@ const RegisterPageComponent = () => {
   const inputPassword = useRef();
   const inputRePassword = useRef();
   const passwordMessage = useRef();
+  const [inputValue, setInputValue] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
   const isPossible = () => {
     if (
@@ -268,6 +274,14 @@ const RegisterPageComponent = () => {
     }
   }
 
+  const changeInputValue = () => {
+    setInputValue({
+      email: inputEmail.current.value,
+      name: inputId.current.value,
+      password: inputPassword.current.value,
+    });
+  };
+
   return (
     <>
       <StylingLobby></StylingLobby>
@@ -286,7 +300,9 @@ const RegisterPageComponent = () => {
               onChange={() => {
                 inputMaxLength();
                 isPossible();
+                changeInputValue();
               }}
+              value={inputValue.name}
             />
           </InputBox>
           <Description>Email</Description>
@@ -295,7 +311,11 @@ const RegisterPageComponent = () => {
               placeholder="enter your email"
               type="email"
               ref={inputEmail}
-              onChange={isPossible}
+              onChange={() => {
+                isPossible();
+                changeInputValue();
+              }}
+              value={inputValue.email}
             />
           </InputBox>
 
@@ -309,7 +329,9 @@ const RegisterPageComponent = () => {
               onChange={() => {
                 changeErrorMessage();
                 isPossible();
+                changeInputValue();
               }}
+              value={inputValue.password}
             />
             <CheckPassword
               onMouseDown={seePassword}
@@ -338,7 +360,13 @@ const RegisterPageComponent = () => {
             <ErrorMessage ref={passwordMessage}>{errorMessage}</ErrorMessage>
           </InputBox>
 
-          <CompleteButton background={completeColor} onClick={isPossible}>
+          <CompleteButton
+            background={completeColor}
+            onClick={() => {
+              isPossible();
+              register(inputValue.email, inputValue.email, inputValue.password);
+            }}
+          >
             회원가입
           </CompleteButton>
         </SignUpPage>

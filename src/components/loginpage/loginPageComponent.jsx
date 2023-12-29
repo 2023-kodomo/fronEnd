@@ -3,6 +3,7 @@ import styled from "styled-components";
 import StylingLobby from "../stylingLobby";
 import { useState } from "react";
 import { useRef } from "react";
+import login from "../../utils/api/login";
 
 const ContainerBox = styled.div`
   position: absolute;
@@ -234,6 +235,10 @@ const LoginPageComponent = () => {
   const [loginColor, setLoginColor] = useState("#606060");
   const inputPassword = useRef();
   const inputEmail = useRef();
+  const [inputValue, setInputValue] = useState({
+    email: "",
+    password: "",
+  });
 
   const seePassword = () => {
     setInputType({
@@ -255,6 +260,13 @@ const LoginPageComponent = () => {
     } else setLoginColor("#606060");
   };
 
+  const changeValue = () => {
+    setInputValue({
+      email: inputEmail.current.value,
+      password: inputPassword.current.value,
+    });
+  };
+
   return (
     <>
       <StylingLobby></StylingLobby>
@@ -269,7 +281,11 @@ const LoginPageComponent = () => {
               placeholder="enter your email"
               type="email"
               ref={inputEmail}
-              onChange={isPossible}
+              onChange={() => {
+                isPossible();
+                changeValue();
+              }}
+              value={inputValue.email}
             />
           </InputBox>
           <Description>Password</Description>
@@ -279,7 +295,11 @@ const LoginPageComponent = () => {
               type={inputType.type}
               maxLength={20}
               ref={inputPassword}
-              onChange={isPossible}
+              onChange={() => {
+                isPossible();
+                changeValue();
+              }}
+              value={inputValue.password}
             />
             <CheckPassword
               onMouseDown={seePassword}
@@ -287,7 +307,12 @@ const LoginPageComponent = () => {
               url={inputType.url}
             />
           </InputBox>
-          <LoginButton background={loginColor}>로그인</LoginButton>
+          <LoginButton
+            background={loginColor}
+            onClick={login(inputValue.email, inputValue.password)}
+          >
+            로그인
+          </LoginButton>
           <QuestionBox>
             <FoundAccount href="">아이디 비밀번호 찾기</FoundAccount>
             <FoundAccount href="">계정이 없으신가요?</FoundAccount>
