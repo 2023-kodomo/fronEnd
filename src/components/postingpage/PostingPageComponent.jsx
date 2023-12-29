@@ -30,6 +30,9 @@ const PostingPageComponent = () => {
       "삭제했던 같은 이미지를 재삽입하려면 다른 이미지를 임시 삽입한 후\n삭제했던 이미지를 재삽입해야 합니다."
     );
   };
+  const handleDragNone = (e) => {
+    e.preventDefault();
+  };
   const handlePstCancel = () => {
     setIsPostingCancel(false);
   };
@@ -112,9 +115,17 @@ const PostingPageComponent = () => {
                       <Caution onClick={handleViewCaution}>!</Caution>
                     </ImgSpan>
                     {image ? (
-                      <PostingImg src={image} alt="" />
+                      <PostingImg
+                        src={image}
+                        alt=""
+                        onDragStart={handleDragNone}
+                      />
                     ) : (
-                      <NoneImg src="./img/NoneImage.svg" alt="None Image" />
+                      <NoneImg
+                        src="./img/NoneImage.svg"
+                        alt="None Image"
+                        onDragStart={handleDragNone}
+                      />
                     )}
                     <input
                       type="file"
@@ -299,10 +310,6 @@ const ImgSpan = styled.span`
   font-weight: 400;
   line-height: normal;
   font-family: "Hakgyoansim Wooju";
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 `;
 
 const PostingImg = styled.img`
@@ -349,6 +356,7 @@ const ImgInsert = styled.button`
   margin-left: 10px;
   transition: transform 0.2s ease;
   &:hover {
+    cursor: pointer;
     transform: scale(1.14);
   }
 `;
@@ -369,6 +377,7 @@ const ImgDelete = styled.button`
   margin-left: 10px;
   transition: transform 0.2s ease;
   &:hover {
+    cursor: pointer;
     transform: scale(1.14);
   }
 `;
@@ -378,6 +387,10 @@ const PostingForm = styled.form`
   width: 1501px;
   height: 649px;
   margin: 0px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `;
 
 const PostingField = styled.fieldset`
