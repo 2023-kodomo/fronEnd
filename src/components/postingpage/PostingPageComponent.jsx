@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Header from "../HeaderComponent";
 import StylingLobby from "../stylingLobby";
+import postProduct from "../../utils/api/postProduct";
 
 const PostingPageComponent = () => {
   const [image, setImage] = useState(null);
@@ -42,7 +43,14 @@ const PostingPageComponent = () => {
   const handleCancel = () => {
     window.location.href = "./";
   };
-  const handlePostUp = () => {
+  const handlePostUp = async () => {
+    const productData = new FormData();
+    productData.append("title", text);
+    productData.append("content", explain);
+    productData.append("price", parseInt(inputValue.replace(/,/g, ""), 10));
+    productData.append("image");
+
+    await postProduct(productData);
     window.location.href = "./";
   };
   const handleTitleChange = (e) => {
