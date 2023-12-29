@@ -3,7 +3,7 @@ import reissue from "./reissue";
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 
-const getProduct = async (id, navigate) => {
+const getProduct = async (id) => {
   return await axios
     .get(`${baseURL}/products/${id}`, {
       headers: {
@@ -17,7 +17,7 @@ const getProduct = async (id, navigate) => {
       console.log(rej.response);
       if (rej.response.status === 403) {
         console.log("토큰 불러오기");
-        await reissue(navigate);
+        await reissue();
       }
     });
 };

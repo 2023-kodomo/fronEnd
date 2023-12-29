@@ -6,7 +6,6 @@ import Comment from "./comment";
 import getProduct from "../../utils/api/product";
 import { useLocation } from "react-router-dom";
 import postComment from "../../utils/api/postComment";
-import { useNavigate } from "react-router-dom";
 
 const ProductInfoComponent = () => {
   const location = useLocation();
@@ -16,13 +15,12 @@ const ProductInfoComponent = () => {
   const contentBox = useRef();
   const [comments, setComments] = useState([]);
   const [datas, setDatas] = useState();
-  const navigate = useNavigate();
   const [commentUpdate, setCommentUpdate] = useState(false);
 
   const memorizeFetch = useCallback(() => {
     const fetchData = async () => {
       try {
-        await getProduct(`${productId}`, navigate).then((productData) => {
+        await getProduct(`${productId}`).then((productData) => {
           console.log(productData);
           setDatas(productData);
           setComments(() => {
@@ -43,7 +41,7 @@ const ProductInfoComponent = () => {
       }
     };
     fetchData();
-  }, [productId, navigate]);
+  }, [productId]);
 
   useEffect(() => {
     memorizeFetch();
