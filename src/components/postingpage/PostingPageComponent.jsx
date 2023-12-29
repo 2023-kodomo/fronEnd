@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Header from "../HeaderComponent";
 import StylingLobby from "../stylingLobby";
+import postProduct from "../../utils/api/postProduct";
 
 const PostingPageComponent = () => {
   const [image, setImage] = useState(null);
@@ -10,6 +11,7 @@ const PostingPageComponent = () => {
   const [text, setText] = useState("");
   const [explain, setExplain] = useState("");
   const [frees, setFrees] = useState(false);
+  const [isPosting, setIsPosting] = useState(false);
   const maxLength = 11;
   const handleImageUpload = () => {
     const fileInput = document.getElementById("fileInput");
@@ -24,6 +26,14 @@ const PostingPageComponent = () => {
       setImage(URL.createObjectURL(selectedImage));
     }
   };
+  const handleViewCaution = () => {
+    alert(
+      "삭제했던 같은 이미지를 재삽입하려면 다른 이미지를 임시 삽입한 후\n삭제했던 이미지를 재삽입해야 합니다."
+    );
+  };
+  const handleDragNone = (e) => {
+    e.preventDefault();
+  };
   const handlePstCancel = () => {
     setIsPostingCancel(false);
   };
@@ -31,6 +41,16 @@ const PostingPageComponent = () => {
     setIsPostingCancel(true);
   };
   const handleCancel = () => {
+    window.location.href = "./";
+  };
+  const handlePostUp = async () => {
+    const productData = new FormData();
+    productData.append("title", text);
+    productData.append("content", explain);
+    productData.append("price", parseInt(inputValue.replace(/,/g, ""), 10));
+    productData.append("image");
+
+    await postProduct(productData);
     window.location.href = "./";
   };
   const handleTitleChange = (e) => {
@@ -67,10 +87,26 @@ const PostingPageComponent = () => {
   const handleFreeCheck = () => {
     if (inputValue == "0" || inputValue == "NaN") {
       setFrees(true);
-    } else setFrees(false);
+      setIsPosting(false);
+    } else {
+      setFrees(false);
+      setIsPosting(true);
+    }
   };
   const handleFreeCancel = () => {
     setFrees(false);
+  };
+  const handlePostCancel = () => {
+    setIsPosting(false);
+  };
+  const handlePostConfirm = () => {
+    if (
+      text.trim() !== "" &&
+      explain.trim() !== "" &&
+      inputValue.trim() !== ""
+    ) {
+      handleFreeCheck();
+    }
   };
   return (
     <>
@@ -83,12 +119,21 @@ const PostingPageComponent = () => {
                 <PostingField>
                   <ImgBox>
                     <ImgSpan>
-                      물품 사진 ※ 사진은 한 장만 넣을 수 있습니다
+                      물품 사진 ※ 사진은 한 장만 넣을 수 있습니다.
+                      <Caution onClick={handleViewCaution}>!</Caution>
                     </ImgSpan>
                     {image ? (
-                      <PostingImg src={image} alt="" />
+                      <PostingImg
+                        src={image}
+                        alt=""
+                        onDragStart={handleDragNone}
+                      />
                     ) : (
-                      <NoneImg src="./img/NoneImage.svg" alt="None Image" />
+                      <NoneImg
+                        src="./img/NoneImage.svg"
+                        alt="None Image"
+                        onDragStart={handleDragNone}
+                      />
                     )}
                     <input
                       type="file"
@@ -148,7 +193,7 @@ const PostingPageComponent = () => {
                       <PostingCancel type="button" onClick={handlePstCancelCk}>
                         취소
                       </PostingCancel>
-                      <PostingConfirm onClick={handleFreeCheck}>
+                      <PostingConfirm onClick={handlePostConfirm}>
                         게시
                       </PostingConfirm>
                     </ConfirmButtonCase>
@@ -174,10 +219,23 @@ const PostingPageComponent = () => {
             <CancelBackground onClick={handleFreeCancel}>
               <CancelContent>
                 <CancelTitle>무료나눔으로 하시겠습니까?</CancelTitle>
-                <CancelCheckButton onClick={handleCancel}>
+                <CancelCheckButton onClick={handlePostUp}>
                   확인
                 </CancelCheckButton>
                 <CancelCancelButton onClick={handleFreeCancel}>
+                  닫기
+                </CancelCancelButton>
+              </CancelContent>
+            </CancelBackground>
+          )}
+          {isPosting && (
+            <CancelBackground onClick={handlePostCancel}>
+              <CancelContent>
+                <CancelTitle>상품을 등록하시겠습니까?</CancelTitle>
+                <CancelCheckButton onClick={handlePostUp}>
+                  확인
+                </CancelCheckButton>
+                <CancelCancelButton onClick={handlePostCancel}>
                   닫기
                 </CancelCancelButton>
               </CancelContent>
@@ -260,10 +318,6 @@ const ImgSpan = styled.span`
   font-weight: 400;
   line-height: normal;
   font-family: "Hakgyoansim Wooju";
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 `;
 
 const PostingImg = styled.img`
@@ -310,6 +364,7 @@ const ImgInsert = styled.button`
   margin-left: 10px;
   transition: transform 0.2s ease;
   &:hover {
+    cursor: pointer;
     transform: scale(1.14);
   }
 `;
@@ -330,6 +385,7 @@ const ImgDelete = styled.button`
   margin-left: 10px;
   transition: transform 0.2s ease;
   &:hover {
+    cursor: pointer;
     transform: scale(1.14);
   }
 `;
@@ -339,6 +395,10 @@ const PostingForm = styled.form`
   width: 1501px;
   height: 649px;
   margin: 0px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `;
 
 const PostingField = styled.fieldset`
@@ -668,6 +728,23 @@ const CancelCancelButton = styled.button`
     background-color: #ca2810;
     transform: scale(0.85);
     color: white;
+  }
+`;
+
+const Caution = styled.button`
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #ffffff;
+  background-color: ##f6f6f6;
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
   }
 `;
 
