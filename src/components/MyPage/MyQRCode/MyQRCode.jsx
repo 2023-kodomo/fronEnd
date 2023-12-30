@@ -1,13 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import ModalImg from "../../../utils/api/ModalImg";
+
+// QR코드는 URL로 온다.
+// src에 그냥 넣기
 
 export const MyQRCode = ({ closeModal }) => {
+  const [QRImg, setQRImg] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const qrImg = await ModalImg();
+      setQRImg(qrImg);
+    } catch (e) {
+      console.log(e);
+    }
+    console.log(QRImg);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const MyQRCodeImg = (QRImg) => {
+    return QRImg.map((e, i) => {
+      console.log(e.image);
+      return (
+        <QrImg src="e.image" alt="MyQrCode"/>
+      )
+    })
+  }
+
   return (
     <Container onClick={closeModal}>
       <MyQrcode onClick={(event) => event.stopPropagation()}>
         <QrHeader>내 QR코드</QrHeader>
         <QrLine />
-        <QrImg src="./img/MyQrcode.svg" alt="MyQrCode" />
+        {MyQRCodeImg(QRImg)}
       </MyQrcode>
     </Container>
   );

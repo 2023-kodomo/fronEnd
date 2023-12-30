@@ -15,7 +15,6 @@ const Container = styled.div`
   position: sticky;
   top: -40.5vh;
   display: flex;
-  z-index: -999;
 `;
 
 export default StylingLobby;
