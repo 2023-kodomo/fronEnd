@@ -1,19 +1,26 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { MyQRCode } from "./MyQRCode/MyQRCode";
+import MyProduct from './../../utils/api/MyProfile';
 
 const User = (props) => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [selImg, setselIng] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const username = "테스트입니다.";
+  const [userInfo, setUserInfo] = useState(null);
 
   const imgRef = useRef();
-
   const closeModal = () => {
     setShowModal(false);
     setShowTooltip(false);
   };
+
+  useEffect(()=>{
+    (async function getUserInfo(){
+      const result = await MyProduct();
+      setUserInfo(result);
+    })();
+  },[]);
 
   const saveImgFile = () => {
     const file = imgRef.current.files[0];
@@ -25,6 +32,7 @@ const User = (props) => {
       };
     }
   };
+
   return (
     <UserInfo
       onMouseEnter={() => setShowTooltip(true)}
@@ -62,7 +70,7 @@ const User = (props) => {
         )}
         {showModal && <MyQRCode closeModal={closeModal} />}
       </UserImgContainer>
-      <UserName>{username}</UserName>
+      {userInfo && <UserName>{userInfo.name}</UserName>}
     </UserInfo>
   );
 };
