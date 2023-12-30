@@ -2,10 +2,10 @@ import axios from "axios";
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 
-const ModalImg = async () => {
+const MyProduct = async () => {
   const accessToken = localStorage.getItem("accessToken");
   return await axios
-    .get(`${baseURL}/user/my-qr`, {
+    .get(`${baseURL}/user/my-page`, {
       header: {
         Authorization: ` Bearer ${accessToken}`,
       },
@@ -19,4 +19,4 @@ const ModalImg = async () => {
     });
 };
 
-export default ModalImg;
+export default MyProduct;
