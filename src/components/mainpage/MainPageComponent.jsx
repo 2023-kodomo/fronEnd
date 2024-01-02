@@ -180,15 +180,14 @@ const MainPageComponent = () => {
   */
 
   const [products, setProducts] = useState([]);
+  const [error, setError] = useState("");
 
   const fetchData = async () => {
-    try {
-      const productsData = await getProduts();
-      setProducts(productsData);
-    } catch (e) {
-      console.log(e);
-    }
-    console.log(products);
+    const productsData = await getProduts();
+    console.log(typeof productsData);
+    if (typeof productsData == "string") {
+      setError(productsData);
+    } else setProducts(productsData);
   };
 
   useEffect(() => {
@@ -217,6 +216,7 @@ const MainPageComponent = () => {
         <SmallText>대마고 전용 중고거래 사이트</SmallText>
         <Logo>대팔이</Logo>
       </StylingLobby>
+      <ErrorContainer>{error}</ErrorContainer>
       <GrowContainer>{productSet(products)}</GrowContainer>
     </Container>
   );
@@ -235,18 +235,16 @@ const fadeIn = keyframes`
 
 const Container = styled.main`
   width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
-// const StylingLobby = styled.div`
-//   height: 830px;
-//   background-image: url("./wave.svg");
-//   background-size: cover;
-//   background-repeat: no-repeat;
-//   background-position-y: bottom;
-//   position: sticky;
-//   top: -386px;
-//   display: flex;
-// `;
+const ErrorContainer = styled.span`
+  font-family: "Hakgyoansim Wooju";
+  font-size: 32px;
+  color: white;
+`;
 
 const SmallText = styled.span`
   color: white;
