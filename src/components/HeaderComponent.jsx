@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import getUserInfo from "../utils/api/getUserInfo";
 
-const Header = ({ page = 0, user }) => {
-  user = true; // test
-  let userName;
-  let userImg;
-  if (user /*!==undefined*/) {
-    userName = /*user.name*/ "테스트입니다.";
-    userImg = user && user.image ? user.image : "./img/BasicProfile.svg";
-  }
+const Header = ({ page = 0 }) => {
+  const [user, setUser] = useState(true);
+  const [userName, setUserName] = useState("");
+  const [userImg, setUserImg] = useState("");
+  const getUser = async () => {
+    const userInfo = await getUserInfo();
+    if (userInfo) {
+      setUserName(userInfo.userName);
+      setUserImg(userInfo.userImg);
+    } else {
+      setUser(false);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <Container>
       <Linker href="/">
@@ -135,13 +146,13 @@ const WelcomeText = styled.div`
   @media screen and (max-width: 579px) {
     font-size: 15px;
   }
-  @media screen and (max-width:567px) {
+  @media screen and (max-width: 567px) {
     font-size: 13px;
   }
-  @media screen and (max-width:540px) {
+  @media screen and (max-width: 540px) {
     font-size: 10px;
   }
-  @media screen and (max-width:520px) {
+  @media screen and (max-width: 520px) {
     font-size: 9.8px;
   }
   & > span {
