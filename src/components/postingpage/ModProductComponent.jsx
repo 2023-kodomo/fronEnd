@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Header from "../HeaderComponent";
 import StylingLobby from "../stylingLobby";
-import postProduct from "../../utils/api/postProduct";
+import modProduct from "../../utils/api/modProduct";
 
-const PostingPageComponent = () => {
-  const [image, setImage] = useState(null);
-  const [inputValue, setInputValue] = useState("");
-  const [isPostingCancel, setIsPostingCancel] = useState(false);
-  const [text, setText] = useState("");
-  const [explain, setExplain] = useState("");
+const ModProductComponent = (product, productId) => {
+  const [image, setImage] = useState(product.get("image"));
+  const [inputValue, setInputValue] = useState(product.get("price"));
+  const [isModifyingCancel, setIsModifyingCancel] = useState(false);
+  const [text, setText] = useState(product.get("title"));
+  const [explain, setExplain] = useState(product.get("content"));
   const [frees, setFrees] = useState(false);
-  const [isPosting, setIsPosting] = useState(false);
+  const [isModifying, setIsModifying] = useState(false);
   const maxLength = 11;
   const handleImageUpload = () => {
     const fileInput = document.getElementById("fileInput");
@@ -34,16 +34,16 @@ const PostingPageComponent = () => {
   const handleDragNone = (e) => {
     e.preventDefault();
   };
-  const handlePstCancel = () => {
-    setIsPostingCancel(false);
+  const handleMdfCancel = () => {
+    setIsModifyingCancel(false);
   };
-  const handlePstCancelCk = () => {
-    setIsPostingCancel(true);
+  const handleMdfCancelCk = () => {
+    setIsModifyingCancel(true);
   };
   const handleCancel = () => {
     window.location.href = "./";
   };
-  const handlePostUp = async () => {
+  const handleModComplete = async () => {
     const productData = new FormData();
     productData.append("title", text);
     productData.append("content", explain);
@@ -54,7 +54,7 @@ const PostingPageComponent = () => {
     if (selectedImage) {
       if (selectedImage.size <= 3 * 1024 * 1024) {
         productData.append("image", selectedImage);
-        await postProduct(productData);
+        await modProduct(productData, productId);
         window.location.href = "./";
       } else {
         alert("이미지 크기는 3MB 이하여야 합니다.");
@@ -95,19 +95,19 @@ const PostingPageComponent = () => {
   const handleFreeCheck = () => {
     if (inputValue == "0" || inputValue == "NaN") {
       setFrees(true);
-      setIsPosting(false);
+      setIsModifying(false);
     } else {
       setFrees(false);
-      setIsPosting(true);
+      setIsModifying(true);
     }
   };
   const handleFreeCancel = () => {
     setFrees(false);
   };
-  const handlePostCancel = () => {
-    setIsPosting(false);
+  const handleModCancel = () => {
+    setIsModifying(false);
   };
-  const handlePostConfirm = () => {
+  const handleModConfirm = () => {
     if (
       image !== null &&
       text.trim() !== "" &&
@@ -123,16 +123,16 @@ const PostingPageComponent = () => {
         <Container2>
           <Header />
           <Container3>
-            <PostingFrame>
-              <PostingForm onSubmit={handleSubmit}>
-                <PostingField>
+            <ProductFrame>
+              <ProductForm onSubmit={handleSubmit}>
+                <ProductField>
                   <ImgBox>
                     <ImgSpan>
                       물품 사진 ※ 사진은 한 장만 넣을 수 있습니다.
                       <Caution onClick={handleViewCaution}>!</Caution>
                     </ImgSpan>
                     {image ? (
-                      <PostingImg
+                      <ProductImg
                         src={image}
                         alt=""
                         onDragStart={handleDragNone}
@@ -163,7 +163,7 @@ const PostingPageComponent = () => {
                   </ImgBox>
                   <Ground>
                     <AlignUl>
-                      <PostingLi>
+                      <ProductLi>
                         <ProductLabel>상품명</ProductLabel>
                         <ProductName
                           type="text"
@@ -173,8 +173,8 @@ const PostingPageComponent = () => {
                           placeholder="상품명 입력(공백 포함 최대 20글자)"
                           required
                         />
-                      </PostingLi>
-                      <PostingLi>
+                      </ProductLi>
+                      <ProductLi>
                         <ProductLabel>상품 설명</ProductLabel>
                         <ProductExplain
                           value={explain}
@@ -183,8 +183,8 @@ const PostingPageComponent = () => {
                           placeholder="상품 설명 입력(공백 포함 최대 500자)"
                           required
                         ></ProductExplain>
-                      </PostingLi>
-                      <PostingLi>
+                      </ProductLi>
+                      <ProductLi>
                         <ProductLabel>가격</ProductLabel>
                         <ProductPrice
                           type="text"
@@ -197,29 +197,29 @@ const PostingPageComponent = () => {
                           required
                         />
                         <PrintWon>{inputValue}원</PrintWon>
-                      </PostingLi>
+                      </ProductLi>
                     </AlignUl>
                     <ConfirmButtonCase>
-                      <PostingCancel type="button" onClick={handlePstCancelCk}>
+                      <ProductCancel type="button" onClick={handleMdfCancelCk}>
                         취소
-                      </PostingCancel>
-                      <PostingConfirm onClick={handlePostConfirm}>
+                      </ProductCancel>
+                      <ProductConfirm onClick={handleModConfirm}>
                         게시
-                      </PostingConfirm>
+                      </ProductConfirm>
                     </ConfirmButtonCase>
                   </Ground>
-                </PostingField>
-              </PostingForm>
-            </PostingFrame>
+                </ProductField>
+              </ProductForm>
+            </ProductFrame>
           </Container3>
-          {isPostingCancel && (
-            <CancelBackground onClick={handlePstCancel}>
+          {isModifyingCancel && (
+            <CancelBackground onClick={handleMdfCancel}>
               <CancelContent>
                 <CancelTitle>글 작성을 취소하시겠습니까?</CancelTitle>
                 <CancelCheckButton onClick={handleCancel}>
                   확인
                 </CancelCheckButton>
-                <CancelCancelButton onClick={handlePstCancel}>
+                <CancelCancelButton onClick={handleMdfCancel}>
                   닫기
                 </CancelCancelButton>
               </CancelContent>
@@ -229,7 +229,7 @@ const PostingPageComponent = () => {
             <CancelBackground onClick={handleFreeCancel}>
               <CancelContent>
                 <CancelTitle>무료나눔으로 하시겠습니까?</CancelTitle>
-                <CancelCheckButton onClick={handlePostUp}>
+                <CancelCheckButton onClick={handleModComplete}>
                   확인
                 </CancelCheckButton>
                 <CancelCancelButton onClick={handleFreeCancel}>
@@ -238,14 +238,14 @@ const PostingPageComponent = () => {
               </CancelContent>
             </CancelBackground>
           )}
-          {isPosting && (
-            <CancelBackground onClick={handlePostCancel}>
+          {isModifying && (
+            <CancelBackground onClick={handleModCancel}>
               <CancelContent>
-                <CancelTitle>상품을 등록하시겠습니까?</CancelTitle>
-                <CancelCheckButton onClick={handlePostUp}>
+                <CancelTitle>상품을 수정하시겠습니까?</CancelTitle>
+                <CancelCheckButton onClick={handleModComplete}>
                   확인
                 </CancelCheckButton>
-                <CancelCancelButton onClick={handlePostCancel}>
+                <CancelCancelButton onClick={handleModCancel}>
                   닫기
                 </CancelCancelButton>
               </CancelContent>
@@ -291,7 +291,7 @@ const Container3 = styled.div`
   justify-content: center;
 `;
 
-const PostingFrame = styled.div`
+const ProductFrame = styled.div`
   display: flex;
   width: 1501px;
   height: 649px;
@@ -330,7 +330,7 @@ const ImgSpan = styled.span`
   font-family: "Hakgyoansim Wooju";
 `;
 
-const PostingImg = styled.img`
+const ProductImg = styled.img`
   width: 300px;
   height: 300px;
   object-fit: cover;
@@ -400,7 +400,7 @@ const ImgDelete = styled.button`
   }
 `;
 
-const PostingForm = styled.form`
+const ProductForm = styled.form`
   display: block;
   width: 1501px;
   height: 649px;
@@ -411,7 +411,7 @@ const PostingForm = styled.form`
   user-select: none;
 `;
 
-const PostingField = styled.fieldset`
+const ProductField = styled.fieldset`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -440,7 +440,7 @@ const AlignUl = styled.ul`
   margin: 0px;
 `;
 
-const PostingLi = styled.li`
+const ProductLi = styled.li`
   display: flex;
   align-items: center;
   margin: 0px 0px 40px;
@@ -594,7 +594,7 @@ const PrintWon = styled.span`
   font-family: inherit;
 `;
 
-const PostingCancel = styled.button`
+const ProductCancel = styled.button`
   width: 160px;
   height: 42px;
   border-radius: 16px;
@@ -621,7 +621,7 @@ const PostingCancel = styled.button`
   }
 `;
 
-const PostingConfirm = styled.button`
+const ProductConfirm = styled.button`
   width: 160px;
   height: 42px;
   border-radius: 16px;
@@ -758,4 +758,4 @@ const Caution = styled.button`
   }
 `;
 
-export default PostingPageComponent;
+export default ModProductComponent;
