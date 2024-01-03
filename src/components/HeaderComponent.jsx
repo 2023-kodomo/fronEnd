@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import getUserInfo from "../utils/api/getUserInfo";
 
@@ -7,7 +7,10 @@ const Header = ({ page = 0 }) => {
   const [user, setUser] = useState(true);
   const [userName, setUserName] = useState("");
   const [userImg, setUserImg] = useState("");
-  const getUser = async () => {
+  const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate();
+
+  const fetchData = useCallback(async () => {
     const userInfo = await getUserInfo();
     if (userInfo) {
       setUserName(userInfo.userName);
@@ -15,22 +18,53 @@ const Header = ({ page = 0 }) => {
     } else {
       setUser(false);
     }
+  }, []);
+
+  const searchChangeHandler = (e) => {
+    setSearchText(e.target.value);
   };
 
   useEffect(() => {
-    getUser();
-  }, []);
+    fetchData();
+  }, [fetchData]);
+
+  const searchHandler = () => {
+    if (user && searchText.trim() !== "") {
+      navigate(`/search?word=${searchText}`);
+      window.location.reload();
+    } else if (user) {
+      alert("검색어를 입력해주세요!");
+    } else {
+      if (prompt("로그인이 필요한 기능입니다.")) {
+        window.location.href = "/login";
+      }
+    }
+  };
+
+  const EnterHandler = (e) => {
+    if (e.key === "Enter") {
+      searchHandler();
+    }
+  };
 
   return (
-    <Container>
+    <Container onKeyUp={EnterHandler}>
       <Linker href="/">
         <HeaderLogo>대팔이</HeaderLogo>
       </Linker>
       {page === 0 && (
         <FlexContainer>
           <SearchBar>
-            <InputBar type="text" placeholder="검색할 상품을 입력해 주세요." />
-            <SearchIcon src="./img/Searchicon.svg" alt="SearchIcon" />
+            <InputBar
+              type="text"
+              placeholder="검색할 상품을 입력해 주세요."
+              onChange={searchChangeHandler}
+            />
+            <SearchIcon
+              src="./img/Searchicon.svg"
+              alt="SearchIcon"
+              onClick={searchHandler}
+            />
           </SearchBar>
           <UserImg src={user ? userImg : null} alt={user ? "UserImg" : ""} />
           <WelcomeText>
@@ -44,12 +78,10 @@ const Header = ({ page = 0 }) => {
             ) : (
               <>
                 <span className="LoginText">
-                  로그인
-                  <link href="#" />
+                  <a href="/login">로그인</a>
                 </span>
                 <span className="SignUpText">
-                  회원가입
-                  <link href="#" />
+                  <a href="/Register">회원가입</a>
                 </span>
               </>
             )}
@@ -157,6 +189,10 @@ const WelcomeText = styled.div`
   }
   & > span {
     cursor: pointer;
+  }
+  & a {
+    text-decoration: none;
+    color: inherit;
   }
   & > span.LoginText {
     color: #7a6ccf;
