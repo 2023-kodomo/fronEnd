@@ -196,7 +196,6 @@ const MainPageComponent = () => {
 
   const productSet = (products) => {
     return products.map((e, i) => {
-      console.log(e.image);
       return (
         <ProductPost
           title={e.title}
@@ -278,6 +277,10 @@ const SmallText = styled.span`
   @media screen and (max-width: 1350px) {
     font-size: 38.4px;
   }
+
+  @media screen and (max-height: 850px) {
+    display: none;
+  }
 `;
 
 const Logo = styled.span`
@@ -313,12 +316,17 @@ const Logo = styled.span`
   @media screen and (max-width: 1350px) {
     font-size: 76.8px;
   }
+
+  @media screen and (max-height: 850px) {
+    display: none;
+  }
 `;
 
 const GrowContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  column-gap: auto;
+  width: calc(100% - 128 * 2px);
+  justify-content: space-between;
   row-gap: 90px; /* 세로 간격을 90px로 설정 */
   margin-left: 128px; /* 좌측 여백 128px */
   margin-right: 128px; /* 우측 여백 128px */

@@ -8,7 +8,7 @@ import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import EmailPage from "../pages/EmailPage";
 import { MyQRCode } from "../components/MyPage/MyQRCode/MyQRCode";
-
+import SearchPage from "../pages/SearchPage";
 
 const Router = () => {
   return (
@@ -22,7 +22,8 @@ const Router = () => {
         <Route path="/Register" element={<RegisterPage />} />
         <Route path="/Login" element={<LoginPage />} />
         <Route path="/Email" element={<EmailPage />} />
-        <Route path="/MyQrcode" element={<MyQRCode/>} />
+        <Route path="/MyQrcode" element={<MyQRCode />} />
+        <Route path="/Search" element={<SearchPage />} />
       </Routes>
     </BrowserRouter>
   );
