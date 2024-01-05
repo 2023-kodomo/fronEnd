@@ -303,6 +303,7 @@ const ProductFrame = styled.div`
     width: 1024px;
     height: 1128px;
   }
+  z-index: 1;
 `;
 
 const ImgBox = styled.div`
