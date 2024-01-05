@@ -309,7 +309,9 @@ const LoginPageComponent = () => {
           </InputBox>
           <LoginButton
             background={loginColor}
-            onClick={login(inputValue.email, inputValue.password)}
+            onClick={() => {
+              login(inputValue.email, inputValue.password);
+            }}
           >
             로그인
           </LoginButton>
