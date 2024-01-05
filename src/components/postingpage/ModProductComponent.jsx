@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Header from "../HeaderComponent";
 import StylingLobby from "../stylingLobby";
+import getProduct from "../../utils/api/product";
+import { useLocation } from "react-router-dom";
 import modProduct from "../../utils/api/modProduct";
 
-const ModProductComponent = (product, productId) => {
+const ModProductComponent = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const productId = searchParams.get("productId");
+  const product = getProduct(productId);
   const [image, setImage] = useState(product.get("image"));
   const [inputValue, setInputValue] = useState(product.get("price"));
   const [isModifyingCancel, setIsModifyingCancel] = useState(false);
