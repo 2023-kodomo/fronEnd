@@ -4,10 +4,10 @@ import Header from "../HeaderComponent";
 import StylingLobby from "../stylingLobby";
 import ProductPost from "../product";
 import UserInfo from "./User";
-import MyProduct from "./../../utils/api/MyProduct";
+import MyProduct from "./../../utils/api/MyPageAPI";
 
 const MypageComponent = () => {
-  
+
   const product = {
     id: "사용자 아이디",
     name: "사용자 이름",
