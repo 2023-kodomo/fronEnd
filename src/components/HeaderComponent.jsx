@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import getUserInfo from "../utils/api/getUserInfo";
 
@@ -15,6 +15,7 @@ const Header = ({ page = 0 }) => {
     if (userInfo) {
       setUserName(userInfo.userName);
       setUserImg(userInfo.userImg);
+      localStorage.setItem("userId", userInfo.userId);
     } else {
       setUser(false);
     }
@@ -230,7 +231,7 @@ const Container = styled.div`
   width: 100vw;
   height: 120px;
   background-color: #181738;
-  z-index: 1;
+  z-index: 2;
   box-sizing: border-box;
 `;
 

@@ -6,6 +6,7 @@ import Comment from "./comment";
 import getProduct from "../../utils/api/product";
 import { useLocation } from "react-router-dom";
 import postComment from "../../utils/api/postComment";
+import MoreModal from "./MoreModal";
 
 const ProductInfoComponent = () => {
   const location = useLocation();
@@ -16,6 +17,8 @@ const ProductInfoComponent = () => {
   const [comments, setComments] = useState([]);
   const [datas, setDatas] = useState();
   const [commentUpdate, setCommentUpdate] = useState(false);
+  const [seller, setSeller] = useState(false);
+  const [modalOpen, setmodalOpen] = useState(false);
 
   const memorizeFetch = useCallback(() => {
     const fetchData = async () => {
@@ -35,6 +38,8 @@ const ProductInfoComponent = () => {
             }
             return comment;
           });
+          if (productData.seller.id === localStorage.getItem("userId"))
+            setSeller(true);
         });
       } catch (e) {
         console.log(e);
@@ -77,23 +82,40 @@ const ProductInfoComponent = () => {
     }
   };
 
+  const optionClickHandler = () => {
+    setmodalOpen(!modalOpen);
+  };
+
   return (
     <Container>
       <Header page={0} />
       <StylingLobby></StylingLobby>
 
       <ContentBox ref={contentBox}>
-        <a href={"/"}>
-          <BeforeButton>
+        <BeforeButton>
+          <a href={"/"}>
             <img src="./img/Arrow1.svg" alt="" />
-          </BeforeButton>
-        </a>
+          </a>
+        </BeforeButton>
         <TextGroup>
           <Title>{datas && datas.title}</Title>
           <Date>
             {datas && datas.uploadDate.substr(0, 10).replaceAll("-", ".")}
           </Date>
           <Writing>{datas && datas.seller.name}</Writing>
+          {seller && modalOpen && (
+            <ModalContainer>
+              <EditButton onClick={optionClickHandler}>
+                <img src="/more_Vertical.svg" alt="더보기" />
+              </EditButton>
+              <MoreModal product={productId} />
+            </ModalContainer>
+          )}
+          {seller && !modalOpen && (
+            <EditButton onClick={optionClickHandler}>
+              <img src="/more_Vertical.svg" alt="더보기" />
+            </EditButton>
+          )}
         </TextGroup>
         <Line></Line>
         <ProductImg src={datas && datas.image} alt="상품 사진 로딩 실패" />
@@ -133,12 +155,21 @@ const Container = styled.div`
   position: relative;
 `;
 
+const EditButton = styled.button`
+  background-color: inherit;
+  border: none;
+`;
+
+const ModalContainer = styled.div`
+  position: relative;
+`;
+
 const ContentBox = styled.div`
   max-height: 75vh;
   min-width: 280px;
   overflow-y: scroll;
   box-sizing: border-box;
-  padding-top: 54px;
+  padding-top: 24px;
   width: 52%;
   padding-bottom: 46px;
   position: absolute;
@@ -165,8 +196,8 @@ const BeforeButton = styled.button`
   box-shadow: none;
   box-shadow: 0px 0px 6px;
   position: absolute;
-  top: 8px;
-  left: 8px;
+  top: 24px;
+  left: 16px;
   &:hover {
     animation: ${rotate} 1s;
     cursor: pointer;
@@ -184,7 +215,7 @@ const TextGroup = styled.div`
 const Title = styled.span`
   font-family: "Hakgyoansim Wooju";
   font-size: 2em;
-  flex-basis: 75%;
+  flex-basis: 40%;
 `;
 
 const Date = styled.span`

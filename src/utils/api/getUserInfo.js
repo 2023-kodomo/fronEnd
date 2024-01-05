@@ -14,6 +14,7 @@ const getUserInfo = async () => {
       })
       .then((res) => {
         return {
+          userId: res.data.id,
           userName: res.data.name,
           userImg: res.data.profileImage,
         };
