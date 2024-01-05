@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import getUserInfo from "../utils/api/getUserInfo";
 
@@ -15,6 +15,7 @@ const Header = ({ page = 0 }) => {
     if (userInfo) {
       setUserName(userInfo.userName);
       setUserImg(userInfo.userImg);
+      localStorage.setItem("userId", userInfo.userId);
     } else {
       setUser(false);
     }
