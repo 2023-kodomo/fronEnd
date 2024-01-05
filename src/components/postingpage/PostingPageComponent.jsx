@@ -748,7 +748,7 @@ const Caution = styled.button`
   height: 20px;
   border-radius: 50%;
   border: 1px solid #ffffff;
-  background-color: ##f6f6f6;
+  background-color: #f6f6f6;
   font-size: 16px;
   font-family: inherit;
   font-weight: bold;
