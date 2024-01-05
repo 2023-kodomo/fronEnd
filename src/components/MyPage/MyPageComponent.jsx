@@ -4,79 +4,80 @@ import Header from "../HeaderComponent";
 import StylingLobby from "../stylingLobby";
 import ProductPost from "../product";
 import UserInfo from "./User";
-import MyProduct from "./../../utils/api/MyProduct";
+import MyProduct from "./../../utils/api/MyPageAPI";
 
 const MypageComponent = () => {
-  // const product = {
-  //   id: "사용자 아이디",
-  //   name: "사용자 이름",
-  //   email: "사용자 이메일",
-  //   products: [
-  //     {
-  //       title: "코로나를 팝니다",
-  //       content: "상품 설명",
-  //       price: "19690",
-  //       image: "",
-  //       uploadDate: "2023-00-00T00:00:00.000+00:00",
-  //     },
-  //     {
-  //       title: "리액트 팝니다",
-  //       content: "상품 설명",
-  //       price: "무료나눔",
-  //       image: "",
-  //       uploadDate: "2023-00-00T00:00:00.000+00:00",
-  //     },
-  //     {
-  //       title: "일렉트론 팝니다",
-  //       content: "상품 설명",
-  //       price: "1000",
-  //       image: "",
-  //       uploadDate: "2023-00-00T00:00:00.000+00:00",
-  //     },
-  //     {
-  //       title: "박지민 팝니다",
-  //       content: "상품 설명",
-  //       price: "무료나눔",
-  //       image: "",
-  //       uploadDate: "2023-00-00T00:00:00.000+00:00",
-  //     },
-  //     {
-  //       title: "숲속의 박지민 공주",
-  //       content: "상품 설명",
-  //       price: "100,000,000,000",
-  //       image: "",
-  //       uploadDate: "2023-00-00T00:00:00.000+00:00",
-  //     },
-  //     {
-  //       title: "커여운 띠모 핍니다.",
-  //       content: "상품 설명",
-  //       price: "9,999,999,999,999",
-  //       image: "",
-  //       uploadDate: "2023-00-00T00:00:00.000+00:00",
-  //     },
-  //     {
-  //       title: "김희찬 팝니다.",
-  //       content: "상품 설명",
-  //       price: "999,999,999,999",
-  //       image: "",
-  //       uploadDate: "2023-00-00T00:00:00.000+00:00",
-  //     },
-  //     {
-  //       title: "남궁윤교 처리해요.",
-  //       content: "상품 설명",
-  //       price: "-100000",
-  //       image: "",
-  //       uploadDate: "2023-00-00T00:00:00.000+00:00",
-  //     },
-  //     {
-  //       title: "조유리 급처해요",
-  //       content: "도저히 갖고 못있겠어요",
-  //       price: "-999,999,999,999",
-  //       image: "./img/Yuri.svg",
-  //       uploadDate: "2023-00-00T00:00:00.000+00:00",
-  //     },
-  //   ],
-  // };
+
+  const product = {
+    id: "사용자 아이디",
+    name: "사용자 이름",
+    email: "사용자 이메일",
+    products: [
+      {
+        title: "코로나를 팝니다",
+        content: "상품 설명",
+        price: "19690",
+        image: "",
+        uploadDate: "2023-00-00T00:00:00.000+00:00",
+      },
+      {
+        title: "리액트 팝니다",
+        content: "상품 설명",
+        price: "무료나눔",
+        image: "",
+        uploadDate: "2023-00-00T00:00:00.000+00:00",
+      },
+      {
+        title: "일렉트론 팝니다",
+        content: "상품 설명",
+        price: "1000",
+        image: "",
+        uploadDate: "2023-00-00T00:00:00.000+00:00",
+      },
+      {
+        title: "박지민 팝니다",
+        content: "상품 설명",
+        price: "무료나눔",
+        image: "",
+        uploadDate: "2023-00-00T00:00:00.000+00:00",
+      },
+      {
+        title: "숲속의 박지민 공주",
+        content: "상품 설명",
+        price: "100,000,000,000",
+        image: "",
+        uploadDate: "2023-00-00T00:00:00.000+00:00",
+      },
+      {
+        title: "커여운 띠모 핍니다.",
+        content: "상품 설명",
+        price: "9,999,999,999,999",
+        image: "",
+        uploadDate: "2023-00-00T00:00:00.000+00:00",
+      },
+      {
+        title: "김희찬 팝니다.",
+        content: "상품 설명",
+        price: "999,999,999,999",
+        image: "",
+        uploadDate: "2023-00-00T00:00:00.000+00:00",
+      },
+      {
+        title: "남궁윤교 처리해요.",
+        content: "상품 설명",
+        price: "-100000",
+        image: "",
+        uploadDate: "2023-00-00T00:00:00.000+00:00",
+      },
+      {
+        title: "조유리 급처해요",
+        content: "도저히 갖고 못있겠어요",
+        price: "-999,999,999,999",
+        image: "./img/Yuri.svg",
+        uploadDate: "2023-00-00T00:00:00.000+00:00",
+      },
+    ],
+  };
 
   const [products, setProducts] = useState([]);
 
