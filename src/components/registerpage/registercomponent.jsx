@@ -364,7 +364,7 @@ const RegisterPageComponent = () => {
             background={completeColor}
             onClick={() => {
               isPossible();
-              register(inputValue.email, inputValue.email, inputValue.password);
+              register(inputValue.email, inputValue.name, inputValue.password);
             }}
           >
             회원가입

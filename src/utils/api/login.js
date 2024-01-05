@@ -4,7 +4,7 @@ const baseURL = process.env.REACT_APP_BASE_URL;
 
 const login = async (email, password) => {
   return await axios
-    .post(`${baseURL}/login`, {
+    .post(`${baseURL}/auth/login`, {
       email: email,
       password: password,
     })
