@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { MyQRCode } from "./MyQRCode/MyQRCode";
-import MyProduct from './../../utils/api/MyProfile';
+import MyPageAAPI from '../../utils/api/MyPageAPI';
 
 const User = (props) => {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -10,14 +10,14 @@ const User = (props) => {
   const [userInfo, setUserInfo] = useState(null);
 
   const imgRef = useRef();
-  const closeModal = () => {
+  const closeModal = () => { 
     setShowModal(false);
     setShowTooltip(false);
   };
 
   useEffect(()=>{
     (async function getUserInfo(){
-      const result = await MyProduct();
+      const result = await MyPageAAPI();
       setUserInfo(result);
     })();
   },[]);

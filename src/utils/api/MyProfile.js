@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = process.env.REACT_APP_BASE_URL;
+const baseURL = process.env.REACT_APP_API_URL;
 
 const MyProfile = async () => {
   const accessToken = localStorage.getItem("accessToken");
