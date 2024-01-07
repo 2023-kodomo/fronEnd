@@ -204,7 +204,10 @@ const RegisterPageComponent = () => {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [maxLength, setMaxLength] = useState(20);
-  const [completeColor, setCompleteColor] = useState("#606060");
+  const [completeColor, setCompleteColor] = useState({
+    color: "#606060",
+    button: false,
+  });
   const inputId = useRef();
   const inputEmail = useRef();
   const inputPassword = useRef();
@@ -224,8 +227,8 @@ const RegisterPageComponent = () => {
       inputRePassword.current.value !== "" &&
       inputRePassword.current.value === inputPassword.current.value
     ) {
-      setCompleteColor("#726eff");
-    } else setCompleteColor("#606060");
+      setCompleteColor({ color: "#726eff", button: true });
+    } else setCompleteColor({ color: "#606060", button: false });
   };
 
   const seePassword = () => {
@@ -361,10 +364,16 @@ const RegisterPageComponent = () => {
           </InputBox>
 
           <CompleteButton
-            background={completeColor}
+            background={completeColor.color}
             onClick={() => {
-              isPossible();
-              register(inputValue.email, inputValue.name, inputValue.password);
+              if (completeColor.button) {
+                isPossible();
+                register(
+                  inputValue.email,
+                  inputValue.name,
+                  inputValue.password
+                );
+              } else alert("빈틈 없이 작성해주세요");
             }}
           >
             회원가입
