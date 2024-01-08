@@ -7,35 +7,40 @@ import UserInfo from "./User";
 import MyPageAPI from "./../../utils/api/MyPageAPI";
 
 const MypageComponent = () => {
-
   const [products, setProducts] = useState([]);
 
   const fetchData = async () => {
     try {
       const productDatas = await MyPageAPI();
-      setProducts(productDatas.product);
+      console.log(productDatas);
+      if (productDatas.myProduct.length !== 0) {
+        setProducts(productDatas.myProduct);
+      } else {
+        alert("없어");
+      }
     } catch (e) {
       console.log(e);
     }
     console.log(products);
   };
-  
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const productBundle = (products) => {
-    const Product = products.map((e, i) => (
-      <ProductPost
-        title={e.products.title}
-        price={e.products.price}
-        image={e.products.image}
-        key={i}
-        id={e.id}
-      />
-    ));
-    return Product;
+    if (products.length !== 0) {
+      const Product = products.map((e, i) => (
+        <ProductPost
+          title={e.title}
+          price={e.price}
+          image={e.image}
+          key={i}
+          id={e.id}
+        />
+      ));
+      return Product;
+    }
   };
 
   return (
@@ -46,9 +51,7 @@ const MypageComponent = () => {
         <UserItem>
           <SellingItemTitle>내가 팔고 있는 물건</SellingItemTitle>
           <SellingItem>
-            <ProductContainer>
-              {productBundle(products)}
-            </ProductContainer>
+            <ProductContainer>{productBundle(products)}</ProductContainer>
           </SellingItem>
         </UserItem>
       </StylingLobby>

@@ -19,7 +19,7 @@ const MyPageAPI = async () => {
       };
     })
     .catch((rej) => {
-      if (rej.response.status === 403) {
+      if (rej.response && rej.response.status === 403) {
         reissue();
       } else {
         return null;
