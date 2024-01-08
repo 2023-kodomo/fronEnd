@@ -58,7 +58,7 @@ const Container = styled.div`
 
 const MyQrcode = styled.div`
   width: 40vw;
-  height: 54.3519vh;
+  height: 30.5729vw;
   border-radius: 2.3438vw;
   background-color: #181738;
   box-shadow: 10px 20px 50px 0.3px rgba(0, 0, 0, 0.25);
@@ -85,7 +85,7 @@ const QrLine = styled.hr`
 
 const QrImg = styled.img`
   width: 18.2292vw;
-  height: 32.4074vh;
+  height: 18.2292vw;
   position: relative;
   left: 11vw;
   top: 9.2593vh;
