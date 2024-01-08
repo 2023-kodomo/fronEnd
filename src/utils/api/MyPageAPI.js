@@ -1,4 +1,5 @@
 import axios from "axios";
+import reissue from "./reissue";
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 
@@ -18,8 +19,11 @@ const MyPageAPI = async () => {
       };
     })
     .catch((rej) => {
-      console.log(rej);
-      return rej;
+      if (rej.response.status === 403) {
+        reissue();
+      } else {
+        return null;
+      }
     });
 };
 

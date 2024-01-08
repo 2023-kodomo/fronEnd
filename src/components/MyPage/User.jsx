@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { MyQRCode } from "./MyQRCode/MyQRCode";
 import MyPageAPI from "../../utils/api/MyPageAPI";
+import MyProfile from "./../../utils/api/MyProfile";
 
 const User = (props) => {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -26,13 +27,20 @@ const User = (props) => {
     })();
   }, []);
 
-  const saveImgFile = () => {
+  const saveImgFile = async () => {
     const file = imgRef.current.files[0];
     if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = () => {
+      reader.onload = async () => {
         setselIng(reader.result);
+
+        try {
+          const response = await MyProfile(file);
+          console.log(response);
+        } catch (error) {
+          console.error(error);
+        }
       };
     }
   };
@@ -102,7 +110,6 @@ const HoverShow = styled.div`
   position: absolute;
   bottom: 97px;
   opacity: 0;
-  transition: opacity 0.3s ease;
   ${UserImgContainer}:hover & {
     opacity: 1;
   }
@@ -113,6 +120,9 @@ const HoverLine = styled.hr`
   bottom: 110px;
   border: none;
   border-top: 1px solid black;
+  ${UserImgContainer}:hover & {
+    opacity: 1;
+  }
 `;
 
 const HoverQRCode = styled.div`
@@ -124,6 +134,9 @@ const HoverQRCode = styled.div`
   align-items: center;
   position: absolute;
   top: 103px;
+  ${UserImgContainer}:hover & {
+    opacity: 1;
+  }
 `;
 
 const InputFile = styled.input`
