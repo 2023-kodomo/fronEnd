@@ -9,6 +9,10 @@ const ModalImg = async () => {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
+      responseType: "blob",
+    })
+    .then((res) => {
+      return URL.createObjectURL(res.data);
     })
     .catch((rej) => {
       console.log(rej);

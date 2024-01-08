@@ -5,10 +5,11 @@ import ModalImg from "../../../utils/api/ModalImg";
 export const MyQRCode = ({ closeModal }) => {
   const [QRImg, setQRImg] = useState([]);
 
-  const fetchData = async (e) => {
+  const fetchData = async () => {
     try {
       const qrImg = await ModalImg();
-      setQRImg([qrImg]);
+      setQRImg(qrImg);
+      console.log(qrImg);
     } catch (e) {
       console.log(e);
     }
@@ -16,6 +17,9 @@ export const MyQRCode = ({ closeModal }) => {
 
   useEffect(() => {
     fetchData();
+    return () => {
+      URL.revokeObjectURL(QRImg);
+    };
   }, []);
 
   useEffect(() => {
@@ -23,10 +27,8 @@ export const MyQRCode = ({ closeModal }) => {
   }, [QRImg]);
 
   const MyQRCodeImg = (QRImg) => {
-    return (
-      <QrImg src={QRImg[0]} alt="MyQrCode"/>
-    )
-  }
+    return <QrImg src={QRImg} alt="MyQrCode" />;
+  };
 
   return (
     <Container onClick={closeModal}>
