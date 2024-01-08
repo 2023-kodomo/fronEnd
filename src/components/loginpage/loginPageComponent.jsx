@@ -232,7 +232,10 @@ const LoginPageComponent = () => {
     type: "password",
     url: "./img/mdi_hide.svg",
   });
-  const [loginColor, setLoginColor] = useState("#606060");
+  const [loginColor, setLoginColor] = useState({
+    color: "#606060",
+    button: false,
+  });
   const inputPassword = useRef();
   const inputEmail = useRef();
   const [inputValue, setInputValue] = useState({
@@ -256,8 +259,8 @@ const LoginPageComponent = () => {
 
   const isPossible = () => {
     if (inputPassword.current.value !== "" && inputEmail.current.value !== "") {
-      setLoginColor("#726eff");
-    } else setLoginColor("#606060");
+      setLoginColor({ color: "#726eff", button: true });
+    } else setLoginColor({ color: "#606060", button: false });
   };
 
   const changeValue = () => {
@@ -308,9 +311,11 @@ const LoginPageComponent = () => {
             />
           </InputBox>
           <LoginButton
-            background={loginColor}
+            background={loginColor.color}
             onClick={() => {
-              login(inputValue.email, inputValue.password);
+              if (loginColor.button) {
+                login(inputValue.email, inputValue.password);
+              }
             }}
           >
             로그인
