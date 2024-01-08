@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { MyQRCode } from "./MyQRCode/MyQRCode";
-import MyPageAAPI from '../../utils/api/MyPageAPI';
+import MyPageAPI from "../../utils/api/MyPageAPI";
 
 const User = (props) => {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -10,17 +10,21 @@ const User = (props) => {
   const [userInfo, setUserInfo] = useState(null);
 
   const imgRef = useRef();
-  const closeModal = () => { 
+  const closeModal = () => {
     setShowModal(false);
     setShowTooltip(false);
   };
 
-  useEffect(()=>{
-    (async function getUserInfo(){
-      const result = await MyPageAAPI();
-      setUserInfo(result);
+  useEffect(() => {
+    (async function getUserInfo() {
+      const result = await MyPageAPI();
+      setUserInfo(result.myName);
+      console.log(UserInfo);
+      if (result.myImg) {
+        setselIng(result.myImg);
+      }
     })();
-  },[]);
+  }, []);
 
   const saveImgFile = () => {
     const file = imgRef.current.files[0];
@@ -39,10 +43,7 @@ const User = (props) => {
       onMouseLeave={() => setShowTooltip(false)}
     >
       <UserImgContainer>
-        <UserImg
-          src={selImg ? selImg : "./img/BasicProfile.svg"}
-          alt="UserImg"
-        />
+        <UserImg src={selImg} alt="UserImg" />
         {showTooltip && (
           <>
             <HoverShow
@@ -70,7 +71,7 @@ const User = (props) => {
         )}
         {showModal && <MyQRCode closeModal={closeModal} />}
       </UserImgContainer>
-      {userInfo && <UserName>{userInfo.name}</UserName>}
+      {userInfo && <UserName>{userInfo}</UserName>}
     </UserInfo>
   );
 };

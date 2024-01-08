@@ -6,12 +6,16 @@ const MyPageAPI = async () => {
   const accessToken = localStorage.getItem("accessToken");
   return await axios
     .get(`${baseURL}/user/my-page`, {
-      header: {
-        Authorization: ` Bearer ${accessToken}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
     })
     .then((res) => {
-      return res.data;
+      return {
+        myName: res.data.name,
+        myImg: res.data.profileImage,
+        myProduct: res.data.product,
+      };
     })
     .catch((rej) => {
       console.log(rej);
