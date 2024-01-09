@@ -39,6 +39,8 @@ const login = async (email, password) => {
         case 404:
           alert("계정을 찾지 못했습니다");
           break;
+        default:
+          break;
       }
     });
 };

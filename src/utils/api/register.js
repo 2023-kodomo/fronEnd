@@ -31,6 +31,8 @@ const register = async (email, name, password) => {
         case "비밀번호 형식이 올바르지 않습니다.":
           alert("8 ~ 20 글자 알파벳 1개 이상 + 숫자 조합");
           break;
+        default:
+          break;
       }
     });
 };
