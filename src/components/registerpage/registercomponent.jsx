@@ -181,7 +181,6 @@ const InputBox = styled.div`
 `;
 
 const ErrorMessage = styled.p`
-  //비밀번호를 입력했을 때 비밀번호가 불일치 할 경우에만 보일 것
   color: var(--RED, #ca2810);
   text-align: center;
   font-family: Hakgyoansim Wooju;
@@ -285,6 +284,14 @@ const RegisterPageComponent = () => {
     });
   };
 
+  const emailAuthentication = () => {
+    const url = "/Email";
+    const name = "메일 인증";
+    const option =
+      "width = 700, height = 700, top = 100, left = 200, location = no";
+    window.open(url, name, option);
+  };
+
   return (
     <>
       <StylingLobby></StylingLobby>
@@ -373,6 +380,8 @@ const RegisterPageComponent = () => {
                   inputValue.name,
                   inputValue.password
                 );
+                localStorage.setItem("email", inputEmail.current.value);
+                emailAuthentication();
               } else alert("빈틈 없이 작성해주세요");
             }}
           >
