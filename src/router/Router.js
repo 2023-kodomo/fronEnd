@@ -9,7 +9,7 @@ import LoginPage from "../pages/LoginPage";
 import EmailPage from "../pages/EmailPage";
 import User from "../components/MyPage/User";
 import { MyQRCode } from "./../components/MyPage/MyQRCode/MyQRCode";
-
+import ModifyingPage from "../pages/ModProductPage";
 import SearchPage from "./../pages/SearchPage";
 
 const Router = () => {
@@ -27,6 +27,7 @@ const Router = () => {
         <Route path="/User" element={<User />} />
         <Route path="/Search" element={<SearchPage />} />
         <Route path="/MyQrcode" element={<MyQRCode />} />
+        <Route path="/Modifying" element={<ModifyingPage />} />
       </Routes>
     </BrowserRouter>
   );
