@@ -2,7 +2,9 @@ import styled from "styled-components";
 import delProduct from "../../utils/api/delProduct";
 
 const MoreModal = ({ product }) => {
-  const editButtonClickHandler = () => {};
+  const editButtonClickHandler = () => {
+    window.location.href = `/Modifying?productId=${product}`;
+  };
 
   const delButtonClickHandler = async () => {
     if (window.confirm("게시물을 삭제하시겠습니까?")) {
@@ -13,7 +15,7 @@ const MoreModal = ({ product }) => {
 
   return (
     <ModalBox>
-      <EditButton>수정</EditButton>
+      <EditButton onClick={editButtonClickHandler}>수정</EditButton>
       <hr />
       <DelButton onClick={delButtonClickHandler}>삭제</DelButton>
     </ModalBox>
