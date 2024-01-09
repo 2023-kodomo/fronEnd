@@ -15,8 +15,6 @@ const MypageComponent = () => {
       console.log(productDatas);
       if (productDatas.myProduct.length !== 0) {
         setProducts(productDatas.myProduct);
-      } else {
-        alert("없어");
       }
     } catch (e) {
       console.log(e);
