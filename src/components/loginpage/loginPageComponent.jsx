@@ -5,6 +5,110 @@ import { useState } from "react";
 import { useRef } from "react";
 import login from "../../utils/api/login";
 
+const LoginPageComponent = () => {
+  const [inputType, setInputType] = useState({
+    type: "password",
+    url: "./img/mdi_hide.svg",
+  });
+  const [loginColor, setLoginColor] = useState({
+    color: "#606060",
+    button: false,
+  });
+  const inputPassword = useRef();
+  const inputEmail = useRef();
+  const [inputValue, setInputValue] = useState({
+    email: "",
+    password: "",
+  });
+
+  const seePassword = () => {
+    setInputType({
+      type: "input",
+      url: "./img/icon-visible-eye.svg",
+    });
+  };
+
+  const removeInput = () => {
+    setInputType({
+      type: "password",
+      url: "./img/mdi_hide.svg",
+    });
+  };
+
+  const isPossible = () => {
+    if (inputPassword.current.value !== "" && inputEmail.current.value !== "") {
+      setLoginColor({ color: "#726eff", button: true });
+    } else setLoginColor({ color: "#606060", button: false });
+  };
+
+  const changeValue = () => {
+    setInputValue({
+      email: inputEmail.current.value,
+      password: inputPassword.current.value,
+    });
+  };
+
+  return (
+    <>
+      <StylingLobby></StylingLobby>
+      <ProjectName href="/">대팔이</ProjectName>
+      <ContainerBox>
+        <LoginPage>
+          <LoginHeader>로그인</LoginHeader>
+          <Line />
+          <Description>Email</Description>
+          <InputBox>
+            <InputInformation
+              placeholder="enter your email"
+              type="email"
+              ref={inputEmail}
+              onChange={() => {
+                isPossible();
+                changeValue();
+              }}
+              value={inputValue.email}
+            />
+          </InputBox>
+          <Description>Password</Description>
+          <InputBox>
+            <InputInformation
+              placeholder="enter your password"
+              type={inputType.type}
+              maxLength={20}
+              ref={inputPassword}
+              onChange={() => {
+                isPossible();
+                changeValue();
+              }}
+              value={inputValue.password}
+            />
+            <CheckPassword
+              onMouseDown={seePassword}
+              onMouseUp={removeInput}
+              url={inputType.url}
+            />
+          </InputBox>
+          <LoginButton
+            background={loginColor.color}
+            onClick={() => {
+              if (loginColor.button) {
+                login(inputValue.email, inputValue.password);
+              }
+            }}
+          >
+            로그인
+          </LoginButton>
+          <QuestionBox>
+            <FoundAccount href="">아이디 비밀번호 찾기</FoundAccount>
+            <FoundAccount href="">계정이 없으신가요?</FoundAccount>
+            <RegisterButton href="/Register">회원가입</RegisterButton>
+          </QuestionBox>
+        </LoginPage>
+      </ContainerBox>
+    </>
+  );
+};
+
 const ContainerBox = styled.div`
   position: absolute;
   top: 150px;
@@ -226,109 +330,5 @@ const RegisterButton = styled.a`
 
   white-space: nowrap;
 `;
-
-const LoginPageComponent = () => {
-  const [inputType, setInputType] = useState({
-    type: "password",
-    url: "./img/mdi_hide.svg",
-  });
-  const [loginColor, setLoginColor] = useState({
-    color: "#606060",
-    button: false,
-  });
-  const inputPassword = useRef();
-  const inputEmail = useRef();
-  const [inputValue, setInputValue] = useState({
-    email: "",
-    password: "",
-  });
-
-  const seePassword = () => {
-    setInputType({
-      type: "input",
-      url: "./img/icon-visible-eye.svg",
-    });
-  };
-
-  const removeInput = () => {
-    setInputType({
-      type: "password",
-      url: "./img/mdi_hide.svg",
-    });
-  };
-
-  const isPossible = () => {
-    if (inputPassword.current.value !== "" && inputEmail.current.value !== "") {
-      setLoginColor({ color: "#726eff", button: true });
-    } else setLoginColor({ color: "#606060", button: false });
-  };
-
-  const changeValue = () => {
-    setInputValue({
-      email: inputEmail.current.value,
-      password: inputPassword.current.value,
-    });
-  };
-
-  return (
-    <>
-      <StylingLobby></StylingLobby>
-      <ProjectName href="/">대팔이</ProjectName>
-      <ContainerBox>
-        <LoginPage>
-          <LoginHeader>로그인</LoginHeader>
-          <Line />
-          <Description>Email</Description>
-          <InputBox>
-            <InputInformation
-              placeholder="enter your email"
-              type="email"
-              ref={inputEmail}
-              onChange={() => {
-                isPossible();
-                changeValue();
-              }}
-              value={inputValue.email}
-            />
-          </InputBox>
-          <Description>Password</Description>
-          <InputBox>
-            <InputInformation
-              placeholder="enter your password"
-              type={inputType.type}
-              maxLength={20}
-              ref={inputPassword}
-              onChange={() => {
-                isPossible();
-                changeValue();
-              }}
-              value={inputValue.password}
-            />
-            <CheckPassword
-              onMouseDown={seePassword}
-              onMouseUp={removeInput}
-              url={inputType.url}
-            />
-          </InputBox>
-          <LoginButton
-            background={loginColor.color}
-            onClick={() => {
-              if (loginColor.button) {
-                login(inputValue.email, inputValue.password);
-              }
-            }}
-          >
-            로그인
-          </LoginButton>
-          <QuestionBox>
-            <FoundAccount href="">아이디 비밀번호 찾기</FoundAccount>
-            <FoundAccount href="">계정이 없으신가요?</FoundAccount>
-            <RegisterButton href="/Register">회원가입</RegisterButton>
-          </QuestionBox>
-        </LoginPage>
-      </ContainerBox>
-    </>
-  );
-};
 
 export default LoginPageComponent;

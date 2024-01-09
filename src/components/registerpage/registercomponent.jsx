@@ -4,6 +4,198 @@ import { styled } from "styled-components";
 import { useState, useRef } from "react";
 import register from "../../utils/api/register";
 
+const RegisterPageComponent = () => {
+  const [inputType, setInputType] = useState({
+    type: "password",
+    url: "./img/mdi_hide.svg",
+  });
+  const [reInputType, reSetInputType] = useState({
+    type: "password",
+    url: "./img/mdi_hide.svg",
+  });
+  const [errorMessage, setErrorMessage] = useState("");
+  const [maxLength, setMaxLength] = useState(20);
+  const [completeColor, setCompleteColor] = useState({
+    color: "#606060",
+    button: false,
+  });
+  const inputId = useRef();
+  const inputEmail = useRef();
+  const inputPassword = useRef();
+  const inputRePassword = useRef();
+  const passwordMessage = useRef();
+  const [inputValue, setInputValue] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const isPossible = () => {
+    if (
+      inputId.current.value !== "" &&
+      inputEmail.current.value !== "" &&
+      inputPassword.current.value !== "" &&
+      inputRePassword.current.value !== "" &&
+      inputRePassword.current.value === inputPassword.current.value
+    ) {
+      setCompleteColor({ color: "#726eff", button: true });
+    } else setCompleteColor({ color: "#606060", button: false });
+  };
+
+  const seePassword = () => {
+    setInputType({
+      type: "input",
+      url: "./img/icon-visible-eye.svg",
+    });
+  };
+
+  function removeInput() {
+    setInputType({
+      type: "password",
+      url: "./img/mdi_hide.svg",
+    });
+  }
+
+  const reSeePassword = () => {
+    reSetInputType({
+      type: "input",
+      url: "./img/icon-visible-eye.svg",
+    });
+  };
+
+  function reRemoveInput() {
+    reSetInputType({
+      type: "password",
+      url: "./img/mdi_hide.svg",
+    });
+  }
+
+  const changeErrorMessage = () => {
+    if (inputRePassword.current.value === "") return setErrorMessage("");
+    if (inputPassword.current.value === "") return setErrorMessage("");
+    return inputPassword.current.value === inputRePassword.current.value
+      ? setErrorMessage("")
+      : setErrorMessage("비밀번호를 잘못 입력하셨습니다");
+  };
+
+  function inputMaxLength() {
+    const id = inputId.current.value;
+    const check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+    if (check.test(id)) {
+      setMaxLength(8);
+    } else {
+      setMaxLength(20);
+    }
+  }
+
+  const changeInputValue = () => {
+    setInputValue({
+      email: inputEmail.current.value,
+      name: inputId.current.value,
+      password: inputPassword.current.value,
+    });
+  };
+
+  return (
+    <>
+      <StylingLobby></StylingLobby>
+      <ProjectName href="/">대팔이</ProjectName>
+      <ContainerBox>
+        <SignUpPage>
+          <SignUpHeader>회원가입</SignUpHeader>
+          <Line />
+
+          <Description>User Id</Description>
+          <InputBox>
+            <InputInformation
+              placeholder="enter your id"
+              maxLength={maxLength}
+              ref={inputId}
+              onChange={() => {
+                inputMaxLength();
+                isPossible();
+                changeInputValue();
+              }}
+              value={inputValue.name}
+            />
+          </InputBox>
+          <Description>Email</Description>
+          <InputBox>
+            <InputInformation
+              placeholder="enter your email"
+              type="email"
+              ref={inputEmail}
+              onChange={() => {
+                isPossible();
+                changeInputValue();
+              }}
+              value={inputValue.email}
+            />
+          </InputBox>
+
+          <Description>Password</Description>
+          <InputBox>
+            <InputInformation
+              placeholder="enter your password"
+              type={inputType.type}
+              maxLength={20}
+              ref={inputPassword}
+              onChange={() => {
+                changeErrorMessage();
+                isPossible();
+                changeInputValue();
+              }}
+              value={inputValue.password}
+            />
+            <CheckPassword
+              onMouseDown={seePassword}
+              onMouseUp={removeInput}
+              url={inputType.url}
+            />
+          </InputBox>
+
+          <Description>Reenter Password</Description>
+          <InputBox>
+            <InputInformation
+              placeholder="reenter your password"
+              type={reInputType.type}
+              maxLength={20}
+              ref={inputRePassword}
+              onChange={() => {
+                changeErrorMessage();
+                isPossible();
+              }}
+            />
+            <CheckPassword
+              onMouseDown={reSeePassword}
+              onMouseUp={reRemoveInput}
+              url={reInputType.url}
+            />
+            <ErrorMessage ref={passwordMessage}>{errorMessage}</ErrorMessage>
+          </InputBox>
+
+          <CompleteButton
+            background={completeColor.color}
+            onClick={() => {
+              isPossible();
+              if (completeColor.button) {
+                localStorage.setItem("email", inputEmail.current.value);
+                register(
+                  inputValue.email,
+                  inputValue.name,
+                  inputValue.password
+                );
+              } else alert("빈틈 없이 작성해주세요");
+            }}
+          >
+            회원가입
+          </CompleteButton>
+        </SignUpPage>
+      </ContainerBox>
+    </>
+  );
+};
+
 const ContainerBox = styled.div`
   position: absolute;
   top: 150px;
@@ -191,206 +383,5 @@ const ErrorMessage = styled.p`
   position: absolute;
   left: 10px;
 `;
-
-const RegisterPageComponent = () => {
-  const [inputType, setInputType] = useState({
-    type: "password",
-    url: "./img/mdi_hide.svg",
-  });
-  const [reInputType, reSetInputType] = useState({
-    type: "password",
-    url: "./img/mdi_hide.svg",
-  });
-  const [errorMessage, setErrorMessage] = useState("");
-  const [maxLength, setMaxLength] = useState(20);
-  const [completeColor, setCompleteColor] = useState({
-    color: "#606060",
-    button: false,
-  });
-  const inputId = useRef();
-  const inputEmail = useRef();
-  const inputPassword = useRef();
-  const inputRePassword = useRef();
-  const passwordMessage = useRef();
-  const [inputValue, setInputValue] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
-  const isPossible = () => {
-    if (
-      inputId.current.value !== "" &&
-      inputEmail.current.value !== "" &&
-      inputPassword.current.value !== "" &&
-      inputRePassword.current.value !== "" &&
-      inputRePassword.current.value === inputPassword.current.value
-    ) {
-      setCompleteColor({ color: "#726eff", button: true });
-    } else setCompleteColor({ color: "#606060", button: false });
-  };
-
-  const seePassword = () => {
-    setInputType({
-      type: "input",
-      url: "./img/icon-visible-eye.svg",
-    });
-  };
-
-  function removeInput() {
-    setInputType({
-      type: "password",
-      url: "./img/mdi_hide.svg",
-    });
-  }
-
-  const reSeePassword = () => {
-    reSetInputType({
-      type: "input",
-      url: "./img/icon-visible-eye.svg",
-    });
-  };
-
-  function reRemoveInput() {
-    reSetInputType({
-      type: "password",
-      url: "./img/mdi_hide.svg",
-    });
-  }
-
-  const changeErrorMessage = () => {
-    if (inputRePassword.current.value === "") return setErrorMessage("");
-    if (inputPassword.current.value === "") return setErrorMessage("");
-    return inputPassword.current.value === inputRePassword.current.value
-      ? setErrorMessage("")
-      : setErrorMessage("비밀번호를 잘못 입력하셨습니다");
-  };
-
-  function inputMaxLength() {
-    const id = inputId.current.value;
-    const check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-    if (check.test(id)) {
-      setMaxLength(8);
-    } else {
-      setMaxLength(20);
-    }
-  }
-
-  const changeInputValue = () => {
-    setInputValue({
-      email: inputEmail.current.value,
-      name: inputId.current.value,
-      password: inputPassword.current.value,
-    });
-  };
-
-  const emailAuthentication = () => {
-    const url = "/Email";
-    const name = "메일 인증";
-    const option =
-      "width = 700, height = 700, top = 100, left = 200, location = no";
-    window.open(url, name, option);
-  };
-
-  return (
-    <>
-      <StylingLobby></StylingLobby>
-      <ProjectName href="/">대팔이</ProjectName>
-      <ContainerBox>
-        <SignUpPage>
-          <SignUpHeader>회원가입</SignUpHeader>
-          <Line />
-
-          <Description>User Id</Description>
-          <InputBox>
-            <InputInformation
-              placeholder="enter your id"
-              maxLength={maxLength}
-              ref={inputId}
-              onChange={() => {
-                inputMaxLength();
-                isPossible();
-                changeInputValue();
-              }}
-              value={inputValue.name}
-            />
-          </InputBox>
-          <Description>Email</Description>
-          <InputBox>
-            <InputInformation
-              placeholder="enter your email"
-              type="email"
-              ref={inputEmail}
-              onChange={() => {
-                isPossible();
-                changeInputValue();
-              }}
-              value={inputValue.email}
-            />
-          </InputBox>
-
-          <Description>Password</Description>
-          <InputBox>
-            <InputInformation
-              placeholder="enter your password"
-              type={inputType.type}
-              maxLength={20}
-              ref={inputPassword}
-              onChange={() => {
-                changeErrorMessage();
-                isPossible();
-                changeInputValue();
-              }}
-              value={inputValue.password}
-            />
-            <CheckPassword
-              onMouseDown={seePassword}
-              onMouseUp={removeInput}
-              url={inputType.url}
-            />
-          </InputBox>
-
-          <Description>Reenter Password</Description>
-          <InputBox>
-            <InputInformation
-              placeholder="reenter your password"
-              type={reInputType.type}
-              maxLength={20}
-              ref={inputRePassword}
-              onChange={() => {
-                changeErrorMessage();
-                isPossible();
-              }}
-            />
-            <CheckPassword
-              onMouseDown={reSeePassword}
-              onMouseUp={reRemoveInput}
-              url={reInputType.url}
-            />
-            <ErrorMessage ref={passwordMessage}>{errorMessage}</ErrorMessage>
-          </InputBox>
-
-          <CompleteButton
-            background={completeColor.color}
-            onClick={() => {
-              if (completeColor.button) {
-                isPossible();
-                register(
-                  inputValue.email,
-                  inputValue.name,
-                  inputValue.password
-                );
-                localStorage.setItem("email", inputEmail.current.value);
-                emailAuthentication();
-              } else alert("빈틈 없이 작성해주세요");
-            }}
-          >
-            회원가입
-          </CompleteButton>
-        </SignUpPage>
-      </ContainerBox>
-    </>
-  );
-};
 
 export default RegisterPageComponent;

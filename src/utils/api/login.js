@@ -30,7 +30,7 @@ const login = async (email, password) => {
               alert("이메일을 입력하세요");
               break;
             case "비밀번호가 일치하지 않습니다.":
-              alert("비밀번호가 일치하지 않습니다.");
+              alert("비밀번호가 일치하지 않습니다");
           }
           break;
         case 403:
