@@ -17,8 +17,9 @@ const register = async (email, name, password) => {
       switch (rej.response.data["message"]) {
         case "유저가 이미 존재합니다.":
           alert("이미 존재하는 유저입니다");
+          window.location.href = "/login";
           break;
-          case "인증이 되지 않은 메일입니다.":
+        case "인증이 되지 않은 메일입니다.":
           alert("인증이 되지 않은 메일입니다");
           break;
         case "이름 형식이 올바르지 않습니다.":
@@ -29,6 +30,8 @@ const register = async (email, name, password) => {
           break;
         case "비밀번호 형식이 올바르지 않습니다.":
           alert("8 ~ 20 글자 알파벳 1개 이상 + 숫자 조합");
+          break;
+        default:
           break;
       }
     });
