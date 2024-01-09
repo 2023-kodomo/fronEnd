@@ -4,9 +4,10 @@ import delProduct from "../../utils/api/delProduct";
 const MoreModal = ({ product }) => {
   const editButtonClickHandler = () => {};
 
-  const delButtonClickHandler = () => {
+  const delButtonClickHandler = async () => {
     if (window.confirm("게시물을 삭제하시겠습니까?")) {
-      delProduct(product);
+      await delProduct(product);
+      window.location.href = "/";
     }
   };
 
