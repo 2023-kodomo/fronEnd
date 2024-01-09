@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import StylingLobby from "../stylingLobby";
 import styled from "styled-components";
-import Header from "../HeaderComponent";
 import sendEmail from "../../utils/api/sendEmail";
 import emailAuth from "../../utils/api/emailAuth";
 import EmailModal from "./modal";
@@ -45,8 +43,6 @@ const EmailPageComponent = () => {
 
   return (
     <Container>
-      <Header page={1} />
-      <StylingLobby></StylingLobby>
       <EmailCitationContainer>
         <EmailTitle>
           <Head>이메일 인증</Head>
