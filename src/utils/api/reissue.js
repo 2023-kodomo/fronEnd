@@ -3,6 +3,10 @@ import axios from "axios";
 const baseURL = process.env.REACT_APP_BASE_URL;
 
 const reissue = async () => {
+  if (!localStorage.getItem("refreshToken")) {
+    alert("로그인이 필요한 기능입니다");
+    window.location.href = "/login";
+  }
   return await axios
     .post(`${baseURL}/auth/reissue`, {
       refreshToken: localStorage.getItem("refreshToken"),
