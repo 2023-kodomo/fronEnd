@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Header from "../HeaderComponent";
 
 const EmailModal = ({ modalText, setModalOpen }) => {
   const clickHandler = () => {
     if (modalText === "인증된 사용자 입니다") {
       setModalOpen("");
-      window.location.href = "/";
     }
     setModalOpen("");
   };

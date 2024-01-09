@@ -15,8 +15,6 @@ const MypageComponent = () => {
       console.log(productDatas);
       if (productDatas.myProduct.length !== 0) {
         setProducts(productDatas.myProduct);
-      } else {
-        alert("없어");
       }
     } catch (e) {
       console.log(e);
@@ -43,6 +41,10 @@ const MypageComponent = () => {
     }
   };
 
+  const postButtonClickHandler = () => {
+    window.location.href = "/posting";
+  };
+
   return (
     <Container>
       <Header />
@@ -55,6 +57,7 @@ const MypageComponent = () => {
           </SellingItem>
         </UserItem>
       </StylingLobby>
+      <AddPostButton onClick={postButtonClickHandler}>+</AddPostButton>
     </Container>
   );
 };
@@ -119,6 +122,26 @@ const ProductContainer = styled.div`
 
   @media screen and (max-width: 600px) {
     grid-template-columns: 1fr;
+  }
+`;
+
+const AddPostButton = styled.button`
+  position: fixed;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  right: 32px;
+  bottom: 32px;
+  background-color: #181738;
+  border: 1px solid #7a6ccf;
+  color: white;
+  font-size: 54px;
+  outline: none;
+  transition: all 0.7s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: #181738 4px 4px 4px;
   }
 `;
 

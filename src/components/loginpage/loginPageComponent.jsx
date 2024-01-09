@@ -17,7 +17,7 @@ const LoginPageComponent = () => {
   const inputPassword = useRef();
   const inputEmail = useRef();
   const [inputValue, setInputValue] = useState({
-    email: "",
+    email: localStorage.getItem("email"),
     password: "",
   });
 
@@ -99,8 +99,7 @@ const LoginPageComponent = () => {
             로그인
           </LoginButton>
           <QuestionBox>
-            <FoundAccount href="">아이디 비밀번호 찾기</FoundAccount>
-            <FoundAccount href="">계정이 없으신가요?</FoundAccount>
+            <FoundAccount href="">비밀번호 찾기</FoundAccount>
             <RegisterButton href="/Register">회원가입</RegisterButton>
           </QuestionBox>
         </LoginPage>

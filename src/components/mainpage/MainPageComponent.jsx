@@ -208,6 +208,10 @@ const MainPageComponent = () => {
     });
   };
 
+  const postButtonClickHandler = () => {
+    window.location.href = "/posting";
+  };
+
   return (
     <Container>
       <Header page={0} />
@@ -216,7 +220,10 @@ const MainPageComponent = () => {
         <Logo>대팔이</Logo>
       </StylingLobby>
       <ErrorContainer>{error}</ErrorContainer>
-      <GrowContainer>{productSet(products)}</GrowContainer>
+      <GrowContainer>
+        {productSet(products)}
+        <AddPostButton onClick={postButtonClickHandler}>+</AddPostButton>
+      </GrowContainer>
     </Container>
   );
 };
@@ -243,6 +250,26 @@ const ErrorContainer = styled.span`
   font-family: "Hakgyoansim Wooju";
   font-size: 32px;
   color: white;
+`;
+
+const AddPostButton = styled.button`
+  position: fixed;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  right: 32px;
+  bottom: 32px;
+  background-color: #181738;
+  border: 1px solid #7a6ccf;
+  color: white;
+  font-size: 54px;
+  outline: none;
+  transition: all 0.7s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: #181738 4px 4px 4px;
+  }
 `;
 
 const SmallText = styled.span`

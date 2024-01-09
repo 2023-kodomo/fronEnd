@@ -15,7 +15,7 @@ const login = async (email, password) => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
 
-      alert("로그인 했습니다");
+      window.location.href = "/";
       return;
     })
     .catch((rej) => {
@@ -38,6 +38,8 @@ const login = async (email, password) => {
           break;
         case 404:
           alert("계정을 찾지 못했습니다");
+          break;
+        default:
           break;
       }
     });
