@@ -15,7 +15,7 @@ const login = async (email, password) => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
 
-      alert("로그인 했습니다");
+      window.location.href = "/";
       return;
     })
     .catch((rej) => {

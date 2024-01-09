@@ -4,6 +4,11 @@ import { styled } from "styled-components";
 import { useState, useRef } from "react";
 import register from "../../utils/api/register";
 
+const url = "/Email";
+const mailName = "메일 인증";
+const option =
+  "width = 700, height = 700, top = 100, left = 200, location = yes, toolbars = yes, status = yes";
+
 const RegisterPageComponent = () => {
   const [inputType, setInputType] = useState({
     type: "password",
@@ -122,6 +127,7 @@ const RegisterPageComponent = () => {
           <Description>Email</Description>
           <InputBox>
             <InputInformation
+              haveButton="80%"
               placeholder="enter your email"
               type="email"
               ref={inputEmail}
@@ -131,6 +137,14 @@ const RegisterPageComponent = () => {
               }}
               value={inputValue.email}
             />
+            <MailAuthenticationButton
+              onClick={() => {
+                localStorage.setItem("email", inputEmail.current.value);
+                window.open(url, mailName, option);
+              }}
+            >
+              메일 인증
+            </MailAuthenticationButton>
           </InputBox>
 
           <Description>Password</Description>
@@ -288,7 +302,7 @@ const Description = styled.p`
 `;
 
 const InputInformation = styled.input`
-  width: 100%;
+  width: ${(props) => props.haveButton || "100%"};
   height: 45px;
   flex-shrink: 0;
 
@@ -363,7 +377,7 @@ const CheckPassword = styled.button`
 
 const InputBox = styled.div`
   position: relative;
-  justify-content: center;
+  justify-content: flex-start;
   display: flex;
   width: 300px;
   @media screen and (max-width: 820px) {
@@ -382,6 +396,27 @@ const ErrorMessage = styled.p`
   line-height: normal;
   position: absolute;
   left: 10px;
+`;
+
+const MailAuthenticationButton = styled.button`
+  width: 15%;
+  height: 45px;
+
+  border: none;
+
+  margin-left: 5%;
+
+  color: white;
+
+  border-radius: 10px;
+  background: var(--MAIN-BLUE-LIGHT-BLUE-1, #726eff);
+
+  font-family: Hakgyoansim Wooju;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
 `;
 
 export default RegisterPageComponent;
