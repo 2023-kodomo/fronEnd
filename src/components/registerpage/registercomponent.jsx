@@ -3,6 +3,7 @@ import StylingLobby from "../stylingLobby";
 import { styled } from "styled-components";
 import { useState, useRef } from "react";
 import register from "../../utils/api/register";
+import emailAuthentications from "../../utils/api/emailAuthentication";
 
 const url = "/Email";
 const mailName = "메일 인증";
@@ -33,6 +34,10 @@ const RegisterPageComponent = () => {
     name: "",
     email: "",
     password: "",
+  });
+  const [emailAuthentication, setEmailAuthentication] = useState({
+    color: "#726eff",
+    button: true,
   });
 
   const isPossible = () => {
@@ -101,6 +106,12 @@ const RegisterPageComponent = () => {
     });
   };
 
+  const emailAuthChange = () => {
+    if (localStorage.getItem("isAuth")) {
+      setEmailAuthentication({ color: "#606060", button: false });
+    } else setEmailAuthentication({ color: "#726eff", button: true });
+  };
+
   return (
     <>
       <StylingLobby></StylingLobby>
@@ -139,9 +150,13 @@ const RegisterPageComponent = () => {
             />
             <MailAuthenticationButton
               onClick={() => {
-                localStorage.setItem("email", inputEmail.current.value);
-                window.open(url, mailName, option);
+                emailAuthChange();
+                if (emailAuthentication.button) {
+                  localStorage.setItem("email", inputEmail.current.value);
+                  window.open(url, mailName, option);
+                } else alert("이미 인증되었습니다");
               }}
+              color={emailAuthentication.color}
             >
               메일 인증
             </MailAuthenticationButton>
@@ -409,14 +424,19 @@ const MailAuthenticationButton = styled.button`
   color: white;
 
   border-radius: 10px;
-  background: var(--MAIN-BLUE-LIGHT-BLUE-1, #726eff);
+  background: ${(props) => props.color};
 
   font-family: Hakgyoansim Wooju;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+
   cursor: pointer;
+
+  @media screen and (max-width: 650px) {
+    font-size: 13px;
+  }
 `;
 
 export default RegisterPageComponent;
