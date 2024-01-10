@@ -167,6 +167,7 @@ const RegisterPageComponent = () => {
                 emailAuthChange();
               }}
               color={emailAuthentication.color}
+              onChange={emailAuthChange}
             >
               메일 인증
             </MailAuthenticationButton>
