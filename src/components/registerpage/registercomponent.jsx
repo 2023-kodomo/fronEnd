@@ -46,7 +46,8 @@ const RegisterPageComponent = () => {
       inputEmail.current.value !== "" &&
       inputPassword.current.value !== "" &&
       inputRePassword.current.value !== "" &&
-      inputRePassword.current.value === inputPassword.current.value
+      inputRePassword.current.value === inputPassword.current.value &&
+      !emailAuthentication.button
     ) {
       setCompleteColor({ color: "#726eff", button: true });
     } else setCompleteColor({ color: "#606060", button: false });
@@ -112,6 +113,18 @@ const RegisterPageComponent = () => {
     } else setEmailAuthentication({ color: "#726eff", button: true });
   };
 
+  const mailAuth = () => {
+    emailAuthChange();
+    localStorage.setItem("email", inputEmail.current.value);
+    if (emailAuthentication.button) {
+      emailAuthentications(inputEmail.current.value).then((response) => {
+        if (emailAuthentication.button && response)
+          window.open(url, mailName, option);
+      });
+    } else alert("이미 인증된 메일입니다");
+    emailAuthChange();
+  };
+
   return (
     <>
       <StylingLobby></StylingLobby>
@@ -150,11 +163,8 @@ const RegisterPageComponent = () => {
             />
             <MailAuthenticationButton
               onClick={() => {
+                mailAuth();
                 emailAuthChange();
-                if (emailAuthentication.button) {
-                  localStorage.setItem("email", inputEmail.current.value);
-                  window.open(url, mailName, option);
-                } else alert("이미 인증되었습니다");
               }}
               color={emailAuthentication.color}
             >
@@ -214,7 +224,9 @@ const RegisterPageComponent = () => {
                   inputValue.name,
                   inputValue.password
                 );
-              } else alert("빈틈 없이 작성해주세요");
+              } else if (emailAuthentication.button)
+                alert("이메일 인증을 해주세요");
+              else alert("빈틈 없이 작성해주세요");
             }}
           >
             회원가입
