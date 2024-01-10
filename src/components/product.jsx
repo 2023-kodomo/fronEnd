@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const ProductPost = ({ title, price, image, id }) => {
@@ -40,8 +39,8 @@ const Container = styled.summary`
   height: 300px;
   padding-top: 30%;
   align-items: center;
-  gap: 15px;
-  flex-shrink: 0;
+  justify-content: space-between;
+  padding-bottom: 16px;
   box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.25);
 `;
 
@@ -55,24 +54,16 @@ const ProductName = styled.span`
   color: #fff;
   text-align: center;
 
-  /* 20pt 학교안심 우주 */
   font-family: "Hakgyoansim Wooju";
   font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
 `;
 
 const ProductPrice = styled.span`
   color: #fff;
   text-align: center;
 
-  /* 24pt 학교안심 우주 */
   font-family: "Hakgyoansim Wooju";
   font-size: 24px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
 `;
 
 export default ProductPost;
