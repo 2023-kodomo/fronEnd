@@ -11,14 +11,26 @@ const ModProductComponent = () => {
   const searchParams = new URLSearchParams(location.search);
   const productId = searchParams.get("productId");
   const product = getProduct(productId);
-  const [image, setImage] = useState(product.get("image"));
-  const [inputValue, setInputValue] = useState(product.get("price"));
+  const [image, setImage] = useState(null);
+  const [inputValue, setInputValue] = useState("");
+  const [text, setText] = useState("");
+  const [explain, setExplain] = useState("");
   const [isModifyingCancel, setIsModifyingCancel] = useState(false);
-  const [text, setText] = useState(product.get("title"));
-  const [explain, setExplain] = useState(product.get("content"));
   const [frees, setFrees] = useState(false);
   const [isModifying, setIsModifying] = useState(false);
   const maxLength = 11;
+
+  product
+    .then((res) => {
+      setImage(res.image);
+      setInputValue(res.price);
+      setText(res.title);
+      setExplain(res.content);
+    })
+    .catch((rej) => {
+      console.log(rej);
+    });
+
   const handleImageUpload = () => {
     const fileInput = document.getElementById("fileInput");
     fileInput.click();
