@@ -260,13 +260,14 @@ const AddPostButton = styled.button`
   right: 32px;
   bottom: 32px;
   background-color: #181738;
-  border: 1px solid #7a6ccf;
+  border: none;
   color: white;
   font-size: 54px;
   outline: none;
   transition: all 0.7s;
 
   &:hover {
+    cursor: pointer;
     transform: translateY(-4px);
     box-shadow: #181738 4px 4px 4px;
   }

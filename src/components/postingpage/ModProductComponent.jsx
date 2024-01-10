@@ -231,43 +231,41 @@ const ModProductComponent = () => {
             </ProductFrame>
           </Container3>
           {isModifyingCancel && (
-            <CancelBackground onClick={handleMdfCancel}>
-              <CancelContent>
-                <CancelTitle>글 작성을 취소하시겠습니까?</CancelTitle>
-                <CancelCheckButton onClick={handleCancel}>
-                  확인
-                </CancelCheckButton>
-                <CancelCancelButton onClick={handleMdfCancel}>
+            <ModalBackground onClick={handleMdfCancel}>
+              <ModalContent>
+                <ModalTitle>글 수정을 취소하시겠습니까?</ModalTitle>
+                <ModalCheckButton onClick={handleCancel}>확인</ModalCheckButton>
+                <ModalCancelButton onClick={handleMdfCancel}>
                   닫기
-                </CancelCancelButton>
-              </CancelContent>
-            </CancelBackground>
+                </ModalCancelButton>
+              </ModalContent>
+            </ModalBackground>
           )}
           {frees && (
-            <CancelBackground onClick={handleFreeCancel}>
-              <CancelContent>
-                <CancelTitle>무료나눔으로 하시겠습니까?</CancelTitle>
-                <CancelCheckButton onClick={handleModComplete}>
+            <ModalBackground onClick={handleFreeCancel}>
+              <ModalContent>
+                <ModalTitle>무료나눔으로 하시겠습니까?</ModalTitle>
+                <ModalCheckButton onClick={handleModComplete}>
                   확인
-                </CancelCheckButton>
-                <CancelCancelButton onClick={handleFreeCancel}>
+                </ModalCheckButton>
+                <ModalCancelButton onClick={handleFreeCancel}>
                   닫기
-                </CancelCancelButton>
-              </CancelContent>
-            </CancelBackground>
+                </ModalCancelButton>
+              </ModalContent>
+            </ModalBackground>
           )}
           {isModifying && (
-            <CancelBackground onClick={handleModCancel}>
-              <CancelContent>
-                <CancelTitle>상품을 수정하시겠습니까?</CancelTitle>
-                <CancelCheckButton onClick={handleModComplete}>
+            <ModalBackground onClick={handleModCancel}>
+              <ModalContent>
+                <ModalTitle>상품을 수정하시겠습니까?</ModalTitle>
+                <ModalCheckButton onClick={handleModComplete}>
                   확인
-                </CancelCheckButton>
-                <CancelCancelButton onClick={handleModCancel}>
+                </ModalCheckButton>
+                <ModalCancelButton onClick={handleModCancel}>
                   닫기
-                </CancelCancelButton>
-              </CancelContent>
-            </CancelBackground>
+                </ModalCancelButton>
+              </ModalContent>
+            </ModalBackground>
           )}
         </Container2>
         <StylingLobby></StylingLobby>
@@ -667,7 +665,7 @@ const ProductConfirm = styled.button`
   }
 `;
 
-const CancelBackground = styled.div`
+const ModalBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -680,7 +678,7 @@ const CancelBackground = styled.div`
   z-index: 999;
 `;
 
-const CancelContent = styled.div`
+const ModalContent = styled.div`
   background-color: #eeeeee;
   width: 330px;
   height: 100px;
@@ -690,7 +688,7 @@ const CancelContent = styled.div`
   font-family: "Hakgyoansim Wooju";
 `;
 
-const CancelTitle = styled.h2`
+const ModalTitle = styled.h2`
   margin: 5px 5px 20px;
   color: black;
   font-size: 28px;
@@ -700,7 +698,7 @@ const CancelTitle = styled.h2`
   font-family: inherit;
 `;
 
-const CancelCheckButton = styled.button`
+const ModalCheckButton = styled.button`
   width: 80px;
   height: 40px;
   margin-top: 10px;
@@ -731,7 +729,7 @@ const CancelCheckButton = styled.button`
   }
 `;
 
-const CancelCancelButton = styled.button`
+const ModalCancelButton = styled.button`
   width: 80px;
   height: 40px;
   margin-top: 10px;

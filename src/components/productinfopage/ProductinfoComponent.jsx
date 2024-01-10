@@ -106,14 +106,14 @@ const ProductInfoComponent = () => {
           {seller && modalOpen && (
             <ModalContainer>
               <EditButton onClick={optionClickHandler}>
-                <img src="/more_Vertical.svg" alt="더보기" />
+                <ModalArrow src="/more_Vertical.svg" alt="더보기" />
               </EditButton>
               <MoreModal product={productId} />
             </ModalContainer>
           )}
           {seller && !modalOpen && (
             <EditButton onClick={optionClickHandler}>
-              <img src="/more_Vertical.svg" alt="더보기" />
+              <ModalArrow src="/more_Vertical.svg" alt="더보기" />
             </EditButton>
           )}
         </TextGroup>
@@ -200,6 +200,12 @@ const BeforeButton = styled.button`
   left: 16px;
   &:hover {
     animation: ${rotate} 1s;
+    cursor: pointer;
+  }
+`;
+
+const ModalArrow = styled.img`
+  &:hover {
     cursor: pointer;
   }
 `;
