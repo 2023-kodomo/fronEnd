@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import Header from "../HeaderComponent";
 import StylingLobby from "../stylingLobby";
@@ -10,8 +10,8 @@ const ModProductComponent = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const productId = searchParams.get("productId");
-  const product = getProduct(productId);
   const [image, setImage] = useState(null);
+  const [ctnImage, setCtnImage] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [text, setText] = useState("");
   const [explain, setExplain] = useState("");
@@ -20,22 +20,13 @@ const ModProductComponent = () => {
   const [isModifying, setIsModifying] = useState(false);
   const maxLength = 11;
 
-  product
-    .then((res) => {
-      setImage(res.image);
-      setInputValue(res.price);
-      setText(res.title);
-      setExplain(res.content);
-    })
-    .catch((rej) => {
-      console.log(rej);
-    });
-
   const handleImageUpload = () => {
     const fileInput = document.getElementById("fileInput");
     fileInput.click();
   };
   const handleImageDelete = () => {
+    const fileInput = document.getElementById("fileInput");
+    fileInput.value = "";
     setImage(null);
   };
   const handleFileInputChange = (event) => {
@@ -43,11 +34,10 @@ const ModProductComponent = () => {
     if (selectedImage) {
       setImage(URL.createObjectURL(selectedImage));
     }
+    setCtnImage(true);
   };
   const handleViewCaution = () => {
-    alert(
-      "삭제했던 같은 이미지를 재삽입하려면 다른 이미지를 임시 삽입한 후\n삭제했던 이미지를 재삽입해야 합니다."
-    );
+    alert("이미지를 다시 삽입해주세요.");
   };
   const handleDragNone = (e) => {
     e.preventDefault();
@@ -135,6 +125,23 @@ const ModProductComponent = () => {
       handleFreeCheck();
     } else if (image === null) alert("상품 이미지를 삽입해야 합니다.");
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const product = await getProduct(productId);
+        // setImage(product.image);
+        setInputValue(product.price);
+        setText(product.title);
+        setExplain(product.content);
+        setInputValue(product.price.toLocaleString());
+      } catch (rej) {
+        console.log(rej);
+      }
+    };
+    fetchData();
+  }, [productId]);
+
   return (
     <>
       <Container>
@@ -146,8 +153,12 @@ const ModProductComponent = () => {
                 <ProductField>
                   <ImgBox>
                     <ImgSpan>
-                      물품 사진 ※ 사진은 한 장만 넣을 수 있습니다.
-                      <Caution onClick={handleViewCaution}>!</Caution>
+                      <span>물품 사진 ※ 사진은 한 장만 넣을 수 있습니다.</span>
+                      {ctnImage ? (
+                        <></>
+                      ) : (
+                        <Caution onClick={handleViewCaution}>!</Caution>
+                      )}
                     </ImgSpan>
                     {image ? (
                       <ProductImg
@@ -168,7 +179,6 @@ const ModProductComponent = () => {
                       style={{ display: "none" }}
                       id="fileInput"
                       onChange={handleFileInputChange}
-                      required
                     />
                     <ButtonCase>
                       {image && (

@@ -18,6 +18,8 @@ const PostingPageComponent = () => {
     fileInput.click();
   };
   const handleImageDelete = () => {
+    const fileInput = document.getElementById("fileInput");
+    fileInput.value = "";
     setImage(null);
   };
   const handleFileInputChange = (event) => {
@@ -25,11 +27,6 @@ const PostingPageComponent = () => {
     if (selectedImage) {
       setImage(URL.createObjectURL(selectedImage));
     }
-  };
-  const handleViewCaution = () => {
-    alert(
-      "삭제했던 같은 이미지를 재삽입하려면 다른 이미지를 임시 삽입한 후\n삭제했던 이미지를 재삽입해야 합니다."
-    );
   };
   const handleDragNone = (e) => {
     e.preventDefault();
@@ -129,7 +126,6 @@ const PostingPageComponent = () => {
                   <ImgBox>
                     <ImgSpan>
                       물품 사진 ※ 사진은 한 장만 넣을 수 있습니다.
-                      <Caution onClick={handleViewCaution}>!</Caution>
                     </ImgSpan>
                     {image ? (
                       <PostingImg
@@ -733,23 +729,6 @@ const ModalCancelButton = styled.button`
     background-color: #ca2810;
     transform: scale(0.85);
     color: white;
-  }
-`;
-
-const Caution = styled.button`
-  margin-left: 10px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid #ffffff;
-  background-color: #f6f6f6;
-  font-size: 16px;
-  font-family: inherit;
-  font-weight: bold;
-  transition: transform 0.2s ease;
-  &:hover {
-    transform: scale(1.1);
-    cursor: pointer;
   }
 `;
 

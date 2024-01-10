@@ -4,7 +4,7 @@ const baseURL = process.env.REACT_APP_BASE_URL;
 
 const modProduct = async (product, productId) => {
   await axios
-    .put(`${baseURL}/products/modify/${productId}`, product, {
+    .put(`${baseURL}/products/${productId}`, product, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
