@@ -18,7 +18,9 @@ const EmailPageComponent = () => {
   }, [modalText]);
 
   useEffect(() => {
-    sendEmail(email);
+    if (localStorage.getItem("isAuth")) {
+      sendEmail(email);
+    }
   }, [email]);
 
   useEffect(() => {
