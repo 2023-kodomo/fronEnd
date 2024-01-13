@@ -38,6 +38,7 @@ const login = async (email, password) => {
           break;
         case 404:
           alert("계정을 찾지 못했습니다");
+          window.location.href = "/Register";
           break;
         default:
           break;

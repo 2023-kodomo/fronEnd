@@ -20,13 +20,11 @@ const emailAuthentications = async (email) => {
           alert("이미 존재하는 이메일입니다");
           window.location.href = "/login";
           break;
-        case "인증이 되지 않은 메일입니다.":
-          alert("이메일을 다시 작성해 주세요");
-          break;
         default:
-          alert("다시 작성해 주세요");
-          break;
+          console.log("true를 return합니다");
+          return true;
       }
+      console.log("false를 return합니다");
       return false;
     });
 };
