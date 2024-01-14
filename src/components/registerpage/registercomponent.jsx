@@ -167,7 +167,6 @@ const RegisterPageComponent = () => {
                 emailAuthChange();
               }}
               color={emailAuthentication.color}
-              onChange={emailAuthChange}
             >
               메일 인증
             </MailAuthenticationButton>
@@ -217,6 +216,7 @@ const RegisterPageComponent = () => {
           <CompleteButton
             background={completeColor.color}
             onClick={() => {
+              emailAuthChange();
               isPossible();
               if (completeColor.button) {
                 localStorage.setItem("email", inputEmail.current.value);
